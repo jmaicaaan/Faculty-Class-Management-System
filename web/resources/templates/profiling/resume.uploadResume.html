@@ -5,18 +5,20 @@
 	      	<h5 class="md-title">Upload resume</h5>
 			<md-content layout-margin>
 				<span class="md-caption">Attach a file:</span>
-				<span class="md-caption">{{uploadDialogCtrl.filedata.name}}<i></i></span>
-				<upload-Icon 
+				<span class="md-caption">{{uploadDialogCtrl.filedata.name}}</span>
+				<upload-File 
 					icon="resources/img/svg/file.svg"
-					file-data="uploadDialogCtrl.filedata"
-					url="uploadResume.action">
-				</upload-Icon>
+					file-data="uploadDialogCtrl.filedata">
+				</upload-File>
 			</md-content>      
 		</md-content>
 	</md-dialog-content>
 	<md-dialog-actions>
 		<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
 			Close
+		</md-button>
+		<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.uploadResume()" ng-disabled="uploadDialogCtrl.disableButton">
+			Upload resume
 		</md-button>
 	</md-dialog-actions>
 </md-dialog>

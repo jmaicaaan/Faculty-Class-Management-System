@@ -1,7 +1,5 @@
 package com.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Achievements {
@@ -21,17 +18,14 @@ public class Achievements {
 	private int aID;
 
 	
-	@Column(length=30,name="Certifications")
-	private String certifications;
-	@Column(length=300,name="AttachmentsUrl")
-	private String attachmentUrl;
+	@Column(length=30,name="Achievement_Certificate_Name")
+	private String Achievement_Certificate_Name;
+	@Column(length=300,name="Achievement_Certificate_Url")
+	private String Achievement_Certificate_Url;
 	
 	@ManyToOne
 	@JoinColumn(name="PPID")
 	private ProfessorProfile ProfessorProfile;
-	
-	
-	
 	
 	public ProfessorProfile getProfessorProfile() {
 		return ProfessorProfile;
@@ -46,26 +40,25 @@ public class Achievements {
 		this.aID = aID;
 	}
 	
-	public String getCertifications() {
-		return certifications;
+	public String getAchievement_Certificate_Name() {
+		return Achievement_Certificate_Name;
 	}
-	public void setCertifications(String certifications) {
-		this.certifications = certifications;
+	public void setAchievement_Certificate_Name(String achievement_Certificate_Name) {
+		Achievement_Certificate_Name = achievement_Certificate_Name;
 	}
-	public String getAttachmentUrl() {
-		return attachmentUrl;
+	public String getAchievement_Certificate_Url() {
+		return Achievement_Certificate_Url;
 	}
-	public void setAttachmentUrl(String attachmentUrl) {
-		this.attachmentUrl = attachmentUrl;
+	public void setAchievement_Certificate_Url(String achievement_Certificate_Url) {
+		Achievement_Certificate_Url = achievement_Certificate_Url;
 	}
-	
 	public Achievements(){}
 	
 	
-	public Achievements(String certifications,String attachmentUrl,ProfessorProfile professorProfile)
+	public Achievements(String achievement_Certificate_Name, String setAchievement_Certificate_Url,ProfessorProfile professorProfile)
 	{
-		setAttachmentUrl(attachmentUrl);
-		setCertifications(certifications);
+		setAchievement_Certificate_Name(achievement_Certificate_Name);
+		setAchievement_Certificate_Url(setAchievement_Certificate_Url);
 		setProfessorProfile(professorProfile);
 	}
 	

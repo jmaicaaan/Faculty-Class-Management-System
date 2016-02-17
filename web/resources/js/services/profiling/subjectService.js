@@ -18,7 +18,6 @@
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
 					return response.data;
 				})
 				.catch(function(error){

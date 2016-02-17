@@ -18,7 +18,7 @@
 		   	</interceptors>
 		   	
 		   	<action name="upload_Achievement_Certificate" 
-	  				class="com.action.profiling.Achievement_Certificate_Action">
+	  				class="com.action.profiling.Insert_Achievement_Certificate">
 	  				<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="">acModel</param>
@@ -30,7 +30,7 @@
 	  			
 	  		</action>
 	  	
-	  		<action name="uploadProject" class="com.action.profiling.ProjectAction">
+	  		<action name="uploadProject" class="com.action.profiling.Insert_Project">
 	  			<interceptor-ref name="myStack"/>
 		  		<result name="success" type="json">
 		  			<param name="">pModel</param>
@@ -41,7 +41,7 @@
 		  		</result>
 	  		</action>
 	  		
-	  		<action name="uploadResearch" class="com.action.profiling.ResearchAction">
+	  		<action name="uploadResearch" class="com.action.profiling.Insert_Research">
 	  			<interceptor-ref name="myStack"/>
 		  		<result name="success" type="json">
 		  			<param name="">rModel</param>
@@ -52,13 +52,17 @@
 		  		</result>
 	  		</action>
 	  	
-	  		<action name="uploadResume" class="com.action.profiling.ResumeAction">
+	  		<action name="uploadResume" class="com.action.profiling.Insert_Resume">
 	  			<result name="success" type="json">
 	  				<param name="">rModel</param>
 	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
 	  		</action>
 	  		
-	  		<action name="uploadUserImage" class="com.action.profiling.UploadUserImageAction">	  			
+	  		<action name="uploadUserImage" class="com.action.profiling.Upload_UserImageAction">	  			
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  			
@@ -69,7 +73,29 @@
 		  		</result>
 	  		</action>
 	  		
-	  		<action name="updateUserProfile" class="com.action.profiling.UpdateUserProfileAction">
+	  		<action name="updateUserProfile" class="com.action.profiling.Update_UserProfileAction">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+	  				<param name="excludeNullProperties">true</param>
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		
+	  		<action name="updateUserPassword" class="com.action.profiling.Update_UserPasswordAction">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		
+	  		<action name="updateCurrentSession" class="com.action.profiling.Update_CurrentSessionAction">
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
@@ -80,9 +106,114 @@
 		  		</result>
 	  		</action>
 	  		
-	  		<action name="updateUserPassword" class="com.action.profiling.UpdateUserPasswordAction">
+	  		<action name="View_Achievements_Certifications" 
+	  			class="com.action.profiling.View_Achievements_Certifications">
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="View_Projects" class="com.action.profiling.View_Projects">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="View_Researches" class="com.action.profiling.View_Researches">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="View_Resume" class="com.action.profiling.View_Resume">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="generatePDF" class="com.action.profiling.Generate_PDF">
+	  			<interceptor-ref name="myStack"/>
+<!-- 	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result> -->
+	  			<result name="success" type="stream">
+				  <param name="contentType">application/octet-stream</param>
+				  <param name="inputName">inputStream</param>
+				  <param name="contentDisposition">attachment;filename="document-${inputStreamName}"</param>
+				  <param name="bufferSize">1024</param>
+				</result>
+	  		</action>
+	  		<action name="Delete_Achievements_Certifications" 
+	  			class="com.action.profiling.Delete_Achievements_Certifications">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="Delete_Project" 
+	  			class="com.action.profiling.Delete_Project">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="Delete_Research" 
+	  			class="com.action.profiling.Delete_Research">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="Delete_Resume" 
+	  			class="com.action.profiling.Delete_Resume">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
+	  		<action name="View_Expertise" 
+	  			class="com.action.profiling.View_Expertise">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeProperties">
+	  					eSet\[\d+\]\.expertID,
+	  					eSet\[\d+\]\.professorProfile,
+	  					eSet\[\d+\]\.subjects\.expertise,
+	  					eSet\[\d+\]\.subjects\.schedule
+	  				</param>
+	  				<param name="excludeNullProperties">true</param>
 	  			</result>
 	  			<result name="input" type="json">
 		  			<param name="statusCode">500</param>
@@ -90,7 +221,8 @@
 		  		</result>
 	  		</action>
 	  		
-	  		<action name="updateCurrentSession" class="com.action.profiling.UpdateCurrentSessionAction">
+	  		<action name="Delete_Subject"
+	  			class="com.action.profiling.Delete_Subject">
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>

@@ -1,29 +1,63 @@
 package com.helper;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.HibernateUtil.DeveloperHelper;
+import com.HibernateUtil.ProfilingHelper;
+import com.HibernateUtil.SchedulingHelper;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.model.Expertise;
+import com.model.ProfessorProfile;
+import com.model.Schedule;
+import com.model.Subjects;
+import com.model.Users;
+
 public class HelperClass {
-	
+
 	private static byte[] key = {
-		0x74, 0x68, 0x69, 0x73, 0x49, 0x73, 0x41, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x4b, 0x65, 0x79
+			0x74, 0x68, 0x69, 0x73, 0x49, 0x73, 0x41, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x4b, 0x65, 0x79
 	};
-		
+
 	public static String CreateUsername(String firstname, String lastname) {
 		String username = "";
 		username = lastname.toLowerCase() 
-					+ firstname.substring(0, 1);
-		
+				+ firstname.substring(0, 1);
+
 		return username;
 	}
-	
+
 	public static boolean verify_password(String newPass, String newPass_verify){
 		return (newPass.equals(newPass_verify) || newPass_verify.equals(newPass)) ? true : false;
 	}
-	
-	
+
+	public static boolean isAdmin(String username, String password){
+		return (username.equals(Utilities.adminUsername) && username.equals(Utilities.adminPassword)) ? true : false;
+	}
 
 	public static String encrypt(String strToEncrypt) {
 		String encryptedString = null;
@@ -49,7 +83,74 @@ public class HelperClass {
 			System.err.println(e.getMessage());
 		}
 		return decryptedString;
-	}	
+	}
 	
+	public static File createQRImage(String title, String encodedString) throws WriterException, IOException {
+
+		/** Based from API with a little modification */
+
+		final String qrCodeText = encodedString,
+				fileType = "png",
+				QRfileName = title + "." + fileType;
+		final int size = 150;
+
+		File qrFile = new File(QRfileName);
+
+		QRCodeWriter qrCodeWriter = new QRCodeWriter();
+		BitMatrix byteMatrix = qrCodeWriter.encode(qrCodeText,
+				BarcodeFormat.QR_CODE, size, size);
+		int matrixWidth = byteMatrix.getWidth();
+
+		// Make the BufferedImage that will hold the QRCode
+
+
+		BufferedImage image = new BufferedImage(matrixWidth, matrixWidth, BufferedImage.TYPE_INT_RGB);
+		image.createGraphics();
+
+		Graphics2D graphics = (Graphics2D) image.getGraphics();
+		graphics.setColor(Color.WHITE);
+		graphics.fillRect(0, 0, matrixWidth, matrixWidth);
+		graphics.setColor(Color.BLACK);
+
+		for (int i = 0; i < matrixWidth; i++) {
+			for (int j = 0; j < matrixWidth; j++) {
+				if (byteMatrix.get(i, j)) {
+					graphics.fillRect(i, j, 1, 1);
+				}
+			}
+		}
+
+		ImageIO.write(image, fileType, qrFile);
+		return qrFile;
+	}
+
+	public static List<Schedule> readUploadedSubjects(File file) throws Exception{
+		
+		List<Schedule> schedList = new ArrayList<Schedule>();
+		try(BufferedReader buffered = new BufferedReader(new FileReader(file));){
+
+			String scheduleRow = null;
+			while (( scheduleRow = buffered.readLine()) != null){
+				
+				String[] splitSchedule = scheduleRow.split(",");
+				String courseCode = splitSchedule[0],
+						description = splitSchedule[1],
+						units = splitSchedule[2],
+						room = splitSchedule[3],
+						day = splitSchedule[4],
+						section = splitSchedule[5],
+						time = splitSchedule[6];
+
+				Subjects subject = new Subjects(courseCode, description, units);
+				Schedule schedule = new Schedule(room, day, time, section, subject);
+				schedList.add(schedule);
+			}	
+		} 
+		catch (Exception e){
+			e.printStackTrace();
+			throw e;
+		}
+		return schedList;
+	}
 	
 }

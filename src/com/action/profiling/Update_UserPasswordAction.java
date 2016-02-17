@@ -10,7 +10,7 @@ import com.model.Password;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class UpdateUserPasswordAction extends ActionSupport implements SessionAware {
+public class Update_UserPasswordAction extends ActionSupport implements SessionAware {
 
 	private Password pModel = new Password();
 	private Map<String, Object> userSession;

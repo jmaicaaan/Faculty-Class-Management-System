@@ -10,6 +10,9 @@
 		self.userInfo = {};
 
 		function createSession(responseObj){
+
+			//Too much query. Lessen the query to userID, id, username, fn, ln, ac, and pic only.
+
 			var defer = $q.defer();
 
 			self.userInfo.userID = responseObj.userID? responseObj.userID: "";
@@ -21,16 +24,15 @@
 			var ac = responseObj.accountType.length == 0? "" : responseObj.accountType.length == 1? 
 						[responseObj.accountType[0].accountType] : 
 								[responseObj.accountType[0].accountType, responseObj.accountType[1].accountType];
-
 			ac = ac.join(", ");
 			
-			self.userInfo.userRole = responseObj.accountType[0].accountType;
+			self.userInfo.userRole = ac;
 			self.userInfo.pictureUrl = {
 				url : ""
 			};
 			self.userInfo.pictureUrl.url = responseObj.pictureUrl? responseObj.pictureUrl : ""; 
 			
-			console.log(self.userInfo);
+			// console.log(self.userInfo);
 			defer.resolve();
 			return defer.promise;
 		}

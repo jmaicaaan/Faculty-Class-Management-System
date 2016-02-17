@@ -14,7 +14,7 @@ import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class UploadUserImageAction extends ActionSupport 
+public class Upload_UserImageAction extends ActionSupport 
 			implements ModelDriven<UploadUserImageModel>, ServletRequestAware, SessionAware {
 	
 	

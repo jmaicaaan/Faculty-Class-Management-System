@@ -1,8 +1,14 @@
 <md-content layout="column" layout-padding layout-margin>
 	
-	<div layout="column">
+	<div layout="row">
 		<md-content layout-padding layout-margin>
-			<md-button class="md-primary md-raised">Upload Subjects</md-button>
+			<span class="md-subhead">Attach a file:</span>
+			<span class="md-subhead">{{uploadSubj.filedata.name}}</span>
+			<upload-Icon 
+				icon="resources/img/svg/file.svg"
+				file-data="uploadSubj.filedata"
+				url="uploadSubjects.action">
+			</upload-Icon>
 		</md-content>
 	</div>
 	<md-divider></md-divider>
@@ -18,7 +24,7 @@
 
 		<md-grid-tile ng-repeat="x in ['Progap', 'IS-EBIZ', 'Proglan', 'Webdevt', 'Isprog', 'Infores', 'Sysanal', 'Sysdesi']">
 			<md-content>
-				<md-card   class="md-whiteframe-10dp">
+				<md-card  class="md-whiteframe-10dp">
 					<md-card-header>
 						<md-card-header-text layout-align="center center">
 							<span class="md-title">{{x}}</span>

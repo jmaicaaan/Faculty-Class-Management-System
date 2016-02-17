@@ -19,12 +19,9 @@
 	</md-dialog-content>
 	<md-dialog-actions>
 
-		<md-content layout="row" layout-padding layout-margin layout-align="end end" ng-show="uploadDialogCtrl.displayProgress">
-			<span class="md-subhead">Uploading...</span>
-			<md-progress-circular md-mode="indeterminate"></md-progress-circular>
-		</md-content>
 		
-		<md-content layout-padding layout-margin ng-hide="uploadDialogCtrl.displayProgress">
+		
+		<md-content layout-padding layout-margin>
 			<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
 				Cancel
 			</md-button>

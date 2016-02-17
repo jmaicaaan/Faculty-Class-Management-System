@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.controller("genSetCtrl", genSetCtrl);
 
-	function genSetCtrl($mdDialog, $state, userService, authService, subjectService, genSetService){
+	function genSetCtrl($mdDialog, $scope, userService, authService, subjectService, genSetService){
 
 		const TEMP_LOC = "resources/templates/";
 		var self = this;
@@ -11,50 +11,62 @@
 		self.showDialogPassword = showDialogPassword;
 		self.saveChanges = saveChanges;
 		self.loadSubjects = loadSubjects;
-
+		self.getExpertise = getExpertise;
+		self.delete_subject = delete_subject;
+		self.validateChips = validateChips;
 		self.user = userService.userInfo;
-
 		//Init 
-		self.loadSubjects();
+		init();
+
+
+		function init(){
+
+			loadSubjects();
+			getExpertise();
+		}
 
 		function loadSubjects(){
 			subjectService.loadSubjects().then(function(response){
 				self.listOfSubjects = response.subjects;
 			});
 		}
+		function getExpertise(){
+			genSetService.get_Expertise().then(function(){
+				self.selectedSubjects = genSetService.expertiseList;
+			});
+		}
+		
 
 		function saveChanges(){
-		
+			var userObj = self.user,
+				subjectObj = self.selectedSubjects;
 
-			console.log(self.user);
-			var userObj = {
-				"uModel": self.user,
-				"subjects": self.selectedSubjects
-			};
-			console.log(userObj);
-			
-
-			genSetService.updateUserProfile(userObj).then(function(response){
-				console.log(response);
+			genSetService.updateUserProfile(userObj, subjectObj).then(function(response){
 				authService.updateSession();
+				self.getExpertise();
 			});
+		}
 
-			// userService.updateSession();
+		function delete_subject(subjectChip){
+			console.log(subjectChip);
+			if(subjectChip["flag"] === undefined){
+				genSetService.delete_subject(subjectChip).then(function(resp){
+					console.log(resp);
+				});
+			}
+		}
 
-
-			/** 	Ganito para malagyan ko if meron na existing	*/
-			// var obj = 
-			// 	{
-			// 		"courseCode": "ISPROG1",
-			// 		"description": "JM",
-			// 		"units": "3.0"
-			// 	};
+		function validateChips(selectedChip){
 			
-			// self.selectedSubjects.push(obj);
-
-		
-			// self.user = userService.userInfo;
-			// console.log(self.user);
+			selectedChip.flag = true;	
+			//Add a flag which means it is not yet added in the database.
+			var len = self.selectedSubjects.length;
+			
+			console.log(selectedChip);
+			if(len > 3){
+				self.selectedSubjects[len - 1] = selectedChip;
+			}
+			console.log(self.selectedSubjects);
 		}
 
 		function showDialogPassword(event){

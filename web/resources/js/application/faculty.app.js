@@ -6,6 +6,7 @@
 			"md.data.table", 
 			"angular-loading-bar",
 			"profileModule", 
+			"schedulingModule",
 			"developerApp"
 			]);
 }());
@@ -14,10 +15,14 @@
 
 	angular.module("facultyApp")
 		.config(facultyAppConfig)
-		.run(function($rootScope, $state){
+		.run(function($rootScope, $state, userService){
 			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
-				// event.preventDefault();
 				$state.go("index");
+			});
+			$rootScope.$on("$stateChangeSuccess", function(event,toState, toParams, fromState, fromParams, error){
+				// if(Object.keys(userService.userInfo).length == 0){
+				// 	$state.go("index");
+				// }
 			});
 		});
 
@@ -52,27 +57,17 @@
 								if(response.data.has_User == true){
 									authService.updateSession().then(function(){
 										deferred.resolve(userService.userInfo);
-									})
-									// userService.createSession(response.data.usersModel);
+									});
 								}else{
 									deferred.reject(AUTH_EVENTS.notAuthenticated);
 								}
-								// 
-								
-								//Paano kung wala talagang sessionUser..
-
-								
-								
-								
 							});
 						}else{
 							deferred.resolve(userService.userInfo);
 						}
-						
 						return deferred.promise;
 					}
 				}
-				
 			})
 			.state("dashboard.settings", {
 				url: "/settings",
@@ -88,17 +83,24 @@
 				controller: "genSetCtrl",
 				controllerAs: "genSet"
 			})
+			.state("dashboard.settings.miscellaneous", {
+				url: "/miscellaneous",
+				templateUrl: TEMP_LOC + "settings/settings.miscellaneous.html",
+				controller: "miscCtrl",
+				controllerAs: "misc"
+			})
 			.state("logout",{
 				url: "/",
-				controller: function($scope, authService){
+				controller: function(authService){
+					var self = this;
+					self.logout = logout;
+
+					logout();
 					
-					$scope.init = function(){
+					function logout(){
 						authService.logoutUser();
-					}();
-					
+					}
 				}
 			});
-			
 	}
-
 }());

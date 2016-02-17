@@ -3,6 +3,8 @@ package com.helper;
 public interface Utilities {
 	
 	String user_sessionName = "usersModel";
+	String adminUsername = "developer01",
+			adminPassword = "developer01";
 	
 	String PROFESSOR = "Professor",
 			CHAIRPERSON = "Chairperson",

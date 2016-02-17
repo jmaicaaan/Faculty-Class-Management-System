@@ -1,4 +1,4 @@
-<div layout="column" layout-padding layout-margin>
+<div layout="column" layout-padding layout-margin ng-show="achieve.displayContent">
 	
 	<md-content layout="column" layout-align="center center" ng-hide="achieve.hasFiles">
 		<h5 class="md-title">No achievements/certifications</h5>
@@ -9,34 +9,26 @@
 	<md-content layout="column" ng-show="achieve.hasFiles">
 		<md-grid-list
 			md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
-        md-row-height-gt-md="1:1" md-row-height="2:2"
-        md-gutter="12px" md-gutter-gt-sm="8px">
-
-        	<md-grid-tile ng-repeat="file in achieve.getFiles()">
-        	<!-- <md-grid-tile ng-repeat="x in [1,2,3,4,5, 6,7,8,9,10,11,12,13,14,15,17,18]"> -->
-        		
-        			<img bn-lazy-src="{{file.Achievement_Certificate_Url}}" width="50" height="50" class="achievementImage" />
-        		
-        		<!-- <img ng-src="resources/img/kite.jpg" layout-fill/> -->
-        		
+	        md-row-height-gt-md="1:1" md-row-height="2:2"
+	        md-gutter="12px" md-gutter-gt-sm="8px">
+        	
+        	<md-grid-tile ng-repeat="file in achieve.getFiles() | orderBy: 'aID' ">
+        		<img bn-lazy-src="{{file.achievement_Certificate_Url}}" width="100%" height="100%" class="achievementImage" />
         		<md-grid-tile-footer layout="row" layout-align="center center">
-        			
-       				<span class="md-caption">{{file.Achievement_Certificate_Name}}</span>
-       				<!-- <span class="md-caption">Jm</span> -->
+       				<span class="md-caption">{{file.achievement_Certificate_Name}}</span>
        				<md-button class="md-icon-button" aria-label="icon"
-       					ng-click="achieve.showDeleteDialog($event)">
+       					ng-click="achieve.showDeleteDialog($event, file)">
        					<md-icon md-svg-src="resources/img/svg/trash.svg"></md-icon>
        				</md-button>
-       			
 		      	</md-grid-tile-footer>
         	</md-grid-tile>
+	
 		</md-grid-list>
 	</md-content>
 	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="achieve.showUploadDialog($event)"
 		style="position: fixed;">
 		<md-icon md-svg-src="resources/img/svg/add.svg"></md-icon>
 	</md-button>
-	
 </div>
 
 

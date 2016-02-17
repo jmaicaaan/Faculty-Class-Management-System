@@ -8,20 +8,20 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.ProfilingHelper;
+import com.helper.FileModel;
 import com.helper.Utilities;
 import com.model.ProfessorProfile;
 import com.model.Resume;
-import com.model.ResumeModel;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class ResumeAction extends ActionSupport implements ModelDriven<ResumeModel>, ServletRequestAware, SessionAware{
+public class Insert_Resume extends ActionSupport implements ModelDriven<FileModel>, ServletRequestAware, SessionAware{
 	
 	
 	private static final long serialVersionUID = 1L;
 	private HttpServletRequest request;
-	private ResumeModel rModel = new ResumeModel();
+	private FileModel rModel = new FileModel();
 	private Resume resume=new Resume();
 
 	private Map<String, Object> userSession;
@@ -42,15 +42,14 @@ public class ResumeAction extends ActionSupport implements ModelDriven<ResumeMod
 		resume.setProfessorProfile(professorProfile);
 		resume.setResumeUrl(rModel.getUrl());
 		
-		session_Helper.addResume(resume);
-		session_Helper.viewResume();
+		session_Helper.addResume(resume, professorProfile);
 		return SUCCESS;
 	}
 	
 	
 	
 	@Override
-	public ResumeModel getModel() {
+	public FileModel getModel() {
 		return rModel;
 	}
 	

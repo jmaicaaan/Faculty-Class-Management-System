@@ -1,4 +1,4 @@
-<div layout="column" layout-padding layout-margin>
+<div layout="column" layout-padding layout-margin ng-show="research.displayContent">
 	<md-content layout="column" layout-align="center center" ng-hide="research.hasFiles">
 		<h5 class="md-title">No researches</h5>
 		<img ng-src="resources/img/null.png">
@@ -11,7 +11,7 @@
         md-row-height-gt-md="1:1" md-row-height="2:2"
         md-gutter="12px" md-gutter-gt-sm="8px">
 
-        	<md-grid-tile ng-repeat="file in research.getFiles()">
+        	<md-grid-tile ng-repeat="file in research.getFiles() | orderBy: 'RID' ">
         	<!-- <md-grid-tile ng-repeat="x in [1,2,3,4,5]"> -->
         		
         		<md-content>
@@ -23,7 +23,7 @@
         			
     				<span class="md-caption">{{file.researchName}}</span>
     				<md-button class="md-icon-button" aria-label="icon"
-    					ng-click="research.showDeleteDialog($event, x)">
+    					ng-click="research.showDeleteDialog($event, file)">
     					<md-icon md-svg-src="resources/img/svg/trash.svg"></md-icon>
     				</md-button>
     			

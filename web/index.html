@@ -26,18 +26,22 @@
 		<!-- Angular application/modules -->
 
 	<script type="text/javascript" src="resources/js/application/profile.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/scheduling.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/developer.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
 		<!-- Angular controllers -->
 
 	<script type="text/javascript" src="resources/js/controllers/settings/genSetCtrl.js"></script>	
-			<!-- Profile Module -->
+	<script type="text/javascript" src="resources/js/controllers/settings/miscCtrl.js"></script>
+			
 	<script type="text/javascript" src="resources/js/controllers/profiling/generalCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/achievementsCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/projectsCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/researchCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/resumeCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/scheduleCtrl.js"></script>
+
+	<script type="text/javascript" src="resources/js/controllers/scheduling/uploadSubjectsCtrl.js"></script>
 
 	<script type="text/javascript" src="resources/js/controllers/loginCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/dashboardCtrl.js"></script>
@@ -50,7 +54,8 @@
 	<script type="text/javascript" src="resources/js/directives/uploadImage.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/achievementPreview.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
-	<script type="text/javascript" src="resources/js/directives/uploadFile.directive.js"></script>
+	<!-- <script type="text/javascript" src="resources/js/directives/uploadFile.directive.js"></script> -->
+	<script type="text/javascript" src="resources/js/directives/upload-File.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/bnLazyLoading.js"></script>
 	
 		<!-- Angular services -->
@@ -63,6 +68,8 @@
 	<script type="text/javascript" src="resources/js/services/profiling/resumeService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/subjectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
+	<script type="text/javascript" src="resources/js/services/scheduling/uploadSubjectsService.js"></script>
+
 	<script type="text/javascript" src="resources/js/services/settings/genSetService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
 
@@ -93,6 +100,18 @@
 	        -moz-background-size: cover;
 	        -o-background-size: cover;
 	        background-size: cover;
+		}
+
+		#loading-bar-spinner {
+		  top: 50%;
+		  left: 50%;
+		}
+
+		.resumeCard{
+			width: 400px; 
+			height: 225px;
+			background-image: url("resources/img/kite.jpg");
+			background-size: cover;
 		}
 
 		

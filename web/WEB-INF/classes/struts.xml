@@ -13,13 +13,15 @@
   	
   	<include file="struts-user.xml"></include>
   	<include file="struts-profiling.xml"></include>
+  	<include file="struts-scheduling.xml"></include>
   	<include file="struts-developer.xml"></include>
   	
-  	
+  	<!-- 
   	
   	<constant name="struts.custom.i18n.resources" value="global" />
-  	<constant name="struts.multipart.saveDir" value="location of your choice" />
-  	<package name="scheduling" extends="struts-default">
+  	<constant name="struts.multipart.saveDir" value="location of your choice" /> -->
+  	
+  	<!-- <package name="scheduling" extends="struts-default">
   		<action name="scheduling" class="com.action.scheduling.schedulingAction">
   			<interceptor-ref name="exception"/>
             	<interceptor-ref name="i18n"/>
@@ -38,6 +40,6 @@
   	
 	   		<result name="success">/index.html</result>
   		</action>
-  	</package>
+  	</package> -->
   	
   </struts>

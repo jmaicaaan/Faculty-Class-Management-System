@@ -11,7 +11,7 @@ import com.model.Researches;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ResearchAction extends ActionSupport implements SessionAware {
+public class Insert_Research extends ActionSupport implements SessionAware {
 	
 	private Researches rModel = new Researches();
 	

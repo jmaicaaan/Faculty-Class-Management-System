@@ -42,6 +42,10 @@
    		</action>
    		<action name="loadSubjects" class="com.action.developer.Developer_LoadSubjects">
 	   		<result name="success" type="json">
+	   			<param name="excludeProperties">
+	   				subjects\[\d+\]\.expertise,
+	   				subjects\[\d+\]\.schedule	
+	   			</param>
 	   			<param name="excludeNullProperties">true</param>
 	   		</result>
 	   		<result name="input" type="json">

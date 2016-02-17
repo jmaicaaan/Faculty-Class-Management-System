@@ -17,11 +17,11 @@ import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class Achievement_Certificate_Action extends ActionSupport 
+public class Insert_Achievement_Certificate extends ActionSupport 
 		implements ModelDriven<Achievement_Certificate_Model>, ServletContextAware, SessionAware {
 	
 	private Achievement_Certificate_Model acModel = new Achievement_Certificate_Model();
-	ProfilingHelper session_Helper = new ProfilingHelper();
+	
 	
 	private ServletContext context;
 	private Map<String, Object> userSession;
@@ -29,9 +29,12 @@ public class Achievement_Certificate_Action extends ActionSupport
 	@Override
 	public String execute() throws Exception {
 		
+		ProfilingHelper p_Helper = new ProfilingHelper();
+		ProfessorProfile professorProfile=new ProfessorProfile();
+		Users uModel = new Users();
 		try
 		{
-			Users uModel = new Users();		
+			
 			context = ServletActionContext.getServletContext();
 			String serverPath = context.getRealPath("/");
 			System.out.println(serverPath);
@@ -39,16 +42,15 @@ public class Achievement_Certificate_Action extends ActionSupport
 			
 			
 			uModel = (Users) userSession.get(Utilities.user_sessionName);
-			ProfessorProfile professorProfile=new ProfessorProfile();
+			
 			professorProfile.setPpID(uModel.getUserID());
 			
 			Achievements achievements = new 
 						Achievements(acModel.getAchievement_Certificate_Name(), acModel.getAchievement_Certificate_Url(),professorProfile);
 			
-			session_Helper.addAchievements(achievements);
-			session_Helper.viewAchievements();
+			p_Helper.addAchievements(achievements);
 		}
-	catch(Exception e)
+		catch(Exception e)
 		{
 			return INPUT;
 			

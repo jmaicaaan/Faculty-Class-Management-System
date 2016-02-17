@@ -11,7 +11,7 @@ import com.model.Projects;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ProjectAction extends ActionSupport implements SessionAware {
+public class Insert_Project extends ActionSupport implements SessionAware {
 	
 	private Projects pModel = new Projects();
 	private Map<String, Object> userSession;
@@ -32,9 +32,6 @@ public class ProjectAction extends ActionSupport implements SessionAware {
 			
 			
 			session_Helper.addProjects(pModel);
-			
-			session_Helper.viewProjects();
-		
 		}
 		catch(Exception e)
 		{

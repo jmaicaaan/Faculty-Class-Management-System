@@ -1,3 +1,17 @@
+Changelog 1.8
+
+- Profiling 
+		- Displaying of achievements, projects & researches which causes duplicates data. (see Models)
+		- Preferred subjects chips adding/removing with flag and viewing.
+- Models
+		- Changed List<> collections into Set to avoid duplicates caused by Hibernate fetch.Eager. 
+- Security 
+		- Modified some struts.xml parts to avoid leak of data to the client side. Not yet perfect tho.
+- Scheduling 
+		- Can upload notepad already but unable to display yet.
+- Dashboard
+		- Can display the chairProfessor menus and acad.
+
 Changelog 1.2
 
 

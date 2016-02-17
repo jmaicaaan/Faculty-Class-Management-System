@@ -18,19 +18,19 @@ import com.model.Users;
 
 public class DeveloperHelper implements Utilities {
 
-	static SessionFactory sessionFactory = null;
+	//static SessionFactory sessionFactory = null;
 	Session session = null;
-	static
-	{
-		sessionFactory=new Configuration().configure().buildSessionFactory();
-	}
+//	static
+//	{
+//		sessionFactory=new Configuration().configure().buildSessionFactory();
+//	}
 
 	public void addUser(Users users)
 	{
 
 		try
 		{
-			session=sessionFactory.openSession();
+			session=HibernateFactory.getSession();
 			session.beginTransaction();
 			session.save(users);
 			session.getTransaction().commit();
@@ -48,7 +48,7 @@ public class DeveloperHelper implements Utilities {
 	{
 		try
 		{
-			session=sessionFactory.openSession();
+			session=HibernateFactory.getSession();
 			session.beginTransaction();
 			session.save(password);
 			session.getTransaction().commit();
@@ -68,7 +68,7 @@ public class DeveloperHelper implements Utilities {
 	{
 		try
 		{
-			session=sessionFactory.openSession();
+			session=HibernateFactory.getSession();
 			session.beginTransaction();
 			session.save(professorProfile);
 			session.getTransaction().commit();
@@ -84,7 +84,7 @@ public class DeveloperHelper implements Utilities {
 	{
 		try
 		{
-			session=sessionFactory.openSession();
+			session=HibernateFactory.getSession();
 			session.beginTransaction();
 			Query query=null;
 			List <AccountType> checkAccountType=null;
@@ -147,7 +147,7 @@ public class DeveloperHelper implements Utilities {
 	public List<Users>viewAllProfessors() 
 	{
 
-		session=sessionFactory.openSession();
+		session=HibernateFactory.getSession();
 		session.beginTransaction();
 
 		Query query=session.createQuery("From Users");
@@ -164,7 +164,7 @@ public class DeveloperHelper implements Utilities {
 
 		try
 		{
-			session=sessionFactory.openSession();
+			session=HibernateFactory.getSession();
 			session.beginTransaction();
 
 			String courseCode=subjects.getCourseCode();
@@ -187,7 +187,7 @@ public class DeveloperHelper implements Utilities {
 	public List<Subjects>viewSubjects() 
 	{
 
-		session=sessionFactory.openSession();
+		session=HibernateFactory.getSession();
 		session.beginTransaction();
 
 		Query query=session.createQuery("From Subjects");

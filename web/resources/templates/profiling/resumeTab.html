@@ -1,12 +1,40 @@
-<div layout="column" layout-padding layout-margin>
+<div layout="column" layout-padding layout-margin ng-show="resume.displayContent">
 	<md-content layout="column" layout-align="center center" ng-hide="resume.hasFiles">
 		<h5 class="md-title">No resume</h5>
 		<img ng-src="resources/img/null.png">
 		<p class="md-subhead">Help the department manage your profiles for the PAASCU.</p>
 	</md-content>
 
-	<md-content layout="column" ng-show="resume.hasFiles">
-		{{resume.resumeFile.name}}
+	<md-content layout="column" layout-align="center center" layout-padding ng-show="resume.hasFiles">
+		<md-card class="md-whiteframe-5dp resumeCard">
+			<md-card-content layout="row" layout-align="end end">
+				<md-menu>
+				 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open some menu">
+				   <md-icon md-menu-origin md-svg-src="resources/img/svg/menu_vert.svg"></md-icon>
+				 </md-button>
+				 <md-menu-content width="4">
+				   <md-menu-item>
+				   	    <md-button 			        		 
+				   	    	 ng-href="{{resume.resumeFile.resumeUrl}}"
+		                      target="_blank"
+		                      aria-label="icon">
+			           		<md-icon md-svg-src="resources/img/svg/launch.svg" md-menu-align-target></md-icon>
+			           		View new window
+		             	</md-button>
+				   </md-menu-item>
+				   <md-menu-item>
+				        <md-button aria-label="icon" ng-click="resume.showDeleteDialog($event, resume.resumeFile)">
+					     	<md-icon md-svg-src="resources/img/svg/trash.svg" md-menu-align-target></md-icon>
+					     	Delete
+				        </md-button>
+				   </md-menu-item>
+				 </md-menu-content>
+				</md-menu>
+
+				
+		        
+			</md-card-content>
+		</md-card>
     </md-content>
 	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="resume.showUploadDialog($event)"
         style="position: fixed;">

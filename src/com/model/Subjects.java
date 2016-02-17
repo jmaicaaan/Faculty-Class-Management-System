@@ -29,7 +29,7 @@ public class Subjects {
 	private String units;
 	
 	
-	@OneToMany(mappedBy="subjects",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="subjects", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Schedule> schedule;
 	
 	@OneToMany(mappedBy="subjects", fetch = FetchType.EAGER)
@@ -45,13 +45,6 @@ public class Subjects {
 		setUnits(units);
 	}
 	
-	
-	public List<Expertise> getExpertise() {
-		return expertise;
-	}
-	public void setExpertise(List<Expertise> expertise) {
-		this.expertise = expertise;
-	}
 	public List<Schedule> getSchedule() {
 		return schedule;
 	}
@@ -82,5 +75,13 @@ public class Subjects {
 	public void setUnits(String units) {
 		this.units = units;
 	}
+	public List<Expertise> getExpertise() {
+		return expertise;
+	}
+
+	public void setExpertise(List<Expertise> expertise) {
+		this.expertise = expertise;
+	}
+	
 	
 }

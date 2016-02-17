@@ -31,8 +31,8 @@ public class schedulingAction extends ActionSupport{
 	public String execute() throws Exception{
 		
 		try{
-		BufferedReader br=new BufferedReader(new FileReader(fileUpload));
-		 String scheduleRow = null;
+			BufferedReader br=new BufferedReader(new FileReader(fileUpload));
+			 String scheduleRow = null;
 		 //with Commas
 		    while ((scheduleRow = br.readLine()) != null) {
 		      String[] splitSchedule = scheduleRow.split(",");

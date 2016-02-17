@@ -2,16 +2,30 @@
 	angular.module("profileModule")
 		.controller("researchCtrl", researchCtrl);
 
-	function researchCtrl($mdDialog, researchService){
+	function researchCtrl($mdDialog, $timeout, researchService, cfpLoadingBar){
 		
 		const TEMP_LOC = "resources/templates/";
 		var self = this;
 		self.hasFiles = false;
-		
+		self.displayContent = false;
 		self.showUploadDialog = showUploadDialog;
 		self.showDeleteDialog = showDeleteDialog;
 		
 		self.getFiles = getFiles;
+
+		activate_get_Researches();
+
+		function activate_get_Researches(){
+			cfpLoadingBar.start();
+
+			//Use timeout to make the transition between tabs to be fast.
+			$timeout(function(){
+				researchService.get_Researches().then(function(){
+					cfpLoadingBar.complete();
+					self.displayContent = true;
+				});	
+			}, 2000);
+		}
 		
 
 		function getFiles(){
@@ -27,18 +41,42 @@
 					targetEvent: event,
 					templateUrl: TEMP_LOC + "profiling/global-delete-upload.html",
 					controller: deleteDialogController,
-					controllerAs: "deleteDialogCtrl"
+					controllerAs: "deleteDialogCtrl",
+					locals:{
+						research: research
+					}					
 			   });
 		}
 
 									/** DeleteDialog Controller **/
 
-		function deleteDialogController($mdDialog){
+		function deleteDialogController($mdDialog, $mdToast, $timeout, research, researchService){
 			var self = this;
+			self.disableDeleteBtn = false;
 			self.closeDialog = closeDialog;
+			self.researchFile = research;
+			self.deleteFile = deleteResearch;
 			
 			function closeDialog(){
 				$mdDialog.hide();
+			}
+
+			function deleteResearch(){
+				var researchFile = self.researchFile;
+				researchService.delete_Research(researchFile).then(function(response){
+
+					self.disableDeleteBtn = true;
+
+					if(response.status == 200){
+						self.closeDialog();
+					}else{
+						displayToast($mdToast);
+						$timeout(function(){
+							self.disableDeleteBtn = false;	
+						}, 1500);
+					}
+
+				});
 			}
 		}
 

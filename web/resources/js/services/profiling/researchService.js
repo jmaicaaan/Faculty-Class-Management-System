@@ -7,6 +7,16 @@
 		var self = this;
 		self.listFile = [];
 		self.uploadResearch = uploadResearch;
+		self.get_Researches = get_Researches;
+		self.delete_Research = delete_Research;
+
+		function addFile(researchName, researchDate){
+			var obj = {
+				researchName: researchName,
+				researchDate: researchDate
+			};
+			self.listFile.push(obj);
+		}
 		
 		function uploadResearch(researchFile){
 			
@@ -22,7 +32,6 @@
 				}
 			};
 
-
 			var request = {
 				method: "post",
 				url: "uploadResearch.action",
@@ -37,8 +46,9 @@
 				.then(function(response){
 					console.log(response);
 					
-					addFile(response.data.rModel.researchName, 
-							response.data.rModel.researchDate);
+					// addFile(response.data.rModel.researchName, 
+					// 		response.data.rModel.researchDate);
+					get_Researches();
 					
 					return response;
 				})
@@ -46,18 +56,61 @@
 					console.log(error);
 					return error;
 				});
-			
-		
-			
 		}
 		
-		function addFile(researchName, researchDate){
-			var obj = {
-				researchName: researchName,
-				researchDate: researchDate
+		function get_Researches(researchFile){
+			var request = {
+				url: "View_Researches.action",
+				method: "post",
+				data: researchFile,
+				headers: {
+					"Content-Type": "application/json"
+				}
 			};
-			
-			self.listFile.push(obj);
+
+			return $http(request)
+				.then(function(response){
+					console.log(response);
+					var list = response.data.rSet;
+					// if(list.length > 0){
+					self.listFile = list;
+					// }else{
+					// 	self.listFile = [];
+					// }
+					return response;
+				})
+				.catch(function(error){
+					return error;
+				});
+		}
+
+		function delete_Research(researchFile){
+
+			var researchObj = {
+				"rModel":{
+					"rID": researchFile.rID
+				}
+			};
+
+			var request = {
+				url: "Delete_Research.action",
+				method: "post",
+				data: researchObj,
+				headers:{
+					"Content-Type": "application/json"
+				}
+			};
+
+			return $http(request)
+				.then(function(response){
+
+					console.log(response);
+					get_Researches();
+					return response;
+				})
+				.catch(function(error){
+					return error;
+				});
 		}
 	}
 }());

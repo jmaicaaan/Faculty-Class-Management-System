@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,65 +25,33 @@ public class ProfessorProfile {
 	private Users users;
 	
 	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.EAGER)
-	private List<Achievements> achievements;
+	private Set<Achievements> achievements;
 
 	
 	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.EAGER)
-	private List<Resume> resume;
+	private Set<Resume> resume;
 	
 	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
-	private List<Researches> researches;
+	private Set<Researches> researches;
 	
 	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
-	private List<Projects> projects;
+	private Set<Projects> projects;
 	
 	
 	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
-	private List<FacultyAssign> facultyAssign;
+	private Set<FacultyAssign> facultyAssign;
+	
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
+	private Set<Expertise> expertise;
+	
+	public ProfessorProfile(){}
 	
 	
+	public ProfessorProfile(Users users)
+	{
+		setUsers(users);
+	}
 	
-	
-	public List<FacultyAssign> getFacultyAssign() {
-		return facultyAssign;
-	}
-
-	public void setFacultyAssign(List<FacultyAssign> facultyAssign) {
-		this.facultyAssign = facultyAssign;
-	}
-
-	public List<Researches> getResearches() {
-		return researches;
-	}
-
-	public void setResearches(List<Researches> researches) {
-		this.researches = researches;
-	}
-
-	public List<Projects> getProjects() {
-		return projects;
-	}
-
-	public void setProjects(List<Projects> projects) {
-		this.projects = projects;
-	}
-
-	public List<Resume> getResume() {
-		return resume;
-	}
-
-	public void setResume(List<Resume> resume) {
-		this.resume = resume;
-	}
-
-	public List<Achievements> getAchievements() {
-		return achievements;
-	}
-
-	public void setAchievements(List<Achievements> achievements) {
-		this.achievements = achievements;
-	}
-
 	public int getPpID() {
 		return ppID;
 	}
@@ -99,12 +67,67 @@ public class ProfessorProfile {
 	public void setUsers(Users users) {
 		this.users = users;
 	}
-	
-	public ProfessorProfile(){}
-	
-	
-	public ProfessorProfile(Users users)
-	{
-		setUsers(users);
+
+
+	public Set<Achievements> getAchievements() {
+		return achievements;
 	}
+
+
+	public void setAchievements(Set<Achievements> achievements) {
+		this.achievements = achievements;
+	}
+
+
+	public Set<Resume> getResume() {
+		return resume;
+	}
+
+
+	public void setResume(Set<Resume> resume) {
+		this.resume = resume;
+	}
+
+
+	public Set<Researches> getResearches() {
+		return researches;
+	}
+
+
+	public void setResearches(Set<Researches> researches) {
+		this.researches = researches;
+	}
+
+
+	public Set<Projects> getProjects() {
+		return projects;
+	}
+
+
+	public void setProjects(Set<Projects> projects) {
+		this.projects = projects;
+	}
+
+
+	public Set<FacultyAssign> getFacultyAssign() {
+		return facultyAssign;
+	}
+
+
+	public void setFacultyAssign(Set<FacultyAssign> facultyAssign) {
+		this.facultyAssign = facultyAssign;
+	}
+
+
+	public Set<Expertise> getExpertise() {
+		return expertise;
+	}
+
+
+	public void setExpertise(Set<Expertise> expertise) {
+		this.expertise = expertise;
+	}
+
+	
+	
 }

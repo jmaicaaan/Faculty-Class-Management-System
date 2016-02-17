@@ -1,4 +1,4 @@
-package com.model;
+package com.helper;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.DropboxService.DropBoxService;
 
-public class ResumeModel {
+public class FileModel {
 
 	private File file;
 	private String fileFileName;
