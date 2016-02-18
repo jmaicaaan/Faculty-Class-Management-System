@@ -1,0 +1,47 @@
+<md-content>
+	hello
+    	<md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" style="position: fixed;">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-primary md-raised md-fab">
+            <md-icon md-svg-src="resources/img/svg/settings.svg"></md-icon>
+          </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+          <md-button aria-label="icon" class="md-primary md-fab md-raised md-mini" ng-click="sm.loadSubjects()">
+          	<md-tooltip md-direction="left">
+          	   Load subjects
+            </md-tooltip>
+            <md-icon md-svg-src="resources/img/svg/load.svg" aria-label="Load"></md-icon>
+          </md-button>
+          <md-button aria-label="icon" class="md-primary md-fab md-raised md-mini" ng-click="sm.uploadSubjects()">
+          	<md-tooltip md-direction="left">
+          	   Upload subjects
+            </md-tooltip>
+            <md-icon md-svg-src="resources/img/svg/file_upload.svg" aria-label="Upload"></md-icon>
+          </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+     <md-content layout-padding layout-margin ng-show="sm.displaySubjectsTable">
+     	<md-table-container>
+     		<table md-table>
+     	    	<thead md-head>
+     	    		<tr md-row>
+     	    			<th md-column><span>NO.</span></th>
+     	    			<th md-column><span>Course Code</span></th>
+     	    			<th md-column><span>Description</span></th>
+     	    			<th md-column><span>Units</span></th>
+     	    		</tr>
+     	    	</thead>
+     	    	<tbody md-body>
+     	    		<tr md-row md-auto-select ng-repeat="subjects in sm.listOfSubjects">
+     	    			<td md-cell>{{$index}}</td>
+     	    			<td md-cell>{{subjects.courseCode}}</td>
+     	    			<td md-cell>{{subjects.description}}</td>
+     	    			<td md-cell>{{subjects.units}}</td>
+     	    		</tr>
+     	    	</tbody>
+     	    </table>
+     	</md-table-container>
+     </md-content>
+
+</md-content>

@@ -18,14 +18,11 @@ import com.model.Users;
 
 public class ProfilingHelper {
 
-	Session session = null;
-
-	
 	public void addResearches(Researches researches)
 	{
 		try
 		{
-			session = HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(researches);
 			session.getTransaction().commit();
@@ -44,7 +41,7 @@ public class ProfilingHelper {
 	
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(projects);
 			session.getTransaction().commit();
@@ -61,7 +58,7 @@ public class ProfilingHelper {
 	{
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(achievements);
 			session.getTransaction().commit();
@@ -76,11 +73,11 @@ public class ProfilingHelper {
 	public void addResume(Resume resume, ProfessorProfile profile)
 	{
 		Transaction trans = null;
-		
+		Session session = null;
 		try
 		{
 			Set<Resume> resumeSet = null;
-			session=HibernateFactory.getSession();
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			int PPID = profile.getPpID();
@@ -114,9 +111,10 @@ public class ProfilingHelper {
 	{
 		
 		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session=HibernateFactory.getSession();
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			Users updateUser=(Users)session.get(Users.class, users.getUserID());
@@ -140,10 +138,10 @@ public class ProfilingHelper {
 	{
 		LoginHelper login_helper = new LoginHelper();
 		Transaction trans = null;
-		
+		Session session = null;
 		try
 		{
-			session = HibernateFactory.getSession();
+			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			int userID = login_helper.getUserID(user.getUsername());
@@ -169,10 +167,11 @@ public class ProfilingHelper {
 	public void updatePassword(Password password, Users users)
 	{
 		Transaction trans = null;	
+		Session session = null;
 		try
 		{
 			
-			session=HibernateFactory.getSession();
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			int userID = users.getUserID();
@@ -202,7 +201,7 @@ public class ProfilingHelper {
 	
 	public Set<Researches>viewResearches(ProfessorProfile professor) //overload id from loginHelper
 	{
-		session=HibernateFactory.getSession();
+		Session session = HibernateFactory.getSession().openSession();
 		session.beginTransaction();
 		Set<Researches> list = null;
 		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, professor.getPpID());
@@ -215,7 +214,7 @@ public class ProfilingHelper {
 	
 	public Set<Projects>viewProjects(ProfessorProfile profile) //overload id from loginHelper
 	{
-		session=HibernateFactory.getSession();
+		Session session = HibernateFactory.getSession().openSession();
 		session.beginTransaction();
 		
 		Set<Projects>list=null;
@@ -232,7 +231,7 @@ public class ProfilingHelper {
 	
 	public Set<Resume>viewResume(ProfessorProfile profile)   //overload id from loginHelper
 	{
-		session=HibernateFactory.getSession();
+		Session session = HibernateFactory.getSession().openSession();
 		session.beginTransaction();
 		Set<Resume>list=null;
 		ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
@@ -245,7 +244,7 @@ public class ProfilingHelper {
 	public Set<Achievements>viewAchievements(ProfessorProfile profile)  //overload id from loginHelper
 	{
 		
-		session=HibernateFactory.getSession();
+		Session session = HibernateFactory.getSession().openSession();
 		session.beginTransaction();
 		Set<Achievements>list=null;
 		ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
@@ -261,7 +260,7 @@ public class ProfilingHelper {
 
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			
 			Researches rObj=(Researches)session.get(Researches.class, researches.getrID());
@@ -278,9 +277,10 @@ public class ProfilingHelper {
 	public void deleteAchievements(Achievements achievements)
 	{
 		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session=HibernateFactory.getSession();
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			
@@ -302,9 +302,10 @@ public class ProfilingHelper {
 	public void deleteProjects(Projects projects)
 	{
 		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session=HibernateFactory.getSession();
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			Projects pObj=(Projects)session.get(Projects.class, projects.getPrID());
@@ -326,9 +327,10 @@ public class ProfilingHelper {
 	public void deleteResume(Resume resume)
 	{
 		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session=HibernateFactory.getSession();
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			Resume rObj = (Resume) session.get(Resume.class, resume.getRID());
@@ -352,8 +354,9 @@ public class ProfilingHelper {
 	{
 		Transaction trans = null;
 		Set<Expertise> list = null;
+		Session session = null;
 		try {
-			session = HibernateFactory.getSession();
+			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			ProfessorProfile professorProfile = (ProfessorProfile)session.get(ProfessorProfile.class, professor.getPpID());
@@ -376,7 +379,7 @@ public class ProfilingHelper {
 	{
 		try
 		{
-			session = HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			int count= (int) session.createSQLQuery("select COUNT(*) from Expertise where SubjID=:subj and PPID=:pp")
 					.setInteger("subj", expertise.getSubjects().getSubjID())
@@ -397,9 +400,10 @@ public class ProfilingHelper {
 	public void deleteExpertise(Expertise expertise)
 	{
 		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session = HibernateFactory.getSession();
+			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			System.out.println(expertise.getProfessorProfile().getPpID());

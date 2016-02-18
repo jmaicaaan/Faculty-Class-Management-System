@@ -95,16 +95,7 @@
 		  		</result>
 	  		</action>
 	  		
-	  		<action name="updateCurrentSession" class="com.action.profiling.Update_CurrentSessionAction">
-	  			<interceptor-ref name="myStack"/>
-	  			<result name="success" type="json">
-	  				<param name="excludeNullProperties">true</param>
-	  			</result>
-	  			<result name="input" type="json">
-		  			<param name="statusCode">500</param>
-		  			<param name="errorCode">500</param>
-		  		</result>
-	  		</action>
+	  		
 	  		
 	  		<action name="View_Achievements_Certifications" 
 	  			class="com.action.profiling.View_Achievements_Certifications">

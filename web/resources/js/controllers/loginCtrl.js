@@ -11,11 +11,9 @@
 		
 		function login(credentials){
 			if(credentials.username != '' || credentials.password != ''){
-				
 				self.hideButton = true;
-
-
 				authService.login(credentials).then(function(response){
+					console.log(response);
 					if(response.status == 200){
 						$state.go("dashboard");
 					}else{

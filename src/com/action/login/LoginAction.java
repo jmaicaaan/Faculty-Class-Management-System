@@ -33,7 +33,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 				return INPUT;
 			}
 //			loginHelper.getUserDetails(usersModel.getUserID());
-			
 			userSession.put(Utilities.user_sessionName, usersModel);
 			return SUCCESS;
 		}catch(Exception e){

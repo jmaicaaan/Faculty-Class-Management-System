@@ -1,28 +1,26 @@
 package com.HibernateUtil;
 
-import org.hibernate.Session;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateFactory {
 	
-	private static SessionFactory sessionFactory = null;
-	private static Session session = null;
+	private static SessionFactory sessionFactory;
+	
 	static{
-		
-		sessionFactory=new Configuration().configure().buildSessionFactory();
-	}
-	
-	public static Session getSession(){
-		
-		if(session == null || !session.isOpen()){
-			session = sessionFactory.openSession();
+		try {
+			sessionFactory = new Configuration().configure().buildSessionFactory();
+		} catch (HibernateException e) {
+			// TODO: handle exception
+			 System.out.println("Failed to create sessionFactory object." + e);
 		}
-		
-		return session;
 	}
 	
-	public static void explicitlyClose(){
-		session.close();
+	public static SessionFactory getSession(){
+		return sessionFactory;
 	}
+	
+
 }
+

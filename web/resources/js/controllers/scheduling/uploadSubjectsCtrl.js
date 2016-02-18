@@ -5,5 +5,7 @@
 	function uploadSubjectsCtrl(uploadSubjectsService){
 		var self = this;
 		self.message = "Hello!";
+
+		console.log(self.filedata);
 	}
 }());

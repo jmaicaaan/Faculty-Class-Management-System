@@ -31,6 +31,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.model.AccountType;
 import com.model.Expertise;
 import com.model.ProfessorProfile;
 import com.model.Schedule;
@@ -57,6 +58,21 @@ public class HelperClass {
 
 	public static boolean isAdmin(String username, String password){
 		return (username.equals(Utilities.adminUsername) && username.equals(Utilities.adminPassword)) ? true : false;
+	}
+	public static Users Admin(){
+		Users users = new Users();
+		users = new Users();
+		users.setUsername(Utilities.adminUsername);
+		users.setFirstName(Utilities.adminUsername);
+		users.setLastName(Utilities.adminUsername);
+		users.setPictureUrl(Utilities.defaultImage);
+		AccountType ac=  new AccountType();
+		ac.setAccountType(Utilities.adminAccountType);
+		List<AccountType> acList = new ArrayList<AccountType>();
+		acList.add(ac);
+		users.setAccountType(acList);
+		
+		return users;
 	}
 
 	public static String encrypt(String strToEncrypt) {

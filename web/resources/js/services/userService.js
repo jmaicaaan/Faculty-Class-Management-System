@@ -12,7 +12,7 @@
 		function createSession(responseObj){
 
 			//Too much query. Lessen the query to userID, id, username, fn, ln, ac, and pic only.
-
+			console.log(responseObj);
 			var defer = $q.defer();
 
 			self.userInfo.userID = responseObj.userID? responseObj.userID: "";

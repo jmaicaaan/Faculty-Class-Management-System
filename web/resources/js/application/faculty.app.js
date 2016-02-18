@@ -54,6 +54,7 @@
 						//This one solves for refreshing the page
 						if(userService.userInfo.username == undefined){
 							authService.checkOnlineUser().then(function(response){
+								console.log(response);
 								if(response.data.has_User == true){
 									authService.updateSession().then(function(){
 										deferred.resolve(userService.userInfo);

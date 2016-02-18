@@ -48,6 +48,23 @@
 	  			<param name="errorCode">500</param>
 	  		</result>
   		</action>
+  		
+  		<action name="updateCurrentSession" class="com.action.login.Update_CurrentSessionAction">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  				<param name="excludeProperties">
+	  					uModel\.attendance,
+	  					uModel\.classList,
+	  					uModel\.password,
+	  					uModel\.professorProfile
+	  				</param>	
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
 	  		
   	</package>
    </struts>

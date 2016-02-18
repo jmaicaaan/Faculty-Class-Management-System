@@ -1,4 +1,4 @@
-package com.action.profiling;
+package com.action.login;
 
 import java.util.Map;
 
@@ -21,7 +21,11 @@ public class Update_CurrentSessionAction extends ActionSupport implements Sessio
 			uModel = (Users) userSession.get(Utilities.user_sessionName);
 			LoginHelper loginHelper = new LoginHelper();
 			
-			uModel = loginHelper.getUserDetails(uModel.getUserID());
+			if(!uModel.getUsername().equals(Utilities.adminUsername)){
+				uModel = loginHelper.getUserDetails(uModel.getUserID());
+			}
+
+			
 		}catch(Exception e){
 			return INPUT;
 		}

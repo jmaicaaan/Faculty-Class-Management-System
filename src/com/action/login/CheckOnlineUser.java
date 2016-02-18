@@ -23,6 +23,7 @@ public class CheckOnlineUser extends ActionSupport implements SessionAware {
 		//Get currentSession
 		try{
 			usersModel = (Users) userSession.get(Utilities.user_sessionName);
+			
 			if(usersModel.getUsername() == null || usersModel.getUsername().isEmpty()){
 				return INPUT;
 			}

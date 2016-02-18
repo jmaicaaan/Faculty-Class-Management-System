@@ -1,29 +1,30 @@
 package com.HibernateUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.id.uuid.Helper;
 
 import com.helper.HelperClass;
+import com.model.AccountType;
 import com.model.Users;
 
 public class LoginHelper {
-
-	Session session = null;
 
 	public int getUserID(String username) //Jm was here :)
 	{
 		//Handle the exception when the the username is not found in the database.
 		//Exception: NullPointerException
 		Transaction trans = null;
+		Session session = null;
 		int userID = 0;
 		try
 		{
 
-			session=HibernateFactory.getSession();
+			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 
 			Query query=session.createQuery("from Users where username=:uName");
@@ -52,15 +53,15 @@ public class LoginHelper {
 
 		Users users = null;
 		Transaction trans = null;
+		Session session = null;
 		try{ 
 
 			if(HelperClass.isAdmin(username, password)){
-				users = new Users();
-				users.setUsername(username);
+				users = HelperClass.Admin();
 				return users;
 			}else{
 
-				session = HibernateFactory.getSession();
+				session = HibernateFactory.getSession().openSession();
 				trans = session.beginTransaction();
 
 				Query query = session.createQuery("from Users where username = :uName");
@@ -92,12 +93,11 @@ public class LoginHelper {
 	public Users getUserDetails(int userID){
 		Users usersModel = null;
 		Transaction trans = null;
+		Session session = null;
 		try{
-			session = HibernateFactory.getSession();
+			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
-
-			System.out.println(userID);
-			//But I don't want to get the password for security reasons.
+			
 			Query query = session.createQuery("from Users where UserID = :userID");
 			query.setParameter("userID", userID);
 

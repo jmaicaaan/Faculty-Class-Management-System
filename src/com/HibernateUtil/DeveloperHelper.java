@@ -18,19 +18,12 @@ import com.model.Users;
 
 public class DeveloperHelper implements Utilities {
 
-	//static SessionFactory sessionFactory = null;
-	Session session = null;
-//	static
-//	{
-//		sessionFactory=new Configuration().configure().buildSessionFactory();
-//	}
-
 	public void addUser(Users users)
 	{
 
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(users);
 			session.getTransaction().commit();
@@ -48,7 +41,7 @@ public class DeveloperHelper implements Utilities {
 	{
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(password);
 			session.getTransaction().commit();
@@ -68,7 +61,7 @@ public class DeveloperHelper implements Utilities {
 	{
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(professorProfile);
 			session.getTransaction().commit();
@@ -84,7 +77,7 @@ public class DeveloperHelper implements Utilities {
 	{
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			Query query=null;
 			List <AccountType> checkAccountType=null;
@@ -147,7 +140,7 @@ public class DeveloperHelper implements Utilities {
 	public List<Users>viewAllProfessors() 
 	{
 
-		session=HibernateFactory.getSession();
+		Session session = HibernateFactory.getSession().openSession();
 		session.beginTransaction();
 
 		Query query=session.createQuery("From Users");
@@ -164,7 +157,7 @@ public class DeveloperHelper implements Utilities {
 
 		try
 		{
-			session=HibernateFactory.getSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 
 			String courseCode=subjects.getCourseCode();
@@ -187,7 +180,7 @@ public class DeveloperHelper implements Utilities {
 	public List<Subjects>viewSubjects() 
 	{
 
-		session=HibernateFactory.getSession();
+		Session session = HibernateFactory.getSession().openSession();
 		session.beginTransaction();
 
 		Query query=session.createQuery("From Subjects");

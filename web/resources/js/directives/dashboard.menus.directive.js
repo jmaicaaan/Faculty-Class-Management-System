@@ -25,15 +25,11 @@
 					// Splits the accountType
 					var ac = scope.userType.split(",");
 
-					var userAccountType = "";
-					var has_multiple = ac.length > 1 ? true: false;
+					var userAccountType = ac.length > 1? ac[1].trim() : ac[0].trim();
 
-					if(has_multiple){
-						userAccountType = ac[1].trim();
-					}
+					console.log(userAccountType);
 
 					switch(userAccountType.toLowerCase()){
-
 						case "professor":
 							return TEMP_LOC + "professor/professorMenu.html";
 						case "academic adviser":
@@ -44,6 +40,8 @@
 							return TEMP_LOC + "student/studentMenu.html";
 						case "secretary": 
 							return TEMP_LOC + "secretary/secretaryMenu.html";
+						case "developer": 
+							return TEMP_LOC + "developer/developer.html";
 						default:
 							return "/";
 					}	

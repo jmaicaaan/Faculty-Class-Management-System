@@ -1,0 +1,70 @@
+<md-content>
+	<md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" style="position: fixed;">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-primary md-raised md-fab">
+            <md-icon md-svg-src="resources/img/svg/settings.svg"></md-icon>
+          </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+          <md-button aria-label="icon" class="md-primary md-fab md-raised md-mini" ng-click="um.loadProfessors()">
+          	<md-tooltip md-direction="left">
+          	   Load professors
+            </md-tooltip>
+            <md-icon md-svg-src="resources/img/svg/load.svg" aria-label="Load"></md-icon>
+          </md-button>
+          <md-button aria-label="icon" class="md-primary md-fab md-raised md-mini" ng-click="um.uploadProfessors()">
+          	<md-tooltip md-direction="left">
+          	   Upload professors
+            </md-tooltip>
+            <md-icon md-svg-src="resources/img/svg/file_upload.svg" aria-label="Upload"></md-icon>
+          </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+	<md-content layout-padding layout-margin ng-show="um.displayUsersTable">
+		<md-table-container>
+		  <table md-table>
+		    <thead md-head>
+		      <tr md-row>
+		        <th md-column><span>NO.</span></th>
+		        <th md-column><span>Professor name</span></th>
+		        <th md-column><span>Current account type</span></th>
+		        <th md-column><span>Academic Adviser</span></th>
+		        <th md-column><span>Chairperson</span></th>
+		      </tr>
+		    </thead>
+		    <tbody md-body>
+		      <tr md-row md-auto-select ng-repeat="file in um.list">
+
+		        <td md-cell>{{$index}}</td>
+		        <td md-cell>{{file.firstName + " " + file.lastName}}</td>
+		        <td md-cell>
+		        	<span ng-repeat="acType in file.accountType">
+		        		{{acType.accountType}}
+		        	</span>
+		        </td>
+		        <td md-cell>
+		        	<md-checkbox class="md-secondary" 
+		        	 	 ng-model="um.selectedUsers[file.userID]"
+		        		 ng-true-value="'Academic Adviser'"
+		        		 ng-false-value=""		        		 
+		        		 aria-label="md-checkbox">
+		        	</md-checkbox>
+				</td>
+				<td md-cell>
+		        	<md-checkbox class="md-secondary" 
+		        		ng-model="um.selectedUsers[file.userID]"
+		        		ng-true-value="'Chairperson'"
+		        		ng-false-value=""
+		        		aria-label="md-checkbox">
+		        	</md-checkbox>
+				</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</md-table-container>
+
+		<md-content layout="row" layout-padding layout-margin >
+			<md-button class="md-primary md-raised" ng-click="um.updateAccountType()">Save account type</md-button>
+		</md-content>
+	</md-content>
+</md-content>

@@ -61,7 +61,7 @@
 				.then(function(response){
 					console.log(response);
 
-					updateSession();
+					// updateSession();
 					return response;
 				})
 				.catch(function(error){
@@ -83,6 +83,7 @@
 			return $http(request)
 				.then(function(response){
 					var responseObj = response.data.user;
+					console.log(responseObj);
 					return userService.createSession(responseObj);
 				})
 				.catch(function(error){

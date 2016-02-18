@@ -11,14 +11,20 @@
 		const TEMP_LOC = "resources/templates/";
 
 		$urlRouterProvider
-			.otherwise("/developer/");
+			.otherwise("/dashboard");
 		
 		$stateProvider
-			.state("developer", {
-				url: "/developer",
-				templateUrl: TEMP_LOC + "developer/developer.html",
-				controller: "developerCtrl",
-				controllerAs: "developer"
+			.state("dashboard.userManagement", {
+				url: "/users_manage",
+				templateUrl: TEMP_LOC + "developer/users_manage.html",
+				controller: "usersManageCtrl",
+				controllerAs: "um"
+			})
+			.state("dashboard.subjManagement", {
+				url: "/subj_manage",
+				templateUrl: TEMP_LOC + "developer/subj_manage.html",
+				controller: "subjManageCtrl",
+				controllerAs: "sm"
 			});
 	}	
 }());
