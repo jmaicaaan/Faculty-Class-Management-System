@@ -20,7 +20,12 @@
 		   	
    		<action name="uploadSubjects" class="com.action.scheduling.Upload_Subjects">
    			<interceptor-ref name="myStack"/>
-   			<result name="success" type="json"></result>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   				<param name="excludeProperties">
+   				
+   				</param>
+   			</result>
    			<result name="input" type="json">
 		  			<param name="statusCode">500</param>
 		  			<param name="errorCode">500</param>

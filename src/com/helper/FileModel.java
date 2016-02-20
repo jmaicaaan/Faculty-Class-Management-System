@@ -13,6 +13,7 @@ public class FileModel {
 	private String fileFileName;
 	private String fileContentType;
 	private String Url;
+	private Object response;
 		
 	private DropBoxService dbService = new DropBoxService();
 
@@ -39,6 +40,12 @@ public class FileModel {
 	}
 	public void setUrl(String Url) {
 		this.Url = Url;
+	}
+	public Object getResponse() {
+		return response;
+	}
+	public void setResponse(Object response) {
+		this.response = response;
 	}
 	public void doUpload(String serverPath) {
 

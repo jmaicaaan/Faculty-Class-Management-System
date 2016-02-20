@@ -71,7 +71,7 @@ public class HelperClass {
 		List<AccountType> acList = new ArrayList<AccountType>();
 		acList.add(ac);
 		users.setAccountType(acList);
-		
+
 		return users;
 	}
 
@@ -100,7 +100,7 @@ public class HelperClass {
 		}
 		return decryptedString;
 	}
-	
+
 	public static File createQRImage(String title, String encodedString) throws WriterException, IOException {
 
 		/** Based from API with a little modification */
@@ -139,15 +139,15 @@ public class HelperClass {
 		ImageIO.write(image, fileType, qrFile);
 		return qrFile;
 	}
-
+	
 	public static List<Schedule> readUploadedSubjects(File file) throws Exception{
-		
+
 		List<Schedule> schedList = new ArrayList<Schedule>();
 		try(BufferedReader buffered = new BufferedReader(new FileReader(file));){
 
 			String scheduleRow = null;
 			while (( scheduleRow = buffered.readLine()) != null){
-				
+
 				String[] splitSchedule = scheduleRow.split(",");
 				String courseCode = splitSchedule[0],
 						description = splitSchedule[1],
@@ -168,5 +168,5 @@ public class HelperClass {
 		}
 		return schedList;
 	}
-	
+
 }

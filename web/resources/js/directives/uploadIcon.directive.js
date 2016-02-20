@@ -21,7 +21,8 @@
 						console.log(response);
 						var obj = {
 							name: response.data.fileFileName,
-							url: response.data.url 
+							url: response.data.url,
+							response: response.data.response
 						};
 						
 						//Best practice compared to $scope.$apply

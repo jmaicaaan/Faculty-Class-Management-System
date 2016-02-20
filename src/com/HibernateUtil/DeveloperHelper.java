@@ -155,8 +155,7 @@ public class DeveloperHelper implements Utilities {
 
 	public void addSubjects(Subjects subjects){
 
-		try
-		{
+		try{
 			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 
@@ -171,8 +170,7 @@ public class DeveloperHelper implements Utilities {
 			session.close();
 
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex){
 			ex.printStackTrace();
 		}
 	}

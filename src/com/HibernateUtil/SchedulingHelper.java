@@ -1,19 +1,14 @@
 package com.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.transform.Transformers;
 
 import com.model.Expertise;
 import com.model.FacultyAssign;
@@ -72,77 +67,23 @@ public class SchedulingHelper {
 		return subjectSetID;
 	}
 
-//	public void addSchedule(Schedule schedule){
-//
-//		Transaction trans = null;
-//		Query query = null;
-//		Session session = null;
-//		try{
-//			
-//			session = HibernateFactory.getSession().openSession();
-//			trans = session.beginTransaction();
-//
-//			String courseCode = schedule.getSubjects().getCourseCode();
-//			query = session.createQuery("from Subjects where CourseCode=:cc");
-//			query.setParameter("cc", courseCode);
-//			
-//			Subjects subjObj = (Subjects) query.uniqueResult();
-//			
-//			if(subjObj != null){
-//				//The subject is existing!
-//				try {
-//					query = null;
-//					//Get the id of the subject to check if it has already a schedule
-//					int subjID = subjObj.getSubjID();
-//					
-//					query = session.createQuery("from Schedule where day = :day and room = :room and section = :section and time = :time and SubjID = :subjID");
-//					query.setParameter("day", schedule.getDay());
-//					query.setParameter("room", schedule.getRoom());
-//					query.setParameter("section", schedule.getSection());
-//					query.setParameter("time", schedule.getTime());
-//					query.setParameter("subjID", subjID);
-//								
-//					Schedule sObj = (Schedule) query.uniqueResult();
-//					
-//					if(sObj == null){
-//						session.save(schedule);
-//					}	
-//					
-//				
-//				} catch (Exception e) {
-//					// TODO: handle exception
-//					e.printStackTrace();
-//					throw e;
-//				}
-//			}
-//			trans.commit();
-//		}
-//		catch(Exception ex)
-//		{
-//			if(trans != null){
-//				trans.rollback();
-//			}
-//			ex.printStackTrace();
-//			throw ex;
-//		}
-//		session.close();
-//	}
 	public void addSchedule(Schedule schedule)
 	{	
 		Session session = null;
 		Transaction trans = null;
+
 		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			//Get SUbject ID since the subject Id from the bean is 0
 			Integer getSubjID=(Integer)session.createSQLQuery("Select SubjID from Subjects where courseCode=:cc")
 					.setParameter("cc", schedule.getSubjects().getCourseCode()).uniqueResult();
-			//if getSubjID is 0 it is because the subject doesnt exist in the subject table
-			if(getSubjID!=null){			
+			
+			if(getSubjID != null){			
 				
-				Subjects sObjcCHecker=(Subjects)session.get(Subjects.class , getSubjID);
+				Subjects sObjcCHecker=(Subjects)session.get(Subjects.class, getSubjID);
 				if(sObjcCHecker!=null){
-					Integer queryChecker=(Integer)session.createSQLQuery("Select Count(*) from Schedule "
+					Integer queryChecker = (Integer) session.createSQLQuery("Select Count(*) from Schedule "
 							+ "where section=:section and time=:time and day=:day and subjID=:id and room=:room")
 							.setParameter("section", schedule.getSection())
 							.setParameter("time", schedule.getTime())
@@ -165,11 +106,11 @@ public class SchedulingHelper {
 		session.close();
 	}
 	
-	public List<Expertise> getExpertise(Subjects subjects)
+	public Set<Expertise> getExpertise(Subjects subjects)
 	{
 		Session session = null;
 		Transaction trans = null;
-		List<Expertise>list = new ArrayList<Expertise>();
+		Set<Expertise>list = new HashSet<Expertise>();
 		
 		try {
 			session = HibernateFactory.getSession().openSession();
@@ -184,73 +125,74 @@ public class SchedulingHelper {
 			
 			trans.commit();
 			
-		} catch (HibernateException e) {
+		} catch (HibernateException  e) {
 			// TODO: handle exception
 			if(trans != null){
 				trans.rollback();
 			}
 			e.printStackTrace();
-			throw e;
+		}finally{
+			if(list == null){
+				session.close();
+			}
 		}
 		
-		session.close();
+//		session.close();
+//		session.close();
 		return list;
 	}
 	
 	
 	public Set<ProfessorProfile> compatibleProfessors(Set<Expertise>expertise){
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		Set<ProfessorProfile>list=new HashSet<ProfessorProfile>();
-		Users users=null;
-//		Map<Subjects, Set<ProfessorProfile>> map = new HashMap<Subjects, Set<ProfessorProfile>>();
 		
-		int PPID=0;
-		
-		for(Expertise eObj:expertise){
+		Set<ProfessorProfile>list = new HashSet<ProfessorProfile>();
+		Transaction trans = null;
+		Session session = null;
+		Users users = null;
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+
+			for(Expertise eObj : expertise){
+				int PPID = eObj.getProfessorProfile().getPpID();
+				users = (Users) session.get(Users.class, PPID);
+				
+				list.addAll(users.getProfessorProfile());
+			}
 			
-			PPID = eObj.getProfessorProfile().getPpID();
-			users=(Users)session.get(Users.class, PPID);
-			list.addAll(users.getProfessorProfile());
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.commit();
+			}
+			throw e;
 		}
-		
-		session.getTransaction().commit();
 		session.close();
 		return list;
-//		for(ProfessorProfile p : list){
-//		System.out.println(p.getUsers().getUsername());
-//		for(Expertise e : p.getExpertise()){
-//			System.out.println(e.getSubjects().getCourseCode());
-//		}
-//	}
-
-	
 	}
-	
-	public Map<Subjects, ArrayList<ProfessorProfile>> addToMap (Subjects subject, ProfessorProfile pProf){
-		Map<Subjects, ArrayList<ProfessorProfile>> map = new HashMap<Subjects, ArrayList<ProfessorProfile>>();
-		
-		if(!map.containsKey(subject)){
-			map.put(subject, new ArrayList<ProfessorProfile>());
-		}
-		map.get(subject).add(pProf);
-		
-		return map;
-	}
-
 
 	public List<Schedule>displaySchedules(List<Schedule>schedule){
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		List<Schedule>list = new ArrayList<Schedule>();
-		Subjects sObjc = null;
 		
-		for(Schedule sObjec:schedule){
-			sObjc=(Subjects)session.get(Subjects.class, sObjec.getSubjects().getSubjID());
-			list.add(sObjec);
+		List<Schedule>list = new ArrayList<Schedule>();
+		Transaction trans = null;
+		Session session = null;
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
 			
+			Subjects sObjc = null;
+			
+			for(Schedule sObjec:schedule){
+				sObjc=(Subjects)session.get(Subjects.class, sObjec.getSubjects().getSubjID());
+				list.add(sObjec);
+				
+			}
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		session.getTransaction().commit();
 		session.close();
 		return list;
 	}
@@ -275,8 +217,7 @@ public class SchedulingHelper {
 			session.close();
 
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex){
 			ex.printStackTrace();
 		}
 	}

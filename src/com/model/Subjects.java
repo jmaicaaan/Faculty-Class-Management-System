@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,10 +31,10 @@ public class Subjects {
 	
 	
 	@OneToMany(mappedBy="subjects", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Schedule> schedule;
+	private Set<Schedule> schedule;
 	
 	@OneToMany(mappedBy="subjects", fetch = FetchType.EAGER)
-	private List<Expertise> expertise;
+	private Set<Expertise> expertise;
 	
 	
 	public Subjects(){}
@@ -45,12 +46,7 @@ public class Subjects {
 		setUnits(units);
 	}
 	
-	public List<Schedule> getSchedule() {
-		return schedule;
-	}
-	public void setSchedule(List<Schedule> schedule) {
-		this.schedule = schedule;
-	}
+	
 	public int getSubjID() {
 		return subjID;
 	}
@@ -75,12 +71,27 @@ public class Subjects {
 	public void setUnits(String units) {
 		this.units = units;
 	}
-	public List<Expertise> getExpertise() {
+
+	public Set<Schedule> getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Set<Schedule> schedule) {
+		this.schedule = schedule;
+	}
+
+	public Set<Expertise> getExpertise() {
 		return expertise;
 	}
 
-	public void setExpertise(List<Expertise> expertise) {
+	public void setExpertise(Set<Expertise> expertise) {
 		this.expertise = expertise;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return courseCode;
 	}
 	
 	
