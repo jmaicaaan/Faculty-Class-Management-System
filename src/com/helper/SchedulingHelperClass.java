@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,49 +49,67 @@ public class SchedulingHelperClass {
 		return schedList;
 	}
 	
-	public static Map<Subjects, Set<ProfessorProfile>> createDisplayMap(Set<ProfessorProfile> pSet){
+	public static Map<String, Set<ProfessorProfile>> createDisplayMap(Set<ProfessorProfile> pSet){
 		
-		Map<Subjects, Set<ProfessorProfile>> displayMap = new HashMap<Subjects, Set<ProfessorProfile>>();
+		Map<String, Set<ProfessorProfile>> displayMap = new HashMap<String, Set<ProfessorProfile>>();
 		boolean hasSchedule = false;
 		
 		for(ProfessorProfile pp : pSet){
-			Subjects subj = null;
+//			Subjects subj = null;
+			String courseCode = "";
 			for(Expertise e : pp.getExpertise()){
-				subj = e.getSubjects();
+				
 				hasSchedule = e.getSubjects().getSchedule().size() > 0 ? true : false;
 				
 				if(hasSchedule){
-					if(!displayMap.containsKey(subj)){
-						displayMap.put(subj, Collections.synchronizedSet(new HashSet<ProfessorProfile>())); //Make it thread safe!
+					courseCode = e.getSubjects().getCourseCode();
+					
+					if(!displayMap.containsKey(courseCode)){
+						displayMap.put(courseCode, Collections.synchronizedSet(new HashSet<ProfessorProfile>())); //Make it thread safe!
 					}
-					displayMap.get(subj).add(pp);
+					displayMap.get(courseCode).add(pp);
 				}
 			}
 			if(hasSchedule){
-				displayMap.get(subj).add(pp);
+				displayMap.get(courseCode).add(pp);
 			}
 		}
 		
 		return displayMap;
 	}
 	
-	public static void displayMap(Map<Subjects, Set<ProfessorProfile>> displayMap){
-				
-		for(Map.Entry<Subjects, Set<ProfessorProfile>> map : displayMap.entrySet()){
-			Subjects subj = map.getKey();
+	public static void displayMap(Map<String, Set<ProfessorProfile>> displayMap){
 			
-			System.out.print("Subject: " + subj.getCourseCode() + " ");
+		boolean hasSchedule = false;
+		
+		for(Map.Entry<String, Set<ProfessorProfile>> map : displayMap.entrySet()){
+//			Subjects subj = map.getKey();
+			String courseCode = map.getKey();
 			
+//			System.out.print("Subject: " + subj.getCourseCode() + " ");
+		
 			Set<ProfessorProfile> valueSet = map.getValue();
 			
-				for(Schedule sched : subj.getSchedule()){ 
-					System.out.print(sched.getTime() + " " + sched.getSection() + " ");
+				for(ProfessorProfile p : valueSet){
+					
+					for(Expertise e : p.getExpertise()){
+
+						hasSchedule = e.getSubjects().getSchedule().size() > 0 ? true : false;
+						
+						if(hasSchedule){
+							
+							System.out.print("Subject: " + e.getSubjects().getCourseCode() + " ");
+							for(Schedule sched : e.getSubjects().getSchedule()){
+								System.out.print(sched.getTime() + " " + sched.getSection() + " ");
+							}
+						}
+					}
+					if(hasSchedule){
+						System.out.print(p.getUsers().getUsername() + " ");
+					}
+					System.out.println();
 				}
 				
-				for(ProfessorProfile p : valueSet){
-					System.out.print(p.getUsers().getUsername() + " ");
-				}
-				System.out.println();
 		}
 	}
 }

@@ -23,13 +23,41 @@
    			<result name="success" type="json">
    				<param name="excludeNullProperties">true</param>
    				<param name="excludeProperties">
-   				
-   				</param>
+	  					response\[\d+\].expertID,
+	  					response\[\d+\]\.professorProfile\.achievements,
+	  					response\[\d+\]\.professorProfile\.expertise,
+	  					response\[\d+\]\.professorProfile\.facultyAssign,
+	  					response\[\d+\]\.professorProfile\.ppID,
+	  					response\[\d+\]\.professorProfile\.projects,
+	  					response\[\d+\]\.professorProfile\.researches,
+	  					response\[\d+\]\.professorProfile\.resume,
+	  					response\[\d+\]\.professorProfile\.users.attendance,
+	  					response\[\d+\]\.professorProfile\.users.accountType,
+						response\[\d+\]\.professorProfile\.users.classList,
+						response\[\d+\]\.professorProfile\.users.idNo,
+						response\[\d+\]\.professorProfile\.users.password,
+						response\[\d+\]\.professorProfile\.users.professorProfile,
+						response\[\d+\]\.professorProfile\.users.userID,
+						response\[\d+\]\.subjects\.expertise,
+						response\[\d+\]\.subjects\.schedule\[\d+\]\.facultyAssign,
+						response\[\d+\]\.subjects\.schedule\[\d+\]\.subjects
+	  			</param>
    			</result>
    			<result name="input" type="json">
-		  			<param name="statusCode">500</param>
-		  			<param name="errorCode">500</param>
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
 		  	</result>
+   		</action>
+   		
+   		<action name="assign_faculty" class="com.action.scheduling.Assign_Faculty">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   			
+   			</result>
+   			<result name="input" type="json">
+   				<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+   			</result>
    		</action>
    	
    	</package>

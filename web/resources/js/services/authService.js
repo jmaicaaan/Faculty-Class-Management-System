@@ -24,8 +24,8 @@
 			};
 
 			var request = {
-				method: "post",
 				url: "userLogin.action",
+				method: "post",
 				data: userObj,
 				headers: {
 					"Content-Type": "application/json",

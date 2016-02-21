@@ -60,7 +60,7 @@
 		function addAccountType(usersObjList){
 			
 			var usersObj = {
-					"users": []
+				"users": []
 			};
 			
 			for(var ids in usersObjList){

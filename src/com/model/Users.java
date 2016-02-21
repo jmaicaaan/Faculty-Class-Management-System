@@ -137,6 +137,10 @@ public class Users {
 		setPictureUrl(pictureUrl);
 		setUserID(id);
 	}
+	
+	public Users(String username){
+		setUsername(username);
+	}
 
 
 }

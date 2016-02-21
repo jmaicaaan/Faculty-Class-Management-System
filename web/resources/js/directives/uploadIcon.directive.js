@@ -8,37 +8,44 @@
 			scope: {
 				icon: "@", //Enable this to acquire it from the template. See below
 				fileData: "=",
-				url: "="
+				url: "=",
+				class: "@",
+				tooltipMsg: "@",
+				tooltipPos: "@",
+				style: "@"
 			},
-			controller: function($scope, $timeout, uploadIconService){
-				$scope.upload = upload;
-
-				function upload(file, url){
-					var formdata = new FormData();
-					formdata.append("file", file);
-					
-					uploadIconService.upload(formdata, url).then(function(response){
-						console.log(response);
-						var obj = {
-							name: response.data.fileFileName,
-							url: response.data.url,
-							response: response.data.response
-						};
-						
-						//Best practice compared to $scope.$apply
-						$timeout(function(){
-							$scope.fileData = obj;
-						});
-					
-					});
-				}
-			},
+			controller: uploadIconCtrl,
 			link: linker,
-			template: '<md-button class="md-icon-button" aria-label="icon">' +
+			template: '<md-button class="{{class}}" aria-label="icon" style="{{style}}">' +
+						'<md-tooltip md-direction="{{tooltipPos}}"> {{tooltipMsg}} </md-tooltip>' +
 							'<md-icon md-svg-src="{{icon}}"></md-icon>' +
 							'<input type="file">' +
-							'</md-button>'
+						'</md-button>'
 	 									
+		}
+
+		function uploadIconCtrl($scope, $timeout, uploadIconService){
+			$scope.upload = upload;
+
+			function upload(file, url){
+				var formdata = new FormData();
+				formdata.append("file", file);
+				
+				uploadIconService.upload(formdata, url).then(function(response){
+					console.log(response);
+					var obj = {
+						name: response.data.fileFileName,
+						url: response.data.url,
+						response: response.data.response
+					};
+					
+					//Best practice compared to $scope.$apply
+					$timeout(function(){
+						$scope.fileData = obj;
+					});
+				
+				});
+			}
 		}
 
 		function linker(scope, elem, attrs){
