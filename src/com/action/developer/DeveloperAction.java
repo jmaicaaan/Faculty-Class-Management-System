@@ -21,27 +21,26 @@ public class DeveloperAction extends ActionSupport {
 		
 		DeveloperHelper session_Helper = new DeveloperHelper();	
 		try{
-			for (Users uModel : users)
-			{ 
+			for (Users uModel : users){ 
 				
 				//add user
 				uModel.setUsername(HelperClass.CreateUsername(uModel.getFirstName(), uModel.getLastName()));
-				session_Helper.addUser(uModel);
 				
-				//add password
-				Password password = new Password(uModel);
-				session_Helper.addPassword(password);
-				
-				for(AccountType acType : uModel.getAccountType()){
-					AccountType accountType = new AccountType(acType.getAccountType(), uModel);
-					session_Helper.addAccountType(accountType,uModel);
+				// check if user is not existing
+				if(session_Helper.addUser(uModel))
+				{
+					Password password = new Password(uModel);
+					session_Helper.addPassword(password);
+					
+					for(AccountType acType : uModel.getAccountType()){
+						AccountType accountType = new AccountType(acType.getAccountType(), uModel);
+						session_Helper.addAccountType(accountType,uModel);
+					}
+					
+					ProfessorProfile professorProfile=new ProfessorProfile(uModel);
+					session_Helper.addProfessorProfile(professorProfile);
 				}
-				
-				
-				
-			//	add professorprofile
-				ProfessorProfile professorProfile=new ProfessorProfile(uModel);
-				session_Helper.addProfessorProfile(professorProfile);
+			
 			}
 		}catch(Exception e){
 			return ERROR;

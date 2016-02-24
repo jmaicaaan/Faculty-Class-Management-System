@@ -1,31 +1,35 @@
 package com.HibernateUtil;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import com.helper.Utilities;
 import com.model.AccountType;
 import com.model.Password;
 import com.model.ProfessorProfile;
-import com.model.Projects;
 import com.model.Subjects;
 import com.model.Users;
 
 public class DeveloperHelper implements Utilities {
 
-	public void addUser(Users users)
+	public Boolean addUser(Users users)
 	{
-
+		boolean validate=false;
 		try
 		{
 			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
-			session.save(users);
+			Integer count=(Integer)session.createSQLQuery("Select count(*) from Users "
+					+ "where Users.IDNo=:idno")
+					.setParameter("idno", users.getIdNo()).uniqueResult();
+			if(count < 0){
+				session.save(users);
+				validate = true;
+			}
+	
+			
 			session.getTransaction().commit();
 			session.close();
 		}
@@ -33,7 +37,7 @@ public class DeveloperHelper implements Utilities {
 		{
 			ex.printStackTrace();
 		}
-
+		return validate;
 
 	}
 
