@@ -1,5 +1,7 @@
 (function(){
-	angular.module("schedulingModule", []);
+	angular.module("schedulingModule", [
+			"ngCookies"
+		]);
 }());
 
 (function(){
@@ -10,14 +12,12 @@
 		});
 
 	function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, TEMP_LOC){
-
-
 		$stateProvider
-			.state("dashboard.uploadSubject", {
-				url: "/uploadSubject",
-				templateUrl: TEMP_LOC.PATH + "scheduling/uploadSubjects.html",
-				controller: "uploadSubjectsCtrl",
-				controllerAs: "uploadSubj"
+			.state("dashboard.assignFaculty", {
+				url: "/assignFaculty",
+				templateUrl: TEMP_LOC.PATH + "scheduling/assignFaculty.html",
+				controller: "assignFacultyCtrl",
+				controllerAs: "assignFaculty"
 			});
 
 	}

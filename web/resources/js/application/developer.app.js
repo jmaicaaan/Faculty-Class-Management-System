@@ -1,5 +1,5 @@
 (function(){
-	angular.module("developerApp", ["angular-loading-bar"]);
+	angular.module("developerApp", []);
 }());
 
 (function(){

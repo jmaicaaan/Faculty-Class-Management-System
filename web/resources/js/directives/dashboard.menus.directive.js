@@ -10,7 +10,6 @@
 			link: function(scope, elem, attrs){
 
 				//Not the same as $scope
-				console.log($state);
 				if($state.$current.self.url == "/dashboard"){
 					scope.templateUrlLink = templateUrlLink;
 					$q.when(userService.userInfo.userRole).then(function(response){
@@ -26,8 +25,6 @@
 					var ac = scope.userType.split(",");
 
 					var userAccountType = ac.length > 1? ac[1].trim() : ac[0].trim();
-
-					console.log(userAccountType);
 
 					switch(userAccountType.toLowerCase()){
 						case "professor":

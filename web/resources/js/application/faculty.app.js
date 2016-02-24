@@ -5,10 +5,9 @@
 			"ngMaterial", 
 			"md.data.table", 
 			"angular-loading-bar",
-			"profileModule", 
-			"schedulingModule",
+			"profileModule",
 			"developerApp"
-			]);
+		]);
 }());
 
 (function(){

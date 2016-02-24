@@ -54,10 +54,10 @@
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
 	  				<param name="excludeProperties">
-	  					uModel\.attendance,
-	  					uModel\.classList,
-	  					uModel\.password,
-	  					uModel\.professorProfile
+	  					uModel\.user\.attendance,
+	  					uModel\.user\.classList,
+	  					uModel\.user\.password,
+	  					uModel\.user\.professorProfile
 	  				</param>	
 	  			</result>
 	  			<result name="input" type="json">

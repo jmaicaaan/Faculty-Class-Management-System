@@ -1,9 +1,8 @@
 (function(){
 	angular.module("profileModule", [
-			"ui.router", 
 			"lazyLoadingApp",
-			"angular-loading-bar"
-			]);
+			"schedulingModule"
+		]);
 }());
 
 (function(){
@@ -54,7 +53,7 @@
 				controller: "resumeCtrl",
 				controllerAs: "resume"
 			})
-			.state("dashboard.profile.schedule", {
+			.state("dashboard.profile.schedule", { /** This controller is on the scheduling **/
 				url: "/schedule",
 				templateUrl: TEMP_LOC + "profiling/myScheduleTab.html",
 				controller: "scheduleCtrl",

@@ -1,19 +1,17 @@
 package com.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 
+import com.helper.ProfilingHelperClass;
 import com.model.Expertise;
 import com.model.FacultyAssign;
 import com.model.ProfessorProfile;
@@ -66,8 +64,10 @@ public class SchedulingHelper {
 				trans.rollback();
 			}
 			ex.printStackTrace();
+		} finally{
+			session.close();
 		}
-		session.close();
+		
 		return subjectSetID;
 	}
 	
@@ -205,8 +205,10 @@ public class SchedulingHelper {
 			if(trans != null){
 				trans.rollback();
 			}
+		} finally{
+			session.close();
 		}
-		session.close();
+		
 	}
 	
 	public List<Expertise> getTableExpertise(Schedule schedule){
@@ -217,7 +219,7 @@ public class SchedulingHelper {
 		try {
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
-	
+			
 			int subjID = get_SubjID(schedule.getSubjects());
 			query = session.createQuery("FROM Expertise where SubjID = :id")
 					.setParameter("id", subjID);
@@ -266,9 +268,6 @@ public class SchedulingHelper {
 				session.close();
 			}
 		}
-		
-//		session.close();
-//		session.close();
 		return list;
 	}
 	
@@ -297,8 +296,9 @@ public class SchedulingHelper {
 				trans.commit();
 			}
 			throw e;
+		} finally{
+			session.close();
 		}
-		session.close();
 		return list;
 	}
 
@@ -322,17 +322,21 @@ public class SchedulingHelper {
 			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			throw e;
+		} finally{
+			session.close();
 		}
-		session.close();
+		
 		return list;
 	}
-
 
 	public void addFacultyAssign(List<FacultyAssign> facultyAssign){
 		
 		Session session = null;
 		Transaction trans = null;
-		Query query = null;
 		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
@@ -340,27 +344,21 @@ public class SchedulingHelper {
 			for(FacultyAssign fa : facultyAssign){
 				
 				int CID = fa.getSchedule().getcID();
+				String username = fa.getProfessorProfile().getUsers().getUsername();
 				
-				query = session.createQuery("select assignID from FacultyAssign where CID = :CID")
-							.setParameter("CID", CID);
-				Integer assignID = (Integer) query.uniqueResult();
-						
-				System.out.println(CID);
+				Integer assignID = (Integer) session.createSQLQuery("select assignID from FacultyAssign where CID = :CID")
+							.setParameter("CID", CID)
+							.uniqueResult();
+				Integer userID = (Integer) session.createSQLQuery("select userId from users where username=:un")
+						.setParameter("un", username)
+						.uniqueResult();
 				
-		
-				
-				System.out.println(assignID);
+				ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, userID);
+			
 				if(assignID == null){
-					session.save(new FacultyAssign(fa.getProfessorProfile(), fa.getSchedule()));
+					session.save(new FacultyAssign(professorProfile, fa.getSchedule()));
 				}
-//				if(assignID == null){
-//					session.save(fa);
-//				}else{
-//					FacultyAssign fObjc = (FacultyAssign)session.get(FacultyAssign.class,assignID);
-//					if(fObjc == null){
-//						session.save(fa);
-//					}
-//				}
+
 			}
 		
 			trans.commit();
@@ -371,7 +369,70 @@ public class SchedulingHelper {
 			}
 			ex.printStackTrace();
 			throw ex;
+		} finally {
+			session.close();
 		}
-		session.close();
+	}
+	
+	public List<FacultyAssign> viewAssignedFaculty(){
+		
+		Session session = null;
+		Transaction trans = null;
+		Query query = null;
+		List<FacultyAssign> faList = new ArrayList<FacultyAssign>();
+		
+		try {
+			
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			query = session.createQuery("from FacultyAssign");
+			faList = query.list();
+			trans.commit();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+			throw e;
+			
+		}finally{
+			session.close();
+		}
+		return faList;
+	}
+	
+	public List<FacultyAssign> viewMySchedule(String username){
+		
+		Session session = null;
+		Transaction trans = null;
+		Query query = null;
+		List<FacultyAssign> sList = new ArrayList<FacultyAssign>();
+		
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			ProfessorProfile professorProfile = ProfilingHelperClass.getProfessorProfile(username);
+			
+			query = session.createQuery("from FacultyAssign where PPID = :ppid")
+						.setParameter("ppid", professorProfile.getPpID());
+			
+			sList = query.list();
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+			
+		} finally{
+			session.close();
+		}
+		return sList;
 	}
 }
+

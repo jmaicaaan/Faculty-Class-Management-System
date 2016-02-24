@@ -9,7 +9,8 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/roboto-font.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/md-data-table.min.css">
-	<link rel='stylesheet' href='resources/css/loading-bar.css' type='text/css' media='all' />
+	<link rel="stylesheet" type='text/css' href="resources/css/loading-bar.css" media="all" />
+	<link rel="stylesheet" type='text/css' href="resources/css/styles.css" media="all" />
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -17,6 +18,7 @@
 	<script type="text/javascript" src="resources/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="resources/md-data-table.min.js"></script>
 	<script type='text/javascript' src='resources/loading-bar.js'></script>
+	<script type='text/javascript' src='resources/angular-cookies.min.js'></script>
 
 		<!-- Angular Material (dependecies must come first) -->
 	<script type="text/javascript" src="resources/angular-animate.js"></script>
@@ -29,19 +31,22 @@
 	<script type="text/javascript" src="resources/js/application/scheduling.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/developer.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
+	
+		
 		<!-- Angular controllers -->
 
 	<script type="text/javascript" src="resources/js/controllers/settings/genSetCtrl.js"></script>	
 	<script type="text/javascript" src="resources/js/controllers/settings/miscCtrl.js"></script>
-			
+
+
 	<script type="text/javascript" src="resources/js/controllers/profiling/generalCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/achievementsCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/projectsCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/researchCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/resumeCtrl.js"></script>
-	<script type="text/javascript" src="resources/js/controllers/profiling/scheduleCtrl.js"></script>
-
-	<script type="text/javascript" src="resources/js/controllers/scheduling/uploadSubjectsCtrl.js"></script>
+	
+	<script type="text/javascript" src="resources/js/controllers/scheduling/assignFacultyCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/scheduling/scheduleCtrl.js"></script>
 
 	<script type="text/javascript" src="resources/js/controllers/developer/usersManageCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/developer/subjManageCtrl.js"></script>
@@ -57,71 +62,32 @@
 	<script type="text/javascript" src="resources/js/directives/uploadImage.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/achievementPreview.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
-	<!-- <script type="text/javascript" src="resources/js/directives/uploadFile.directive.js"></script> -->
 	<script type="text/javascript" src="resources/js/directives/upload-File.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/scheduleConflict.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/bnLazyLoading.js"></script>
 	
 		<!-- Angular services -->
+
+	<script type="text/javascript" src="resources/js/services/scheduling/uploadSubjectsService.js"></script>	
+	<script type="text/javascript" src="resources/js/services/scheduling/scheduleService.js"></script>
+		
 	<script type="text/javascript" src="resources/js/services/userService.js"></script>
 	<script type="text/javascript" src="resources/js/services/authService.js"></script>
-	<script type="text/javascript" src="resources/js/services/profiling/scheduleService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/achievementService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/projectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/researchService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/resumeService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/subjectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
-	<script type="text/javascript" src="resources/js/services/scheduling/uploadSubjectsService.js"></script>
-
+	
 	<script type="text/javascript" src="resources/js/services/settings/genSetService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
-
 
 		<!-- Angular events -->
 	<script type="text/javascript" src="resources/js/events/AUTH_EVENTS.js"></script>
 	<script type="text/javascript" src="resources/js/events/USER_ROLES.js"></script>
-	
-
-	<style type="text/css">
-		.toolbar-profile-bg{
-			background-image: url("resources/img/svg/pattern.svg");
-		}
-		.avatar{
-			width: 75px;
-			height: 75px;
-			border-radius: 50%;
-			margin-top: 15px;
-			padding: 10px;
-		}
-		input[type=file]{
-			display: none;
-		}
-
-		.achievementImage{
-	        background: no-repeat center center fixed;
-	        -webkit-background-size: cover;
-	        -moz-background-size: cover;
-	        -o-background-size: cover;
-	        background-size: cover;
-		}
-
-		#loading-bar-spinner {
-		  top: 50%;
-		  left: 50%;
-		}
-
-		.resumeCard{
-			width: 400px; 
-			height: 225px;
-			background-image: url("resources/img/kite.jpg");
-			background-size: cover;
-		}
-
-		
-	</style>
 </head>
 <body ng-app="facultyApp">
 	<div ui-view></div>
-
 </body>
 </html>

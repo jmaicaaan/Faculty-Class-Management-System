@@ -5,6 +5,8 @@
 	function uploadSubjectsService($http, $q){
 		var self = this;
 		self.saveChanges = saveChanges;
+		self.generate_assignedFaculty = generate_assignedFaculty;
+		self.view_uploadedSubjects = view_uploadedSubjects;
 		self.parseList = parseList;
 		self.data = [];
 
@@ -50,13 +52,43 @@
 				});
 		}
 
+		function generate_assignedFaculty(){
+			var request = {
+				url: "Generate_AssignedFaculty.action",
+				method: "post",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			};
 
-		function parseList(newValue){
+			return $http(request)
+				.then(function(response){
+					return response;
+				})
+				.catch(function(error){
+					return error;
+				});
+		}
+
+		function view_uploadedSubjects(){
+			var request = {
+				url: "View_UploadedSubjects.action",
+				method: "post"
+			};
+
+			return $http(request).then(function(response){
+				var list = response.data;
+				return list;
+			});
+		}
+
+
+		function parseList(listData){
 			var deferred = $q.defer();
 
-			for(obj in newValue.response){
-				var subjects = newValue.response[obj].subjects;
-				var users = newValue.response[obj].professorProfile.users;
+			for(obj in listData){
+				var subjects = listData[obj].subjects;
+				var users = listData[obj].professorProfile.users;
 
 				for(sched in subjects.schedule){
 
@@ -83,7 +115,10 @@
 							var hasDuplicateClass = false;
 							for(dObj in self.data){
 								if (self.data[dObj].sched.section == subjects.schedule[sched].section 
-										&& self.data[dObj].subject.courseCode == subjects.courseCode) {
+										&& self.data[dObj].subject.courseCode == subjects.courseCode
+										&& self.data[dObj].sched.room == subjects.schedule[sched].room
+										&& self.data[dObj].sched.day == subjects.schedule[sched].day
+										&& self.data[dObj].sched.time == subjects.schedule[sched].time) {
 									hasDuplicateClass = true;
 
 									var hasDuplicateUser = false;

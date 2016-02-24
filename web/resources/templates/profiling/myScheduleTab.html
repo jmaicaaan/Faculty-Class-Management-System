@@ -5,8 +5,7 @@
 	    <span>Schedules</span>
 	  </div>
 	</md-toolbar>
-
-
+	{{sched.message}}
 	<md-table-container>
 	  <table md-table>
 	    <thead md-head md-order="sched.query.order">
@@ -21,12 +20,12 @@
 	    </thead>
 	    <tbody md-body>
 	      <tr md-row md-auto-select ng-repeat="sched in sched.schedule | orderBy: 'sched.query.order'">
-	        <td md-cell>{{sched.NO}}</td>
-	        <td md-cell>{{sched.CourseCode}}</td>
-	        <td md-cell>{{sched.Section}}</td>
-	        <td md-cell>{{sched.Days}}</td>
-	        <td md-cell>{{sched.Hours}}</td>
-	        <td md-cell>{{sched.BLDG}}</td>
+	        <td md-cell>{{$index}}</td>
+	        <td md-cell>{{sched.courseCode}}</td>
+	        <td md-cell>{{sched.schedule.section}}</td>
+	        <td md-cell>{{sched.schedule.day}}</td>
+	        <td md-cell>{{sched.schedule.time}}</td>
+	        <td md-cell>{{sched.schedule.room}}</td>
 	      </tr>
 	    </tbody>
 	  </table>

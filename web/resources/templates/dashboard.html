@@ -1,76 +1,70 @@
 <div layout="column">
-		
-		<md-toolbar class="" md-scroll-shrink>
-			<div class="md-toolbar-tools">
-				<md-button class="md-icon-button" aria-label="icon" toggle-Nav>
-					<md-icon md-svg-icon="resources/img/svg/menu.svg"></md-icon>
-				</md-button>
+	<md-toolbar md-scroll-shrink>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="icon" toggle-Nav>
+				<md-icon md-svg-icon="resources/img/svg/menu.svg"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<div layout="row">
+		<md-sidenav md-component-id="sidenav" class="md-whiteframe-24dp">
+			<div>
+				<md-toolbar class="md-tall toolbar-profile-bg">
+					<div class="md-toolbar-tools"> 
+						<md-list-item layout="row">
+							<img class="avatar" ng-src="{{dash.user.pictureUrl.url}}"/>
+							<upload-Icon 
+								class="md-icon-button"
+								tooltip-Msg="Upload photo"
+								tooltip-Pos="right"
+								icon="resources/img/svg/upload_image.svg"
+								file-data="dash.user.pictureUrl"
+								url="uploadUserImage.action">
+							</upload-Icon>
+						</md-list-item>
+					</div>
+					<div class="md-toolbar-tools"> 
+						<md-list-item>
+							<h3 class="md-headline">{{dash.user.firstName + " " + dash.user.lastName}}</h3>
+						</md-list-item>
+					</div>
+				</md-toolbar>
 			</div>
-		</md-toolbar>
-		
-		<div layout="row">
-			<md-sidenav md-component-id="sidenav" class="md-whiteframe-24dp">
-				<div>
-					<md-toolbar class="md-tall toolbar-profile-bg">
-						<div class="md-toolbar-tools"> 
-							<md-list-item layout="row">
-								<img class="avatar" ng-src="{{dash.user.pictureUrl.url}}"/>
-								
-								<upload-Icon 
-									class="md-icon-button"
-									tooltip-Msg="Upload photo"
-									tooltip-Pos="right"
-									icon="resources/img/svg/upload_image.svg"
-									file-data="dash.user.pictureUrl"
-									url="uploadUserImage.action">
-								</upload-Icon>
-								
-							</md-list-item>
-							
-						</div>
-						<div class="md-toolbar-tools"> 
-							<md-list-item>
-								<h3 class="md-headline">{{dash.user.firstName + " " + dash.user.lastName}}</h3>
-							</md-list-item>
-						</div>
-					</md-toolbar>
-				</div>
-				<md-list>
-					<!-- sidenav Menus --> 
-					<md-content toggle-Nav-Items>
-						<md-list-item ui-sref="dashboard">
-							<md-icon md-svg-icon="resources/img/svg/home.svg"></md-icon>
-							<p class="md-body-2">Home</p>
-						</md-list-item>
-						<md-list-item ui-sref="dashboard.profile.general">
-							<md-icon md-svg-icon="resources/img/svg/profile_circle.svg"></md-icon>
-							<p class="md-body-2">Profile</p>
-						</md-list-item>
-						<md-list-item ui-sref="dashboard.profile.schedule">
-							<md-icon md-svg-icon="resources/img/svg/schedule.svg"></md-icon>
-							<p class="md-body-2">My Schedule</p>
-						</md-list-item>
-						<md-list-item ui-sref="dashboard.settings">
-							<md-icon md-svg-icon="resources/img/svg/settings.svg"></md-icon>
-							<p class="md-body-2">Settings</p>
-						</md-list-item>
-						<md-list-item ui-sref="logout">
-							<md-icon md-svg-icon="resources/img/svg/logout.svg"></md-icon>
-							<p class="md-body-2">Logout</p>
-						</md-list-item>
+			<md-list>
+				<!-- sidenav Menus --> 
+				<md-content toggle-Nav-Items>
+					<md-list-item ui-sref="dashboard">
+						<md-icon md-svg-icon="resources/img/svg/home.svg"></md-icon>
+						<p class="md-body-2">Home</p>
+					</md-list-item>
+					<md-list-item ui-sref="dashboard.profile.general">
+						<md-icon md-svg-icon="resources/img/svg/profile_circle.svg"></md-icon>
+						<p class="md-body-2">Profile</p>
+					</md-list-item>
+					<md-list-item ui-sref="dashboard.profile.schedule">
+						<md-icon md-svg-icon="resources/img/svg/schedule.svg"></md-icon>
+						<p class="md-body-2">My Schedule</p>
+					</md-list-item>
+					<md-list-item ui-sref="dashboard.settings">
+						<md-icon md-svg-icon="resources/img/svg/settings.svg"></md-icon>
+						<p class="md-body-2">Settings</p>
+					</md-list-item>
+					<md-list-item ui-sref="logout">
+						<md-icon md-svg-icon="resources/img/svg/logout.svg"></md-icon>
+						<p class="md-body-2">Logout</p>
+					</md-list-item>
 
-						<md-divider></md-divider>
+					<md-divider></md-divider>
 
-						<md-list-item ui-sref="index">
-							<md-icon md-svg-icon="resources/img/svg/announcement.svg"></md-icon>
-							<p class="md-body-2">Send feedback</p>
-						</md-list-item>
-					</md-content>
-				</md-list>
-			</md-sidenav>
-		</div>
-		<div ui-view>
-			<dashboard-Menus></dashboard-Menus>
-		</div>
-		
+					<md-list-item ui-sref="index">
+						<md-icon md-svg-icon="resources/img/svg/announcement.svg"></md-icon>
+						<p class="md-body-2">Send feedback</p>
+					</md-list-item>
+				</md-content>
+			</md-list>
+		</md-sidenav>
+	</div>
+	<div ui-view>
+		<dashboard-Menus></dashboard-Menus>
+	</div>
 </div>

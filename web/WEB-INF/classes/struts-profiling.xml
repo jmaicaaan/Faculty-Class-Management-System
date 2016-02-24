@@ -223,7 +223,5 @@
 		  			<param name="errorCode">500</param>
 		  		</result>
 	  		</action>
-	  		
-	
 	  	</package>
    </struts>

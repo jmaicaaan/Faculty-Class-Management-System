@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.LoginHelper;
+import com.helper.HelperClass;
 import com.helper.Utilities;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
@@ -21,11 +22,11 @@ public class Update_CurrentSessionAction extends ActionSupport implements Sessio
 			uModel = (Users) userSession.get(Utilities.user_sessionName);
 			LoginHelper loginHelper = new LoginHelper();
 			
-			if(!uModel.getUsername().equals(Utilities.adminUsername)){
+			if(uModel.getUsername().equals(Utilities.adminUsername)){
+				uModel = HelperClass.Admin();
+			}else{
 				uModel = loginHelper.getUserDetails(uModel.getUserID());
 			}
-
-			
 		}catch(Exception e){
 			return INPUT;
 		}
