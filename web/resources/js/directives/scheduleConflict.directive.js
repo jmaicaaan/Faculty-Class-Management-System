@@ -7,8 +7,7 @@
 			restrict: "A",
 			scope: {
 				subjectData: "=",
-				userData: "=",
-				"status": "="
+				userData: "="
 			},
 			link: linker,
 			controller: schedCtrl
@@ -16,7 +15,6 @@
 
 		function linker(scope, elem, attrs){
 			var radioButton = angular.element(elem[0]);
-			console.log(elem);
 			var hasConflict = false;
 
 			radioButton.on("click", function(event){
@@ -33,7 +31,7 @@
 					}
 				};
 				scope.checkConflict(data).then(function(response){
-					scope.status = response;
+					
 				});
 			});
 		}

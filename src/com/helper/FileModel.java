@@ -14,6 +14,7 @@ public class FileModel {
 	private String fileContentType;
 	private String Url;
 	private Object response;
+	private String request;
 		
 	private DropBoxService dbService = new DropBoxService();
 
@@ -47,18 +48,23 @@ public class FileModel {
 	public void setResponse(Object response) {
 		this.response = response;
 	}
+	
+	public String getRequest() {
+		return request;
+	}
+	public void setRequest(String request) {
+		this.request = request;
+	}
 	public void doUpload(String serverPath) {
 
-		try
-		{
+		try{
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);
 			String Url = dbService.uploadResume(tempFile.getPath());
 			this.Url = Url;
 			
 		} 
-		catch (IOException e) 
-		{
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

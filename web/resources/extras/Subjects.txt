@@ -1,2 +1,7 @@
+DBASE-2,Database Application Intermediate Programming,3.0,D405,TTH,TI301,12:40-4:10
 DBASE-1,Database Application Programming,3.0,CL3,MW,TI201,11:20-12:50
-DBASE-1,Database Application Programming,3.0,D405,MW,TI201,11:20-12:50
+PROGAP3,Advanced Application Programming,3.0,CL3,TTH,TI301,6:00-7:30
+ISPROG3,Advanced C# Programming,3.0,CL3,TTH,TI201,11:20-5:50
+IT-DOCU,IT Documentation,3.0,D404,TTH,TI301,11:00-2:30
+DBASE-2,Database Application Intermediate Programming,3.0,D405,TTH,TI303,2:40-4:10
+SYSDESI,System Design,3.0,D301,TTH,TI301,4:20-5:50

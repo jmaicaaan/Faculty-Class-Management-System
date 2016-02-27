@@ -20,7 +20,6 @@
 
 
 		function init(){
-
 			loadSubjects();
 			getExpertise();
 		}
@@ -80,19 +79,22 @@
 			});
 		}
 
-		function dialogPasswordCtrl(){
+		function dialogPasswordCtrl($mdDialog){
 			var self = this;
-			self.message = "Hello";
-
 			self.updateUserPassword = updateUserPassword;
+			self.closeDialog = closeDialog;
 
 			function updateUserPassword(){
 				var userObj = {
 					"pModel": self.pass
 				};
 				genSetService.updateUserPassword(userObj).then(function(response){
-					console.log(response);
+					self.closeDialog();
 				});
+			}
+
+			function closeDialog(){
+				$mdDialog.hide();
 			}
 
 		}

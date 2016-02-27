@@ -73,9 +73,6 @@
 				};
 				usersObj.users.push(obj);
 			}
-			console.log(usersObj);
-			
-
 			var request = {
 					method: "post",
 					url: "addAccountType.action",
@@ -84,11 +81,7 @@
 						"Content-Type": "application/json",
 						"dataType": "json"
 					}
-			};
-			
-			//Should I stringify it or let the header parse it to json? hmm
-			//Answer is no need.
-			
+			};		
 			return $http(request)
 				.then(function(response){
 					console.log(response);

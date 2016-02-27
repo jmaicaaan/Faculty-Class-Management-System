@@ -47,18 +47,7 @@ public class Users {
 	
 	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<Classlist> ClassList;
-	
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<Attendance> attendance;
-	
-	
-	
-	public List<Attendance> getAttendance() {
-		return attendance;
-	}
-	public void setAttendance(List<Attendance> attendance) {
-		this.attendance = attendance;
-	}
+
 	public List<Classlist> getClassList() {
 		return ClassList;
 	}
@@ -124,16 +113,18 @@ public class Users {
 	
 	public Users(){}
 	
-	public Users(String idNo,String firstName,String lastName,String userName)
-	{
+	public Users(String idNo,String firstName,String lastName,String userName){
 		setIdNo(idNo);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setUsername(userName);
 	}
-	
-	public Users(String pictureUrl,int id)
-	{
+	public Users(String idNo,String firstName,String lastName){
+		setIdNo(idNo);
+		setFirstName(firstName);
+		setLastName(lastName);
+	}
+	public Users(String pictureUrl,int id){
 		setPictureUrl(pictureUrl);
 		setUserID(id);
 	}

@@ -28,13 +28,7 @@ public class Attendance {
 	@ManyToOne
 	@JoinColumn(name="ClassID")
 	private Classlist classlist;
-	
-	@ManyToOne
-	@JoinColumn(name="UserID")
-	private Users users;
-	
-	
-	
+
 
 	public int getAttendID() {
 		return attendID;
@@ -76,24 +70,16 @@ public class Attendance {
 		this.classlist = classlist;
 	}
 
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
 	
 	
 	public Attendance(){}
 	
-	public Attendance(String attendance,String date,String remarks,Classlist classlist,Users users)
+	public Attendance(String attendance,String date,String remarks,Classlist classlist)
 	{
 		setAttendance(attendance);
 		setDate(date);
 		setRemarks(remarks);
 		setClasslist(classlist);
-		setUsers(users);
 	}
 
 }

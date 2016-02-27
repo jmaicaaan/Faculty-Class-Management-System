@@ -434,5 +434,36 @@ public class SchedulingHelper {
 		}
 		return sList;
 	}
+	
+	public List<FacultyAssign> Generate_AssignedProfessors(){
+		
+		List<FacultyAssign> list = new ArrayList<FacultyAssign>();
+		Session session = null;
+		Query query=null;
+		Transaction trans = null;
+		
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			query = session.createQuery("From FacultyAssign");
+			list = query.list();
+			trans.commit();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			if (list.isEmpty()){
+				session.close();
+			}
+		}
+		return list;
+		
+	}
+	
+	
 }
 

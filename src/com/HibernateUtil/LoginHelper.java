@@ -1,15 +1,10 @@
 package com.HibernateUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.helper.HelperClass;
-import com.model.AccountType;
 import com.model.Users;
 
 public class LoginHelper {

@@ -11,7 +11,7 @@
 			<div>
 				<md-toolbar class="md-tall toolbar-profile-bg">
 					<div class="md-toolbar-tools"> 
-						<md-list-item layout="row">
+						<md-list-item layout="row" >
 							<img class="avatar" ng-src="{{dash.user.pictureUrl.url}}"/>
 							<upload-Icon 
 								class="md-icon-button"
@@ -19,7 +19,8 @@
 								tooltip-Pos="right"
 								icon="resources/img/svg/upload_image.svg"
 								file-data="dash.user.pictureUrl"
-								url="uploadUserImage.action">
+								url="uploadUserImage.action"
+								ng-hide="dash.isDeveloper">
 							</upload-Icon>
 						</md-list-item>
 					</div>
@@ -37,15 +38,15 @@
 						<md-icon md-svg-icon="resources/img/svg/home.svg"></md-icon>
 						<p class="md-body-2">Home</p>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard.profile.general">
+					<md-list-item ui-sref="dashboard.profile.general" ng-hide="dash.isDeveloper">
 						<md-icon md-svg-icon="resources/img/svg/profile_circle.svg"></md-icon>
 						<p class="md-body-2">Profile</p>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard.profile.schedule">
+					<md-list-item ui-sref="dashboard.profile.schedule" ng-hide="dash.isDeveloper">
 						<md-icon md-svg-icon="resources/img/svg/schedule.svg"></md-icon>
 						<p class="md-body-2">My Schedule</p>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard.settings">
+					<md-list-item ui-sref="dashboard.settings" ng-hide="dash.isDeveloper">
 						<md-icon md-svg-icon="resources/img/svg/settings.svg"></md-icon>
 						<p class="md-body-2">Settings</p>
 					</md-list-item>

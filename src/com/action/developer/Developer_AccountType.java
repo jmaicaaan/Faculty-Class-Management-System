@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class Developer_AccountType extends ActionSupport {
 	
 	private List<Users> users = new ArrayList<Users>();
+	private boolean hasAdded = false;
 	
 	@Override
 	public String execute() throws Exception {
@@ -20,13 +21,13 @@ public class Developer_AccountType extends ActionSupport {
 			for(Users uModel : users){
 				for(AccountType acType : uModel.getAccountType()){
 					AccountType accountType = new AccountType(acType.getAccountType(), uModel);
-					session_Helper.addAccountType(accountType,uModel);
+					hasAdded = session_Helper.addAccountType(accountType,uModel);
 				}
 			}
 		}catch(Exception e){
-			return ERROR; 
+			e.printStackTrace();
+			return INPUT;
 		}
-		
 		return SUCCESS;
 	}
 
@@ -36,7 +37,7 @@ public class Developer_AccountType extends ActionSupport {
 	public void setUsers(List<Users> users) {
 		this.users = users;
 	}
-	
-	
-	
+	public boolean isHasAdded() {
+		return hasAdded;
+	}
 }

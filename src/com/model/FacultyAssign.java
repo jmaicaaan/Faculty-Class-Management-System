@@ -2,7 +2,6 @@ package com.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Cascade;
 
 @Entity
 public class FacultyAssign {
@@ -34,12 +31,9 @@ public class FacultyAssign {
 	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.EAGER)
 	private List<FacultyAssign> facultyAssign;
 	
-	public List<FacultyAssign> getFacultyAssign() {
-		return facultyAssign;
-	}
-	public void setFacultyAssign(List<FacultyAssign> facultyAssign) {
-		this.facultyAssign = facultyAssign;
-	}
+	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.EAGER)
+	private List<Classlist> classList;
+	
 	public int getAssignID() {
 		return assignID;
 	}
@@ -58,7 +52,20 @@ public class FacultyAssign {
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
 	}
-
+	
+	public List<FacultyAssign> getFacultyAssign() {
+		return facultyAssign;
+	}
+	public void setFacultyAssign(List<FacultyAssign> facultyAssign) {
+		this.facultyAssign = facultyAssign;
+	}
+	public List<Classlist> getClassList() {
+		return classList;
+	}
+	public void setClassList(List<Classlist> classList) {
+		this.classList = classList;
+	}
+	
 	public FacultyAssign(){}
 	
 	public FacultyAssign(ProfessorProfile professorProfile,Schedule schedule){

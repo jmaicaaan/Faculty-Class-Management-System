@@ -1,7 +1,8 @@
 (function(){
 	angular.module("profileModule", [
 			"lazyLoadingApp",
-			"schedulingModule"
+			"schedulingModule",
+			"attendanceModule"
 		]);
 }());
 
@@ -15,7 +16,7 @@
 
 		$urlRouterProvider
 			.when("/dashboard/profile", "dashboard/profile/general")
-			.otherwise("/dashboard/profile");
+			.otherwise("/dashboard");
 
 		$stateProvider
 			.state("dashboard.profile", {

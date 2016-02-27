@@ -3,20 +3,10 @@ package com.helper;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -24,18 +14,11 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.HibernateUtil.DeveloperHelper;
-import com.HibernateUtil.ProfilingHelper;
-import com.HibernateUtil.SchedulingHelper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.model.AccountType;
-import com.model.Expertise;
-import com.model.ProfessorProfile;
-import com.model.Schedule;
-import com.model.Subjects;
 import com.model.Users;
 
 public class HelperClass {

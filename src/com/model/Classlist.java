@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Classlist {
 	private Users users;
 	
 	
-	@OneToMany(mappedBy="classlist")
+	@OneToMany(mappedBy="classlist",fetch=FetchType.EAGER)
 	private List<Attendance>attendance;
 
 	public List<Attendance> getAttendance() {
@@ -67,10 +68,9 @@ public class Classlist {
 	
 	public Classlist (){}
 	
-	public Classlist(FacultyAssign facultyAssign, Users users)
-	{
-		setFacultyAssign(facultyAssign);
+	public Classlist(Users users, FacultyAssign facultyassign){
 		setUsers(users);
+		setFacultyAssign(facultyassign);
 	}
 	
 }

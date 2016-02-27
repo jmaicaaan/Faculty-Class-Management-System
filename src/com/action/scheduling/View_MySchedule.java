@@ -25,8 +25,9 @@ public class View_MySchedule extends ActionSupport implements SessionAware {
 		SchedulingHelper s_helper = new SchedulingHelper();
 		Users user = (Users) userSession.get(Utilities.user_sessionName);
 		
-		mySchedule = s_helper.viewMySchedule(user.getUsername()).stream().collect(Collectors.toSet());
-		
+		mySchedule = s_helper.viewMySchedule(user.getUsername())
+				.stream()
+				.collect(Collectors.toSet());
 		
 		return SUCCESS;
 	}

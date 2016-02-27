@@ -17,7 +17,10 @@
 					<md-card class="md-whiteframe-5dp">
 						<md-card-header>
 							<md-card-header-text layout-align="center center">
-								<span class="md-title">{{subj.subject.courseCode}}</span>
+								<span class="md-title">{{subj.subject.courseCode}}
+									 <md-icon md-svg-src="resources/img/svg/error.svg" aria-label="Upload"></md-icon>
+								</span>
+								
 								<span class="md-subhead">{{subj.subject.description}}</span>
 								<span class="md-subhead">{{subj.sched.time}} {{subj.sched.day}}</span>
 								<span class="md-subhead">{{subj.sched.section}} {{subj.sched.room}}</span>
@@ -34,7 +37,6 @@
 								  <md-radio-group ng-model="assignFaculty.selected[subj.$$hashKey]" layout-margin>
 								        <md-radio-button ng-value="user.username" 
 								        	schedule-Conflict user-Data="user.username" subject-Data="subj"
-
 								        	aria-label="radio">
 								        </md-radio-button>
 								   </md-radio-group>   

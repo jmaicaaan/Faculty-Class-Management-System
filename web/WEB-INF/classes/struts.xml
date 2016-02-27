@@ -6,40 +6,13 @@
   <struts>
   	<constant name="struts.devMode" value="true"/>
   	
-  	
-  	
   	<package name="default" extends="struts-default, json-default">  		
   	</package>
   	
   	<include file="struts-user.xml"></include>
   	<include file="struts-profiling.xml"></include>
   	<include file="struts-scheduling.xml"></include>
+  	<include file="struts-attendance.xml"></include>
   	<include file="struts-developer.xml"></include>
-  	
-  	<!-- 
-  	
-  	<constant name="struts.custom.i18n.resources" value="global" />
-  	<constant name="struts.multipart.saveDir" value="location of your choice" /> -->
-  	
-  	<!-- <package name="scheduling" extends="struts-default">
-  		<action name="scheduling" class="com.action.scheduling.schedulingAction">
-  			<interceptor-ref name="exception"/>
-            	<interceptor-ref name="i18n"/>
-            	<interceptor-ref name="fileUpload">
-       			<param name="maximumSize">10240</param>
-  	    	</interceptor-ref> 
-  			<interceptor-ref name="params">
-                <param name="excludeParams">dojo\..*,^struts\..*</param>
-            </interceptor-ref>
-  			<interceptor-ref name="validation">
-                <param name="excludeMethods">input,back,cancel,browse</param>
-            </interceptor-ref>
-            <interceptor-ref name="workflow">
-                <param name="excludeMethods">input,back,cancel,browse</param>
-            </interceptor-ref>
-  	
-	   		<result name="success">/index.html</result>
-  		</action>
-  	</package> -->
   	
   </struts>

@@ -92,6 +92,16 @@
 	  			<param name="errorCode">500</param>
    			</result>
    		</action>
+   		
+   		<action name="Generate_AssignedProfessors" class="com.action.scheduling.Generate_PDF">
+  			<interceptor-ref name="myStack"/>
+  			<result name="success" type="stream">
+			  <param name="contentType">application/octet-stream</param>
+			  <param name="inputName">inputStream</param>
+			  <param name="contentDisposition">attachment;filename="document-${inputStreamName}"</param>
+			  <param name="bufferSize">1024</param>
+			</result>
+	  	</action>
    	
    	</package>
    </struts>

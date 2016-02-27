@@ -9,6 +9,7 @@
 				icon: "@", //Enable this to acquire it from the template. See below
 				fileData: "=",
 				url: "=",
+				requestObj: "=",
 				class: "@",
 				tooltipMsg: "@",
 				tooltipPos: "@",
@@ -30,6 +31,9 @@
 			function upload(file, url){
 				var formdata = new FormData();
 				formdata.append("file", file);
+				if($scope.requestObj){
+					formdata.append("request", $scope.requestObj);
+				}
 				
 				uploadIconService.upload(formdata, url).then(function(response){
 					console.log(response);
@@ -64,8 +68,6 @@
 					scope.upload(selectedFile, url);
 				}
 			});
-
-
 		}
 	}
 }());
