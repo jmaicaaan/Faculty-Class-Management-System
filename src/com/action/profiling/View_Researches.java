@@ -30,8 +30,7 @@ public class View_Researches extends ActionSupport implements SessionAware{
 			
 			uModel = (Users) userSession.get(Utilities.user_sessionName);
 			p_profile.setPpID(uModel.getUserID());
-			rSet = p_helper.viewResearches(p_profile)
-						.stream().collect(Collectors.toSet());
+			rSet = p_helper.viewResearches(p_profile);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return INPUT;

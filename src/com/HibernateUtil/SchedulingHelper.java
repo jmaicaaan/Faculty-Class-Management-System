@@ -1,10 +1,12 @@
 package com.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -420,6 +422,9 @@ public class SchedulingHelper {
 						.setParameter("ppid", professorProfile.getPpID());
 			
 			sList = query.list();
+			//Ahhhhh faculty assign many to one with sched at sched many to one with subj
+			//by default eager na di ko na need initialize
+//			Hibernate.initialize(sList);
 			
 			trans.commit();
 		} catch (Exception e) {

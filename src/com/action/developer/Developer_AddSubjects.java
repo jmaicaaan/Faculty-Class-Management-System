@@ -8,7 +8,7 @@ import com.model.Subjects;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class Developer_AddSubjects extends ActionSupport {
-	
+	 
 	
 	private List<Subjects> subjects = new ArrayList<Subjects>();
 	

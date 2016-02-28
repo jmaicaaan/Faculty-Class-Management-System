@@ -42,8 +42,7 @@ public class UploadUserImageModel {
 	public void doUpload(String serverPath) {
 		DropBoxService dbService = new DropBoxService();
 		
-		try
-		{
+		try{
 			System.out.println(fileFileName);
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);

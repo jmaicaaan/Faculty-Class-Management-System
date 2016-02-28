@@ -133,8 +133,7 @@ public class AttendanceHelper {
 			trans = session.beginTransaction();
 			Integer assignID=null;
 			Integer userID=null;
-			if(classlist.getUsers().getUserID()==0)
-			{
+			if(classlist.getUsers().getUserID()==0){
 				Integer userId=(Integer)session.createSQLQuery("select userid from users where idno=:idno")
 						.setParameter("idno", classlist.getUsers().getIdNo())
 						.uniqueResult();

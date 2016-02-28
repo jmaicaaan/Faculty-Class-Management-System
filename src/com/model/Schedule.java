@@ -37,7 +37,7 @@ public class Schedule {
 	private Subjects subjects;
 	
 	
-	@OneToMany(mappedBy="schedule", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="schedule", fetch = FetchType.LAZY)
 	private List<FacultyAssign> facultyAssign;
 	
 	

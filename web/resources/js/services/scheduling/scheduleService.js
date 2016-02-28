@@ -18,6 +18,7 @@
 
 			return $http(request).then(function(response){
 				var temp = [];
+				console.log(response);
 				for(var sched in response.data.mySchedule){
 					var courseCode = response.data.mySchedule[sched].schedule.subjects.courseCode;
 					var schedule = response.data.mySchedule[sched].schedule;
@@ -34,6 +35,9 @@
 				}
 				self.schedule = temp;
 				return self.schedule;
+			})
+			.catch(function(error){
+				return error;
 			});
 		}
 	}

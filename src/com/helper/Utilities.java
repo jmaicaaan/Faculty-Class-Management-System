@@ -7,6 +7,10 @@ public interface Utilities {
 			adminPassword = "developer01",
 			adminAccountType = "developer";
 	
+	String secUsername = "secretary01",
+			secPassword = "secretary01",
+			secAccountType = "secretary";
+	
 	String PROFESSOR = "Professor",
 			CHAIRPERSON = "Chairperson",
 			STUDENT = "Student",

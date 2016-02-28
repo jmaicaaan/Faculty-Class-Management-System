@@ -74,7 +74,14 @@
    		<action name="View_MySchedule" class="com.action.scheduling.View_MySchedule">
    			<interceptor-ref name="myStack"/>
    			<result name="success" type="json">
-   			
+   				<param name="excludeProperties">
+   					mySchedule\[\d+\]\.classList,
+   					mySchedule\[\d+\]\.facultyAssign,
+   					mySchedule\[\d+\]\.professorProfile,
+   					mySchedule\[\d+\]\.schedule\.facultyAssign,
+   					mySchedule\[\d+\]\.schedule\.subjects\.expertise,
+   					mySchedule\[\d+\]\.schedule\.subjects\.schedule
+   				</param>
    			</result>
    			<result name="input" type="json">
    				<param name="statusCode">500</param>

@@ -51,6 +51,9 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
 
+	<!-- 	<property name="hibernate.enable_lazy_load_no_trans">true"</property> -->
+	
+
         <!-- Names the annotated entity class -->
 				  <!-- ACCOUNTS -->
 			<mapping class="com.model.Users"/>

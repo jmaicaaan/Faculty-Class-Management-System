@@ -1,9 +1,8 @@
 package com.action.scheduling;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -16,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class View_MySchedule extends ActionSupport implements SessionAware {
 
 	private Map<String, Object> userSession;
-	private Set<FacultyAssign> mySchedule = new HashSet<FacultyAssign>();
+	private List<FacultyAssign> mySchedule = new ArrayList<FacultyAssign>();
 	
 	@Override
 	public String execute() throws Exception {
@@ -25,9 +24,7 @@ public class View_MySchedule extends ActionSupport implements SessionAware {
 		SchedulingHelper s_helper = new SchedulingHelper();
 		Users user = (Users) userSession.get(Utilities.user_sessionName);
 		
-		mySchedule = s_helper.viewMySchedule(user.getUsername())
-				.stream()
-				.collect(Collectors.toSet());
+		mySchedule = s_helper.viewMySchedule(user.getUsername());
 		
 		return SUCCESS;
 	}
@@ -38,7 +35,7 @@ public class View_MySchedule extends ActionSupport implements SessionAware {
 		this.userSession = session;
 	}
 	
-	public Set<FacultyAssign> getMySchedule() {
+	public List<FacultyAssign> getMySchedule() {
 		return mySchedule;
 	}
 }

@@ -24,6 +24,8 @@ public class Update_CurrentSessionAction extends ActionSupport implements Sessio
 			
 			if(uModel.getUsername().equals(Utilities.adminUsername)){
 				uModel = HelperClass.Admin();
+			}else if(uModel.getUsername().equals(Utilities.secUsername)){
+				uModel = HelperClass.Secretary();
 			}else{
 				uModel = loginHelper.getUserDetails(uModel.getUserID());
 			}

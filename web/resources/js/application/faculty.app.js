@@ -6,7 +6,8 @@
 			"md.data.table", 
 			"angular-loading-bar",
 			"profileModule",
-			"developerApp"
+			"developerApp",
+			"secretaryApp"
 		]);
 }());
 

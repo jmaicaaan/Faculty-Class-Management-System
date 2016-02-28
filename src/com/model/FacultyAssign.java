@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,11 +29,11 @@ public class FacultyAssign {
 	@JoinColumn(name="CID")
 	private Schedule schedule;
 
-	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.EAGER)
-	private List<FacultyAssign> facultyAssign;
+	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.LAZY)
+	private Set<FacultyAssign> facultyAssign;
 	
-	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.EAGER)
-	private List<Classlist> classList;
+	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.LAZY)
+	private Set<Classlist> classList;
 	
 	public int getAssignID() {
 		return assignID;
@@ -52,20 +53,18 @@ public class FacultyAssign {
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
 	}
-	
-	public List<FacultyAssign> getFacultyAssign() {
+	public Set<FacultyAssign> getFacultyAssign() {
 		return facultyAssign;
 	}
-	public void setFacultyAssign(List<FacultyAssign> facultyAssign) {
+	public void setFacultyAssign(Set<FacultyAssign> facultyAssign) {
 		this.facultyAssign = facultyAssign;
 	}
-	public List<Classlist> getClassList() {
+	public Set<Classlist> getClassList() {
 		return classList;
 	}
-	public void setClassList(List<Classlist> classList) {
+	public void setClassList(Set<Classlist> classList) {
 		this.classList = classList;
 	}
-	
 	public FacultyAssign(){}
 	
 	public FacultyAssign(ProfessorProfile professorProfile,Schedule schedule){

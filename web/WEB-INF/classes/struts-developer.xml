@@ -5,26 +5,38 @@
 
    <struts>
    	<constant name="struts.devMode" value="true"/>
-   	<package name="developer" extends="json-default">
+   	<package name="developer" extends="struts-default, json-default">
    		
   		<interceptors>
-	   		<interceptor-stack name="defaultStack">
+	   		<interceptor-stack name="myStack">
+	   			<interceptor-ref name="defaultStack"/>
+	   			<interceptor-ref name="fileUpload">
+	   				<!-- <param name="maximumSize">10240</param> -->
+	   			</interceptor-ref>
 	   			<interceptor-ref name="json">
 	   				<param name="enableSMD">true</param>
 	   			</interceptor-ref>
 	   		</interceptor-stack>
-	   	</interceptors>
+		 </interceptors>
 	   	
    		<action name="saveProfessors" class="com.action.developer.DeveloperAction">
 	   		<result name="success" type="json">
 	   			<param name="">users</param>
 	   		</result>
    		</action>
+   		
    		<action name="viewProfessors" class="com.action.developer.DeveloperViewProfessors">
+   			<interceptor-ref name="myStack"/>
 	   		<result name="success" type="json">
-	   			<param name="">users</param>
+	   			<param name="excludeNullProperties">true</param>
+	   			<param name="excludeProperties">
+	   				users\[\d+\]\.classList,
+	   				users\[\d+\]\.professorProfile,
+	   				users\[\d+\]\.password
+	   			</param>
 	   		</result>
    		</action>
+   		
    		<action name="addAccountType" class="com.action.developer.Developer_AccountType">
 	   		<result name="success" type="json">
 	   			<param name="">users</param>
@@ -35,6 +47,7 @@
 	  			<param name="errorCode">500</param>
 	  		</result>
    		</action>
+   		
    		<action name="addSubjects" class="com.action.developer.Developer_AddSubjects">
 	   		<result name="success" type="json">
 	   			<param name="excludeNullProperties">true</param>
@@ -46,10 +59,6 @@
    		</action>
    		<action name="loadSubjects" class="com.action.developer.Developer_LoadSubjects">
 	   		<result name="success" type="json">
-	   			<param name="excludeProperties">
-	   				subjects\[\d+\]\.expertise,
-	   				subjects\[\d+\]\.schedule	
-	   			</param>
 	   			<param name="excludeNullProperties">true</param>
 	   		</result>
 	   		<result name="input" type="json">

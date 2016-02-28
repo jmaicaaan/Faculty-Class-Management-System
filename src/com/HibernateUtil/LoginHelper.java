@@ -1,28 +1,26 @@
 package com.HibernateUtil;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.helper.HelperClass;
+import com.model.Password;
 import com.model.Users;
 
 public class LoginHelper {
 
-	public int getUserID(String username) //Jm was here :)
-	{
-		//Handle the exception when the the username is not found in the database.
-		//Exception: NullPointerException
+	public int getUserID(String username){
 		Transaction trans = null;
 		Session session = null;
 		int userID = 0;
-		try
-		{
+		try{
 
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 
-			Query query=session.createQuery("from Users where username=:uName");
+			Query query=session.createSQLQuery("select * from Users where username=:uName");
 			query.setParameter("uName", username);
 
 			Users users=(Users) query.uniqueResult();
@@ -54,6 +52,9 @@ public class LoginHelper {
 			if(HelperClass.isAdmin(username, password)){
 				users = HelperClass.Admin();
 				return users;
+			}else if(HelperClass.isSecretary(username, password)){
+				users = HelperClass.Secretary();
+				return users;
 			}else{
 
 				session = HibernateFactory.getSession().openSession();
@@ -67,9 +68,12 @@ public class LoginHelper {
 				if(users == null){
 					return null;
 				}else{
-					if(users.getUsername().equalsIgnoreCase(username) 
-							&& users.getPassword().get(0).getPassword().equals(HelperClass.encrypt(password))){					
-						return users;
+
+					for(Password p : users.getPassword()){
+						if(users.getUsername().equalsIgnoreCase(username) &&
+								p.getPassword().equals(HelperClass.encrypt(password))){
+							return users;
+						}
 					}
 				}
 			}
@@ -86,6 +90,7 @@ public class LoginHelper {
 	}
 
 	public Users getUserDetails(int userID){
+		
 		Users usersModel = null;
 		Transaction trans = null;
 		Session session = null;
@@ -98,7 +103,7 @@ public class LoginHelper {
 
 			//Single result
 			usersModel = (Users) query.uniqueResult();
-
+			Hibernate.initialize(usersModel.getAccountType());
 			trans.commit();
 
 		}catch(Exception e){
@@ -106,10 +111,9 @@ public class LoginHelper {
 				trans.rollback();
 			}
 			e.printStackTrace();
+		} finally{
+			session.close();
 		}
-
-		session.close();
 		return usersModel;
-
 	}
 }

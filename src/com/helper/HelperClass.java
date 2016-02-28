@@ -6,7 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -40,7 +42,7 @@ public class HelperClass {
 	}
 
 	public static boolean isAdmin(String username, String password){
-		return (username.equals(Utilities.adminUsername) && username.equals(Utilities.adminPassword)) ? true : false;
+		return (username.equals(Utilities.adminUsername) && password.equals(Utilities.adminPassword)) ? true : false;
 	}
 	public static Users Admin(){
 		Users users = new Users();
@@ -51,7 +53,28 @@ public class HelperClass {
 		users.setPictureUrl(Utilities.defaultImage);
 		AccountType ac=  new AccountType();
 		ac.setAccountType(Utilities.adminAccountType);
-		List<AccountType> acList = new ArrayList<AccountType>();
+		Set<AccountType> acList = new HashSet<AccountType>();
+		acList.add(ac);
+		users.setAccountType(acList);
+
+		return users;
+	}
+	
+	public static boolean isSecretary(String username, String password){
+		return (username.equals(Utilities.secUsername) && password.equals(Utilities.secPassword)) ? true : false;
+	}
+	
+	public static Users Secretary(){
+		
+		Users users = new Users();
+		users = new Users();
+		users.setUsername(Utilities.secUsername);
+		users.setFirstName(Utilities.secUsername);
+		users.setLastName(Utilities.secUsername);
+		users.setPictureUrl(Utilities.defaultImage);
+		AccountType ac=  new AccountType();
+		ac.setAccountType(Utilities.secAccountType);
+		Set<AccountType> acList = new HashSet<AccountType>();
 		acList.add(ac);
 		users.setAccountType(acList);
 

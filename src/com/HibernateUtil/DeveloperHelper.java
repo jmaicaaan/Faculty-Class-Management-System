@@ -1,8 +1,10 @@
 package com.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,7 +27,8 @@ public class DeveloperHelper implements Utilities {
 			session.beginTransaction();
 			Integer count=(Integer)session.createSQLQuery("Select count(*) from Users "
 					+ "where Users.IDNo=:idno")
-					.setParameter("idno", users.getIdNo()).uniqueResult();
+					.setParameter("idno", users.getIdNo())
+					.uniqueResult();
 			if(count <= 0){
 				session.save(users);
 				validate = true;
@@ -45,8 +48,7 @@ public class DeveloperHelper implements Utilities {
 
 	public void addPassword(Password password)
 	{
-		try
-		{
+		try{
 			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(password);
@@ -150,20 +152,39 @@ public class DeveloperHelper implements Utilities {
 		return hasAdded;
 	}
 
-	public List<Users>viewAllProfessors() 
-	{
-
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-
-		Query query=session.createQuery("From Users");
-
-		List<Users>list=query.list();
-
-		session.getTransaction().commit();
-		session.close();
+	public List<Users> viewAllProfessors(){
+		
+		Session session = null;
+		Transaction trans = null;
+		List<Users> list = new ArrayList<Users>();
+		
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			list = session.createQuery("from Users").list();
+			
+			list.forEach(i -> {
+				Hibernate.initialize(i.getAccountType());
+			});
+//			for(Users u : list){
+//				Hibernate.initialize(u.getAccountType());
+//				u.setClassList(Collections.emptySet());
+//				u.setPassword(Collections.emptySet());
+//				u.setProfessorProfile(Collections.emptySet());
+//			}
+			
+			trans.commit();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+		} finally{
+			session.close();
+		}
+		
 		return list;
-
 	}
 
 	public void addSubjects(Subjects subjects){
@@ -188,18 +209,34 @@ public class DeveloperHelper implements Utilities {
 		}
 	}
 
-	public List<Subjects>viewSubjects() 
-	{
-
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-
-		Query query=session.createQuery("From Subjects");
-
-		List<Subjects> list = query.list();
-
-		session.getTransaction().commit();
-		session.close();
+	public List<Subjects>viewSubjects(){
+		
+		
+		Session session = null;
+		Transaction trans = null;
+		List<Subjects> list = new ArrayList<Subjects>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			list = session.createQuery("From Subjects")
+					.list();
+			
+			for(Subjects s : list){
+				s.setExpertise(Collections.emptySet());
+				s.setSchedule(Collections.emptySet());
+			}
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.commit();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 		return list;
 
 	}

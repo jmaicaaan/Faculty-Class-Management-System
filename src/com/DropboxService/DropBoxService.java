@@ -12,7 +12,6 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.Files;
 import com.dropbox.core.v2.Files.ListFolderException;
 import com.dropbox.core.v2.Files.Metadata;
-import com.fasterxml.jackson.core.JsonFactory;
 
 public class DropBoxService implements DropboxApi {
 

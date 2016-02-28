@@ -6,6 +6,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.LoginHelper;
 import com.helper.Utilities;
+import com.model.Password;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -24,8 +25,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		
 		LoginHelper loginHelper = new LoginHelper();
 		try{
-			String username = usersModel.getUsername(),
-					password = usersModel.getPassword().get(0).getPassword();
+			
+			String username = usersModel.getUsername();
+			String password = "";
+			for(Password p : usersModel.getPassword()){
+				password = p.getPassword();
+			}
 
 			usersModel = loginHelper.loginUser(username, password);
 			

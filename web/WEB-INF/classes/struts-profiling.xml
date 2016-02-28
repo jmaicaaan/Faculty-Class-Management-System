@@ -102,6 +102,9 @@
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
+	  				<param name="excludeProperties">
+	  					aSet\[\d+\]\.professorProfile
+	  				</param>
 	  			</result>
 	  			<result name="input" type="json">
 		  			<param name="statusCode">500</param>
@@ -112,6 +115,9 @@
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
+	  				<param name="excludeProperties">
+	  					pSet\[\d+\]\.professorProfile
+	  				</param>
 	  			</result>
 	  			<result name="input" type="json">
 		  			<param name="statusCode">500</param>
@@ -122,6 +128,9 @@
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
+	  				<param name="excludeProperties">
+	  					rSet\[\d+\]\.professorProfile
+	  				</param>
 	  			</result>
 	  			<result name="input" type="json">
 		  			<param name="statusCode">500</param>
@@ -132,6 +141,9 @@
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
+	  				<param name="excludeProperties">
+	  					rSet\[\d+\]\.professorProfile
+	  				</param>
 	  			</result>
 	  			<result name="input" type="json">
 		  			<param name="statusCode">500</param>

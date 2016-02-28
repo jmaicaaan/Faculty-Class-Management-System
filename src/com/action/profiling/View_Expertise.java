@@ -29,8 +29,7 @@ public class View_Expertise extends ActionSupport implements SessionAware{
 		
 		try {
 			professorProfile.setPpID(uModel.getUserID());
-			eSet = p_helper.viewExpertise(professorProfile)
-						.stream().collect(Collectors.toSet());
+			eSet = p_helper.viewExpertise(professorProfile);
 		} catch (Exception e) {
 			return INPUT;
 		}

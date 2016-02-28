@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,7 +29,7 @@ public class Classlist {
 	private Users users;
 	
 	
-	@OneToMany(mappedBy="classlist",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="classlist", fetch=FetchType.LAZY)
 	private List<Attendance>attendance;
 
 	public List<Attendance> getAttendance() {

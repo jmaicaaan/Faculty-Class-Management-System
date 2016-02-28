@@ -16,6 +16,10 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class View_Resume extends ActionSupport implements SessionAware{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<String, Object> userSession;
 	private Set<Resume> rSet = new HashSet<Resume>();
 	

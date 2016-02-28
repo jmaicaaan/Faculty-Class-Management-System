@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,42 +34,40 @@ public class Users {
 	columnDefinition="varchar(250) default 'resources/img/avatar.png'")
 	private String pictureUrl;
 	
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<AccountType> accountType;
 
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<AccountType> accountType;
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<Password> password;
+	
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<ProfessorProfile> professorProfile;
+	
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<Classlist> ClassList;
 
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<Password> password;
-	
-	
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<ProfessorProfile> professorProfile;
-	
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<Classlist> ClassList;
-
-	public List<Classlist> getClassList() {
+	public Set<Classlist> getClassList() {
 		return ClassList;
 	}
-	public void setClassList(List<Classlist> ClassList) {
+	public void setClassList(Set<Classlist> ClassList) {
 		this.ClassList = ClassList;
 	}
-	public List<ProfessorProfile> getProfessorProfile() {
+	public Set<ProfessorProfile> getProfessorProfile() {
 		return professorProfile;
 	}
-	public void setProfessorProfile(List<ProfessorProfile> professorProfile) {
+	public void setProfessorProfile(Set<ProfessorProfile> professorProfile) {
 		this.professorProfile = professorProfile;
 	}
-	public List<Password> getPassword() {
+	public Set<Password> getPassword() {
 		return password;
 	}
-	public void setPassword(List<Password> password) {
+	public void setPassword(Set<Password> password) {
 		this.password = password;
 	}
-	public List<AccountType> getAccountType() {
+	public Set<AccountType> getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(List<AccountType> accountType) {
+	public void setAccountType(Set<AccountType> accountType) {
 		this.accountType = accountType;
 	}
 	public int getUserID() {

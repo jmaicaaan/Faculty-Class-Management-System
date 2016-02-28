@@ -24,24 +24,24 @@ public class ProfessorProfile {
 	@JoinColumn(name="UserID")
 	private Users users;
 	
-	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.LAZY)
 	private Set<Achievements> achievements;
 
 	
-	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.LAZY)
 	private Set<Resume> resume;
 	
-	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.LAZY)
 	private Set<Researches> researches;
 	
-	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.LAZY)
 	private Set<Projects> projects;
 	
 	
-	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.LAZY)
 	private Set<FacultyAssign> facultyAssign;
 	
-	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.LAZY)
 	private Set<Expertise> expertise;
 	
 	public ProfessorProfile(){}

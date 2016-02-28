@@ -1,8 +1,13 @@
 package com.HibernateUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -19,8 +24,7 @@ public class ProfilingHelper {
 
 	public void addResearches(Researches researches)
 	{
-		try
-		{
+		try{
 			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(researches);
@@ -198,58 +202,106 @@ public class ProfilingHelper {
 	
 	
 	
-	public Set<Researches>viewResearches(ProfessorProfile professor) //overload id from loginHelper
-	{
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		Set<Researches> list = null;
-		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, professor.getPpID());
-		list = professorProfile.getResearches();
-		session.getTransaction().commit();
-		session.close();
-		return list;
+	public Set<Researches> viewResearches (ProfessorProfile professor){
 		
+		Session session = null;
+		Transaction trans = null;
+		Set<Researches> list = new HashSet<Researches>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile = (ProfessorProfile) 
+						session.get(ProfessorProfile.class, professor.getPpID());
+			list = professorProfile.getResearches();
+			Hibernate.initialize(list);
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return list;
 	}
 	
-	public Set<Projects>viewProjects(ProfessorProfile profile) //overload id from loginHelper
-	{
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		
-		Set<Projects>list=null;
-		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
-		
-		list=professorProfile.getProjects();
-	
+	public Set<Projects> viewProjects(ProfessorProfile profile){
 		
 		
-		session.getTransaction().commit();
-		session.close();
+		Session session = null;
+		Transaction trans = null;
+		Set<Projects>list = new HashSet<Projects>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list = professorProfile.getProjects();
+			Hibernate.initialize(list);
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 		return list;
 	}
 	
 	public Set<Resume>viewResume(ProfessorProfile profile)   //overload id from loginHelper
 	{
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		Set<Resume>list=null;
-		ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
-		list=professorProfile.getResume();
-		session.getTransaction().commit();
-		session.close();
+		Session session = null;
+		Transaction trans = null;
+		Set<Resume> list = new HashSet<Resume>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list = professorProfile.getResume();
+			Hibernate.initialize(list);
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
 		return list;
 		
 	}
-	public Set<Achievements>viewAchievements(ProfessorProfile profile)  //overload id from loginHelper
-	{
+	public Set<Achievements>viewAchievements(ProfessorProfile profile){
 		
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		Set<Achievements>list=null;
-		ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
-		list=professorProfile.getAchievements();
-		session.getTransaction().commit();
-		session.close();
+		Session session = null;
+		Transaction trans = null;
+		Set<Achievements> list = new HashSet<Achievements>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list=professorProfile.getAchievements();
+			Hibernate.initialize(list);
+			
+			
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally{
+			session.close();
+		}
 		return list;
 	}
 	
@@ -351,15 +403,18 @@ public class ProfilingHelper {
 	
 	public Set<Expertise> viewExpertise(ProfessorProfile professor)
 	{
+		Session session = null;
 		Transaction trans = null;
 		Set<Expertise> list = null;
-		Session session = null;
+		
 		try {
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			
 			ProfessorProfile professorProfile = (ProfessorProfile)session.get(ProfessorProfile.class, professor.getPpID());
 			list = professorProfile.getExpertise();
+			Hibernate.initialize(list);
+//			list.forEach(i -> i.getSubjects().getCourseCode());
 			
 			trans.commit();
 			

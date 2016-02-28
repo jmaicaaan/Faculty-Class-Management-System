@@ -16,15 +16,19 @@ public class DeveloperViewProfessors extends ActionSupport {
 		// TODO Auto-generated method stub
 		DeveloperHelper session_Helper = new DeveloperHelper();
 		users = session_Helper.viewAllProfessors();
+		
 		return SUCCESS;
+		
 	}
-	
+
 	public List<Users> getUsers() {
 		return users;
 	}
+
 	public void setUsers(List<Users> users) {
 		this.users = users;
 	}
+	
 	
 	
 }

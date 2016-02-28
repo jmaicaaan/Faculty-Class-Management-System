@@ -40,9 +40,6 @@ public class AccountType {
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
-
-
-
 	public Users getUsers() {
 		return users;
 	}

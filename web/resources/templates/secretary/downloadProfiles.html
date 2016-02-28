@@ -4,23 +4,28 @@
 				
 				<md-subheader class="md-no-sticky">Download professor's profile</md-subheader>
 
-				<md-list-item ng-repeat="prof in ['Mon Zalameda', 'Eusebio Yu', 'Eisen Sy', 'Henry Castro', 'Ernest Ocson']">
-				
-
+				<md-list-item ng-repeat="prof in dp.items">
 					<img alt="" ng-src="resources/img/avatar.jpg" class="md-avatar" />
 					<p>{{prof}}</p>
-					<md-checkbox class="md-secondary" ng-model="topping.wanted" aria-label="checbox"></md-checkbox>
-				
+					<md-checkbox class="md-secondary"
+						ng-checked="dp.exists(prof, dp.selected)" 
+						ng-click="dp.toggle(prof, dp.selected)"
+						aria-label="checkbox">
+					</md-checkbox>
 				</md-list-item>
 			</md-content>
 		</md-list>
 	<div>
 		<md-content layout="row" layout-margin layout-padding layout-align="start">
 			<h4>Select all</h4>
-			<md-checkbox class="md-secondary" ng-model="selected" aria-label="checkbox"></md-checkbox>
+			<md-checkbox class="md-secondary"
+				
+				ng-click="dp.selectAllProfessors()" 
+				aria-label="checkbox">
+			</md-checkbox>
 		</md-content>
 		<md-content layout="row" layout-margin layout-padding>
-			<md-button class="md-primary md-raised">Download</md-button>
+			<md-button class="md-primary md-raised" ng-click="dp.get()">Download</md-button>
 		</md-content>
 	</div>
 </md-content>

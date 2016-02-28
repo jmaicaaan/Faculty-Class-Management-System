@@ -37,4 +37,9 @@ public class ProfilingHelperClass {
 		
 		return professorProfile;
 	}
+	
+	public void excludeProperties(String propertyName){
+		
+		
+	}
 }
