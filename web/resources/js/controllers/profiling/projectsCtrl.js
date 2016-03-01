@@ -55,6 +55,8 @@
 			self.disableDeleteBtn = false;
 			self.closeDialog = closeDialog;
 			self.projectFile = project;
+
+			self.displayFile = project.projectName;
 			self.deleteFile = deleteProject;
 			
 			function closeDialog(){

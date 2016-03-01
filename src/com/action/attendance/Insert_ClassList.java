@@ -24,24 +24,30 @@ public class Insert_ClassList extends ActionSupport implements ModelDriven<FileM
 		AttendanceHelper a_helper = new AttendanceHelper();
 		FacultyAssign facAssign = new FacultyAssign();
 		List<Users> uList = new ArrayList<Users>();
-		String subject = fModel.getRequest().split(",")[0],
-				section = fModel.getRequest().split(",")[1];
 		
-	    int assignID = a_helper.getAssignID(subject, section);
-	    facAssign.setAssignID(assignID);
-	    
-		
-		uList = a_helperClass.readUploadedClasslist(fModel.getFile());
-		
-		uList.forEach(i -> {
-			if(a_helper.isStudentNotAdded(i)){
-				a_helper.addStudent(a_helperClass.Student(i));
-			}
-		
-			a_helper.addClassList(new Classlist(i, facAssign));
-		});
-		
-		return SUCCESS;
+		try {
+			String subject = fModel.getRequest().split(",")[0],
+					section = fModel.getRequest().split(",")[1];
+			
+		    int assignID = a_helper.getAssignID(subject, section);
+		    facAssign.setAssignID(assignID);
+		    
+			
+			uList = a_helperClass.readUploadedClasslist(fModel.getFile());
+			
+			uList.forEach(i -> {
+				if(a_helper.isStudentNotAdded(i)){
+					a_helperClass.Student(i);
+				}
+				a_helper.addClassList(new Classlist(i, facAssign));
+			});
+			
+			return SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return INPUT;
+		}
 	}
 	
 	@Override

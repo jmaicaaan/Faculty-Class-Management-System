@@ -56,6 +56,7 @@
 			self.achievementFile = achievement;
 
 				/** Watch out on this naming. Since we're using a global template in the delete **/
+			self.displayFile = achievement.achievement_Certificate_Name;
 			self.deleteFile = deleteAchievement;
 			
 

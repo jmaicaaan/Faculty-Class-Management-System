@@ -36,19 +36,19 @@ public class AttendanceHelperClass {
 			e.printStackTrace();
 			throw e;
 		}
-		
 		return uList;
 	}
 	
 	public Users Student(Users user){
 		AttendanceHelper a_helper = new AttendanceHelper();
 		
-		Users uObj = new Users();
+		Users uObj = user;
 		Password pObj = new Password(user);
 		AccountType aObj = new AccountType(Utilities.STUDENT, user);
 		
 		uObj.setUsername(user.getIdNo());
 		
+		a_helper.addStudent(uObj);
 		a_helper.addPassword(pObj);
 		a_helper.addAccountType(aObj);
 		

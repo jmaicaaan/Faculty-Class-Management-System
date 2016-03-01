@@ -1,6 +1,5 @@
 package com.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,9 +27,6 @@ public class FacultyAssign {
 	@ManyToOne
 	@JoinColumn(name="CID")
 	private Schedule schedule;
-
-	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.LAZY)
-	private Set<FacultyAssign> facultyAssign;
 	
 	@OneToMany(mappedBy="facultyAssign", fetch = FetchType.LAZY)
 	private Set<Classlist> classList;
@@ -52,12 +48,6 @@ public class FacultyAssign {
 	}
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
-	}
-	public Set<FacultyAssign> getFacultyAssign() {
-		return facultyAssign;
-	}
-	public void setFacultyAssign(Set<FacultyAssign> facultyAssign) {
-		this.facultyAssign = facultyAssign;
 	}
 	public Set<Classlist> getClassList() {
 		return classList;

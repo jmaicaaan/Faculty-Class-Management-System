@@ -19,14 +19,13 @@
 			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
 				$state.go("index");
 			});
-			$rootScope.$on("$stateChangeSuccess", function(event,toState, toParams, fromState, fromParams, error){
-				// if(Object.keys(userService.userInfo).length == 0){
-				// 	$state.go("index");
-				// }
+			$rootScope.$on("$stateChangeStart", function(event, next){
+				// var authRole = next.
+				console.log(next.data.authorizedRoles);
 			});
 		});
 
-	function facultyAppConfig($stateProvider, $urlRouterProvider){
+	function facultyAppConfig($stateProvider, $urlRouterProvider, USER_ROLES){
 
 		const TEMP_LOC = "resources/templates/";
 		
@@ -73,9 +72,15 @@
 			.state("dashboard.settings", {
 				url: "/settings",
 				templateUrl: TEMP_LOC + "/settings/settings.html",
-				controller: function($state){
+				data:{
+					authorizedRoles: [USER_ROLES.professor]
+				},
+				controller: function($state, authService){
+					var self = this;
 					$state.go("dashboard.settings.general");
-				}
+
+				},
+				controllerAs: "set"
 				
 			})
 			.state("dashboard.settings.general", {

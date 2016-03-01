@@ -7,6 +7,7 @@
 
 		self.createSession = createSession;
 		self.destroySession = destroySession;
+		self.getAccountType = getAccountType;
 		self.userInfo = {};
 
 		function createSession(responseObj){
@@ -35,6 +36,11 @@
 			// console.log(self.userInfo);
 			defer.resolve();
 			return defer.promise;
+		}
+
+		function getAccountType(){
+			var accountType = self.userInfo.userRole;
+			return accountType.toLowerCase().trim();
 		}
 		
 		function destroySession(){

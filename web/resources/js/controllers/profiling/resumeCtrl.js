@@ -32,7 +32,6 @@
 		}, function(newValue){
 			self.hasFiles = Object.keys(newValue).length? true: false;
 			if(self.hasFiles){
-				console.log(newValue);				
 				self.resumeFile = newValue[0];
 			}
 		});
@@ -57,6 +56,9 @@
 			self.disableDeleteBtn = false;
 			self.resumeFile = resume;
 			self.closeDialog = closeDialog;
+
+			console.log(resume);
+			self.displayFile = resume.resumeUrl;
 			self.deleteFile = deleteResume;
 
 			

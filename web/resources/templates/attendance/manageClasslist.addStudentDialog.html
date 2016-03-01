@@ -1,0 +1,41 @@
+<md-dialog aria-label="Add Student">
+	<md-dialog-content style="width: 500px;">
+	    <md-content layout-padding layout-margin>
+
+	      	<h5 class="md-title">Add Student</h5>
+			<md-content layout="column" layout-margin>
+				<md-input-container class="md-icon-float md-block">
+				  	<label>ID Number</label>
+				  	<!--  <md-icon md-svg-src="resources/img/svg/project_name.svg" style="color: gray;"></md-icon> -->
+				  	<input ng-model="addStudentDialogCtrl.student.users.idNo">
+				</md-input-container>
+				<md-input-container class="md-icon-float md-block">
+				  	<label>Firstname</label>
+				  	 <!-- <md-icon md-svg-src="resources/img/svg/project_name.svg" style="color: gray;"></md-icon> -->
+				  	<input ng-model="addStudentDialogCtrl.student.users.firstName">
+				</md-input-container>
+				<md-input-container class="md-icon-float md-block">
+				  	<label>Lastname</label>
+				  	 <!-- <md-icon md-svg-src="resources/img/svg/project_name.svg" style="color: gray;"></md-icon> -->
+				  	<input ng-model="addStudentDialogCtrl.student.users.lastName">
+				</md-input-container>
+				
+			</md-content>      
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions>
+
+		<md-content layout-padding layout-margin>
+			<md-button class="md-primary md-raised" 
+						ng-click="addStudentDialogCtrl.closeDialog()">
+				Cancel
+			</md-button>
+			<md-button class="md-primary md-raised" 
+						ng-click="addStudentDialogCtrl.addStudent()" 
+						ng-disabled="addStudentDialogCtrl.disableButton">
+			    Add Student
+			</md-button>
+		</md-content>
+	</md-dialog-actions>
+</md-dialog>
+

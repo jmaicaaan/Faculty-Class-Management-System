@@ -3,15 +3,18 @@ package com.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 import com.helper.Utilities;
 import com.model.AccountType;
 import com.model.Classlist;
 import com.model.FacultyAssign;
 import com.model.Password;
+import com.model.ProfessorProfile;
 import com.model.Users;
 
 public class AttendanceHelper {
@@ -50,7 +53,7 @@ public class AttendanceHelper {
 						.setParameter("idno", users.getIdNo())
 						.uniqueResult();
 			
-			isAdded = count > 0 ? true : false;
+			isAdded = count <= 0 ? true : false;
 			
 			trans.commit();
 		} catch (Exception e) {
@@ -86,10 +89,11 @@ public class AttendanceHelper {
 
 	}
 
-	public void addAccountType(AccountType accountType)
-	{
+	public void addAccountType(AccountType accountType){
+	
 		Session session = null;
 		Transaction trans = null;
+		
 		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
@@ -123,12 +127,12 @@ public class AttendanceHelper {
 		}
 	}
 
-	public void addClassList(Classlist classlist)
-	{
+	public void addClassList(Classlist classlist){
+		
 		Session session = null;
 		Transaction trans = null;
-		try
-		{
+		
+		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			Integer assignID=null;
@@ -162,58 +166,45 @@ public class AttendanceHelper {
 		}
 	}
 
-	public List<Classlist> getClasslist (List<FacultyAssign> facultyAssign)
-	{
-		Session session = HibernateFactory.getSession().openSession();
-		session.beginTransaction();
-		List<Classlist>list=new ArrayList<Classlist>();
-
-		for(FacultyAssign fModel:facultyAssign)
-		{
-
-			int ppid=fModel.getProfessorProfile().getPpID();
-			int cid=fModel.getSchedule().getcID();
-
-			Integer facultyAssignID=(Integer)session.createSQLQuery("Select AssignID from FacultyAssign where "
-					+ "PPID=:ppid and CID=:cid")
-					.setParameter("ppid",ppid)
-					.setParameter("cid",cid)
-					.uniqueResult();
-
-			FacultyAssign fObjc=(FacultyAssign)session.get(FacultyAssign.class, facultyAssignID);
-			list.addAll(fObjc.getClassList());
-
-		}
-
-		return list;
-
-
-	}
-
-	public List<Classlist> viewClassList (List<Classlist> classlist)
-	{
-		//		Session session = null;
-		//		Transaction trans = null;
-		List<Classlist>list = new ArrayList<Classlist>();
+	@SuppressWarnings("unchecked")
+	public List<Classlist> viewClassList (FacultyAssign facultyAssign){
+		
+		Session session = null;
+		Transaction trans = null;
+		List<Classlist> list = new ArrayList<Classlist>();
+		
 		try {
-			//			session = HibernateFactory.getSession().openSession();
-			//			trans = session.beginTransaction();
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
 
-			for(Classlist classlists : classlist){
-				//Users uObjc=(Users)session.get(Users.class, classlists.getUsers().getUserID());
-				list.add(classlists);
-			}
+			list = session.createQuery("from Classlist where AssignID = :aid")
+						.setParameter("aid", facultyAssign.getAssignID())
+						.list();
+			
+			list.forEach(i -> {
+				Hibernate.initialize(i.getUsers());
+				Hibernate.initialize(i.getAttendance());
+			});
+			
+			 System.out.println("Free memory (bytes): " + 
+					 Runtime.getRuntime().freeMemory());
+			 
+			 /* Total memory currently in use by the JVM */
+			  System.out.println("Total memory (bytes): " + 
+			  Runtime.getRuntime().totalMemory());
+			  
+			  
+			
+//			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
 			e.printStackTrace();
-			//			if(trans != null){
-			//				trans.rollback();
-			//			}
-		}finally {
-
+		} finally { 
+			session.close();
 		}
-
-
 		return list;
 	}
 
@@ -248,26 +239,62 @@ public class AttendanceHelper {
 		}
 		return aid;
 	}
+	
+	public int getAssignID(String subject, String section, ProfessorProfile professorProfile){
 
-	//ACTION CLASS
-	//	List<Classlist>fList=a_helper.getClasslist(facultyAssign);
-	//	List<Classlist>fListofStudents=a_helper.viewClassList(fList);
-	//	
-	//	for(Classlist clist:fList)
-	//	{
-	//		System.out.println(clist.getFacultyAssign().getSchedule().getSubjects().getCourseCode()
-	//				+" "+clist.getFacultyAssign().getSchedule().getDay()+" "+
-	//				clist.getFacultyAssign().getSchedule().getSection()
-	//				+" "+clist.getFacultyAssign().getSchedule().getTime());
-	//		for(Classlist clist2:fListofStudents)
-	//		{
-	//			System.out.println(clist2.getUsers().getFirstName()+" "+clist2.getUsers().getLastName());
-	//			
-	//		}
-	//	}
-	//	
+		Session session = null;
+		Transaction trans = null;
+		Integer aid = 0;
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			aid = (Integer) session.createSQLQuery("select assignid "
+					+ "from Schedule as sched, FacultyAssign as f, Subjects as s "
+					+ "where F.PPID = :ppid "
+					+ "and sched.Section = :section "
+					+ "and s.CourseCode = :cc "
+					+ "and s.SubjID = sched.SubjID "
+					+ "and f.CID = sched.CID")
+					.setParameter("ppid", professorProfile.getPpID())
+					.setParameter("section", section)
+					.setParameter("cc", subject)
+					.uniqueResult();
 
+			trans.commit();
 
-
-
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return aid;
+	}
+	
+	public void deleteStudent(Classlist classlist){
+		
+		Session session = null;
+		Transaction trans = null;
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			Classlist cl = (Classlist) session.get(Classlist.class, classlist.getClassID());
+			session.delete(cl);
+			trans.commit();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+	}
+	
+	
 }

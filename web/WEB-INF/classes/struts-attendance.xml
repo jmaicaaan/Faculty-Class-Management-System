@@ -26,6 +26,47 @@
 	  			<param name="errorCode">500</param>
 		  	</result>
    		</action>
+   		
+   		<action name="view_Classlist" class="com.action.attendance.View_ClassList">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   				<param name="excludeProperties">
+   					classList\[\d+\]\.attendance,
+   					classList\[\d+\]\.facultyAssign,
+	   				classList\[\d+\]\.users\.accountType,
+	   				classList\[\d+\]\.users\.classList,
+	   				classList\[\d+\]\.users\.password,
+	   				classList\[\d+\]\.users\.professorProfile
+   				</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
+   		
+   		<action name="delete_Student" class="com.action.attendance.Delete_Student">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
+   		
+   		<action name="add_Student" class="com.action.attendance.Add_Student">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
    	
    	</package>
    </struts>

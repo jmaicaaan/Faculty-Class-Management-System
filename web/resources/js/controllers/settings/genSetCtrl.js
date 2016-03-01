@@ -15,15 +15,19 @@
 		self.delete_subject = delete_subject;
 		self.validateChips = validateChips;
 		self.user = userService.userInfo;
+		self.getAccountType = userService.getAccountType;
+		self.isStudent = false;
 		//Init 
 		init();
 
+		console.log(self.getAccountType);
 
 		function init(){
-			loadSubjects();
-			getExpertise();
+			if( !self.getAccountType == 'student'){
+				loadSubjects();
+				getExpertise();
+			}
 		}
-
 		function loadSubjects(){
 			subjectService.loadSubjects().then(function(response){
 				self.listOfSubjects = response.subjects;

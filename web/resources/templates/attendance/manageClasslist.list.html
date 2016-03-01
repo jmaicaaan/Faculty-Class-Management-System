@@ -6,7 +6,7 @@
 	md-row-height-sm="1:1" md-row-height-gt-md="3:2" md-row-height-lg="3:2"
 	md-row-height="2:2">
 
-		<md-grid-tile ng-repeat="class in mngCl.schedule">
+		<md-grid-tile ng-repeat="class in mngCLCtrlList.schedule">
 			<md-content layout-xs="column" layout-sm="column" layout="row">
 				<md-card 
 				ui-sref="dashboard.manageClasslist.class({ c: class.courseCode, s: class.schedule.section })" 

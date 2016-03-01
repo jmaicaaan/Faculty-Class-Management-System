@@ -50,8 +50,8 @@
 	<script type="text/javascript" src="resources/js/controllers/scheduling/assignFacultyCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/scheduling/scheduleCtrl.js"></script>
 
-	<script type="text/javascript" src="resources/js/controllers/attendance/mngCtrl.js"></script>
-	<script type="text/javascript" src="resources/js/controllers/attendance/uploadClasslistCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/mngCLCtrlList.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/mngCLCtrl.js"></script>
 
 	<script type="text/javascript" src="resources/js/controllers/developer/usersManageCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/developer/subjManageCtrl.js"></script>
@@ -86,7 +86,7 @@
 	<script type="text/javascript" src="resources/js/services/profiling/subjectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
 
-	<script type="text/javascript" src="resources/js/services/attendance/uploadClasslistService.js"></script>
+	<script type="text/javascript" src="resources/js/services/attendance/mngCLService.js"></script>
 	
 	<script type="text/javascript" src="resources/js/services/settings/genSetService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
@@ -94,6 +94,11 @@
 		<!-- Angular events -->
 	<script type="text/javascript" src="resources/js/events/AUTH_EVENTS.js"></script>
 	<script type="text/javascript" src="resources/js/events/USER_ROLES.js"></script>
+
+		<!-- Angular filters -->
+
+	<script type="text/javascript" src="resources/js/filters/nameFormat.filter.js"></script>
+
 </head>
 <body ng-app="facultyApp">
 	<div ui-view></div>

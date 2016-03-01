@@ -55,6 +55,8 @@
 			self.disableDeleteBtn = false;
 			self.closeDialog = closeDialog;
 			self.researchFile = research;
+
+			self.displayFile = research.researchName;
 			self.deleteFile = deleteResearch;
 			
 			function closeDialog(){

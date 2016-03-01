@@ -18,7 +18,7 @@
 		$stateProvider
 			.state("dashboard.manageClasslist", {
 				url: "/manageClasslist",
-				templateUrl: TEMP_LOC.PATH + "attendance/manageClasslist.html",
+				templateUrl: TEMP_LOC.PATH + "attendance/manageClasslist_Menu.html",
 				controller: function($state, $timeout){
 					$timeout(function(){
 						$state.go("dashboard.manageClasslist.list");
@@ -28,14 +28,14 @@
 			.state("dashboard.manageClasslist.list", {
 				url: "/list",
 				templateUrl: TEMP_LOC.PATH + "attendance/manageClasslist.list.html",
-				controller: "mngCtrl",
-				controllerAs: "mngCl"
+				controller: "mngCLCtrlList",
+				controllerAs: "mngCLCtrlList"
 			})
 			.state("dashboard.manageClasslist.class",{
 				url: "/?c&s",
-				templateUrl: TEMP_LOC.PATH + "attendance/manageClasslist.upload.html",
-				controller: "uploadClasslistCtrl",
-				controllerAs: "uploadCl"
+				templateUrl: TEMP_LOC.PATH + "attendance/manageClasslist.html",
+				controller: "mngCLCtrl",
+				controllerAs: "mngCLCtrl"
 			});
 	}
 }());

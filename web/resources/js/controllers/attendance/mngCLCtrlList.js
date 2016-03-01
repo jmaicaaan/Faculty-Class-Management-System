@@ -1,8 +1,8 @@
 (function(){
 	angular.module("attendanceModule")
-		.controller("mngCtrl", mngCtrl);
+		.controller("mngCLCtrlList", mngCLCtrlList);
 
-	function mngCtrl(scheduleService){
+	function mngCLCtrlList(scheduleService){
 		var self = this;
 		self.message = "Hello";
 		self.schedule = [];

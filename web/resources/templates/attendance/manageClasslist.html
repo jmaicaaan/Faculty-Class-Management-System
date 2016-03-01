@@ -1,3 +1,93 @@
-<md-content layout-padding>
-	<div ui-view></div>
+<md-content layout="column" layout-padding layout-margin>
+	<md-content layout="column" layout-align="center center" ng-hide="mngCLCtrl.hasClasslist">
+		<h5 class="md-title">Classlist</h5>
+		<img ng-src="resources/img/null.png">
+		<p class="md-subhead">Let's get started by uploading your classlist.</p>
+	</md-content>
+
+	<md-content ng-show="mngCLCtrl.hasClasslist">
+
+	<md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <p class="md-subhead">{{mngCLCtrl.class.subject}} {{mngCLCtrl.class.section}}</p>
+        <div flex>
+        	<!-- Separation -->
+        </div>
+        <md-input-container md-no-float class="md-block">
+              <!-- Use floating label instead of placeholder -->
+          <md-icon md-svg-icon="resources/img/svg/search.svg"></md-icon>
+          <input ng-model="mngCL.Ctrl.paginate.query" placeholder="Search" type="text">
+        </md-input-container>
+      </div>
+    </md-toolbar>
+
+
+	<md-table-container>
+	  <table md-table>
+	    <thead md-head md-order="mngCLCtrl.paginate.order">
+	      <tr md-row>
+	        <th md-column><span>NO.</span></th>
+	        <th md-column md-order-by="users.idNo"><span>ID Number</span></th>
+	        <th md-column md-order-by="users.firstName"><span>Firstname</span></th>
+	        <th md-column md-order-by="users.lastName"><span>Lastname</span></th>
+	        <th md-column><span>Action</span></th>
+	      </tr>
+	    </thead>
+	    <tbody md-body>
+	      <tr md-row md-auto-select ng-repeat="student in mngCLCtrl.classList | filter: mngCL.Ctrl.paginate.query
+	      		| orderBy: mngCLCtrl.paginate.order
+	      		| limitTo: mngCLCtrl.paginate.limit : (mngCLCtrl.paginate.page - 1) * mngCLCtrl.paginate.limit">
+	        <td md-cell>{{$index + 1}}</td>
+	        <td md-cell> {{student.users.idNo}} </td>
+	        <td md-cell>{{student.users.firstName | nameFormat}}</td>
+	        <td md-cell>{{student.users.lastName | nameFormat}}</td>
+	        <td md-cell ng-click="mngCLCtrl.showDeleteDialog(event, student)">
+	        	<md-icon md-svg-icon="resources/img/svg/trash.svg"></md-icon>
+	        </td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</md-table-container>
+
+	<div layout="row" layout-align="start start" layout-margin>
+		<md-table-pagination md-limit="mngCLCtrl.paginate.limit" md-page="mngCLCtrl.paginate.page"
+		md-total="{{mngCLCtrl.classList.length}}"></md-table-pagination>
+	</div>
+	</md-content>
+
 </md-content>
+<div>
+	<md-fab-speed-dial class="md-fab-bottom-right md-scale" 
+				md-direction="up" style="position: fixed;">
+	    <md-fab-trigger>
+	      <md-button aria-label="menu" class="md-primary md-raised md-fab">
+	        <md-icon md-svg-src="resources/img/svg/settings.svg"></md-icon>
+	      </md-button>
+	    </md-fab-trigger>
+	    <md-fab-actions>
+	    	<md-button aria-label="icon" class="md-primary md-fab md-raised md-mini" 
+	    		ng-click="mngCLCtrl.viewClassList()">
+		      	<md-tooltip md-direction="left">
+		      		View Classlist
+		        </md-tooltip>
+		        <md-icon md-svg-src="resources/img/svg/load.svg" aria-label="Upload"></md-icon>
+	        </md-button>
+	        <upload-Icon 
+       	    	class="md-primary md-fab md-raised md-mini"
+       	    	tooltip-Msg="Upload classlist"
+       	    	tooltip-Pos="left"
+       			icon="resources/img/svg/file.svg"
+       			file-data="mngCLCtrl.filedata"
+       			request-Obj="mngCLCtrl.requestObj"
+       			url="insert_classlist.action">
+	       	</upload-Icon>
+	        <md-button aria-label="icon" class="md-primary md-fab md-raised md-mini" 
+	        				ng-click="mngCLCtrl.addStudentDialog(event)">
+		      	<md-tooltip md-direction="left">
+		      		Add Student
+		        </md-tooltip>
+		        <md-icon md-svg-src="resources/img/svg/add.svg" aria-label="Upload"></md-icon>
+	        </md-button>
+	    </md-fab-actions>
+	</md-fab-speed-dial>
+</div>

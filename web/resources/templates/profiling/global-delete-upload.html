@@ -1,9 +1,8 @@
 <md-dialog aria-label="mdDialog">
 	<md-dialog-content style="width: 500px;">
 	    <md-content layout-padding layout-margin>
-
-	      	<h5 class="md-title">Delete upload</h5>
-			
+	      	<h5 class="md-title">Delete this item?</h5>
+	      	<span class="md-subhead">Item: <span class="md-caption">{{deleteDialogCtrl.displayFile}}</span></span>
 		</md-content>
 	</md-dialog-content>
 	<md-dialog-actions>
@@ -11,7 +10,8 @@
 			<md-button class="md-primary md-raised" ng-click="deleteDialogCtrl.closeDialog()">
 				Cancel
 			</md-button>
-			<md-button class="md-primary md-raised" ng-click="deleteDialogCtrl.deleteFile()" ng-disabled="deleteDialogCtrl.disableDeleteBtn">
+			<md-button class="md-primary md-raised" ng-click="deleteDialogCtrl.deleteFile()" 
+						ng-disabled="deleteDialogCtrl.disableDeleteBtn">
 			    Delete
 			</md-button>
 		</md-content>
