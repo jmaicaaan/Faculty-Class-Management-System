@@ -39,8 +39,16 @@
 		}
 
 		function getAccountType(){
-			var accountType = self.userInfo.userRole;
-			return accountType.toLowerCase().trim();
+			var accountType = "";
+			if(Object.keys(self.userInfo).length > 1){
+				accountType = self.userInfo.userRole.toLowerCase().trim().split(",");
+				if(accountType.length > 1){
+					accountType = accountType[0].trim() == 'professor' ? accountType[1] : accountType[0];
+				}else{
+					accountType = accountType[0];
+				}
+			}
+			return accountType.trim();
 		}
 		
 		function destroySession(){

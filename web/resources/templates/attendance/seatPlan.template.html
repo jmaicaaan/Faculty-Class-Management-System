@@ -1,0 +1,32 @@
+<div layout="column">
+	<md-content layout-padding layout-margin>
+		<div id="seat-map">
+			<div class="front" id="title"></div>
+			<div id="seat-info"></div>
+		</div>
+		<div>
+
+			<div>
+				<h5 class="md-subhead">Legends:</h5>
+				<div layout="row" layout-align="start start">
+					<span class="md-caption">Present</span>
+					<div class="seatCharts-seat seatCharts-cell available"></div>
+					
+				
+					<span class="md-caption">Absent</span>
+					<div class="seatCharts-seat seatCharts-cell absent"></div>
+				
+					<span class="md-caption">Late</span>
+					<div class="seatCharts-seat seatCharts-cell late"></div>
+					
+				</div>
+			</div>
+			<md-content>
+				<h3 class="md-title">Student selected information:</h3>
+				<p> Student ID: <span id="student_id"></span></p>
+				<p> Student Name: <span id="student_name" class="md-subhead"></span></p>
+				<md-button class="md-primary md-raised">Save attendance</md-button>
+			</md-content>
+		</div>
+	</md-content>
+</div>

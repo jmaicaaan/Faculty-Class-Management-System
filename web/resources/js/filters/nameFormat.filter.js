@@ -13,5 +13,16 @@
 				}
 				return res;
 			}
+		})
+		.filter("studentName", function(){
+			return function(input){
+				var res = "";
+				var temp = input.split(" ");
+
+
+				console.log(temp);
+
+				return input;
+			}
 		});
 }());

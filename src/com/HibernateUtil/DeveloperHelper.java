@@ -166,13 +166,6 @@ public class DeveloperHelper implements Utilities {
 			list.forEach(i -> {
 				Hibernate.initialize(i.getAccountType());
 			});
-//			for(Users u : list){
-//				Hibernate.initialize(u.getAccountType());
-//				u.setClassList(Collections.emptySet());
-//				u.setPassword(Collections.emptySet());
-//				u.setProfessorProfile(Collections.emptySet());
-//			}
-			
 			trans.commit();
 			
 		} catch (Exception e) {

@@ -22,16 +22,19 @@
 
 		function saveProfessors(data){
 
-			JSON.stringify(data);
+			console.log(data);
+
 			var request = {
-				method: "post",
 				url: "saveProfessors.action",
+				method: "post",
 				data: data,
 				headers: {
 					"Content-Type": "application/json",
 					"dataType": "json"
 				}
 			};
+
+			console.log(request);
 			
 			return $http(request)
 				.then(function(response){

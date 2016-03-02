@@ -6,7 +6,6 @@
 		var self = this;
 		self.message = "Hello";
 		self.schedule = [];
-
 		
 		getClass();
 

@@ -1,0 +1,24 @@
+<md-grid-list 
+	md-cols-xs="1" md-cols-gt-xs="1" md-cols-sm="2" md-cols-gt-sm="2"
+	md-cols-gt-md="3" md-cols-lg="3" md-cols="3"
+
+	md-row-height-xs="1:1" md-row-height-gt-xs="1:1" md-row-height-gt-sm="1:1"
+	md-row-height-sm="1:1" md-row-height-gt-md="3:2" md-row-height-lg="3:2"
+	md-row-height="2:2">
+
+		<md-grid-tile ng-repeat="class in recordAttendance_ListCtrl.schedule">
+			<md-content layout-xs="column" layout-sm="column" layout="row">
+				<md-card 
+				ui-sref="dashboard.recordAttendance.class({ c: class.courseCode, s: class.schedule.section })" 
+				class="md-whiteframe-10dp resumeCard">
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">{{class.courseCode}}</span>
+							<span class="md-subhead">{{class.schedule.time}} {{class.schedule.day}}</span>
+							<span class="md-subhead">{{class.schedule.section}} {{class.schedule.room}}</span>
+						</md-card-title-text>
+					</md-card-title>
+				</md-card>
+			</md-content>
+		</md-grid-tile>
+</md-grid-list>

@@ -171,8 +171,7 @@ public class ProfilingHelper {
 	{
 		Transaction trans = null;	
 		Session session = null;
-		try
-		{
+		try{
 			
 			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
@@ -189,8 +188,7 @@ public class ProfilingHelper {
 			trans.commit();
 			
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex){
 			if(trans != null){
 				trans.rollback();
 			}

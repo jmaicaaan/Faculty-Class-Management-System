@@ -22,8 +22,7 @@ public class View_UploadedSubjects extends ActionSupport implements ModelDriven<
 		
 		List<Expertise> expList = new ArrayList<Expertise>();
 		
-		expList = userSession.get("expList") != null ? (List<Expertise>) userSession.get("expList") 
-				: new ArrayList<Expertise>();
+		expList = userSession.get("expList") != null ? (List<Expertise>) userSession.get("expList") : new ArrayList<Expertise>();
 		
 		if(expList.size() > 0){
 			fModel.setResponse(expList);

@@ -20,9 +20,12 @@
 		 </interceptors>
 	   	
    		<action name="saveProfessors" class="com.action.developer.DeveloperAction">
-	   		<result name="success" type="json">
-	   			<param name="">users</param>
-	   		</result>
+	   		<interceptor-ref name="myStack"/>
+	   		<result name="success" type="json"></result>
+	   		<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+	  		</result>
    		</action>
    		
    		<action name="viewProfessors" class="com.action.developer.DeveloperViewProfessors">
@@ -38,6 +41,7 @@
    		</action>
    		
    		<action name="addAccountType" class="com.action.developer.Developer_AccountType">
+   			<interceptor-ref name="myStack"/>
 	   		<result name="success" type="json">
 	   			<param name="">users</param>
 	   			<param name="excludeNullProperties">true</param>
@@ -49,6 +53,7 @@
    		</action>
    		
    		<action name="addSubjects" class="com.action.developer.Developer_AddSubjects">
+   			<interceptor-ref name="myStack"/>
 	   		<result name="success" type="json">
 	   			<param name="excludeNullProperties">true</param>
 	   		</result>
@@ -58,6 +63,7 @@
 	  		</result>
    		</action>
    		<action name="loadSubjects" class="com.action.developer.Developer_LoadSubjects">
+   			<interceptor-ref name="myStack"/>
 	   		<result name="success" type="json">
 	   			<param name="excludeNullProperties">true</param>
 	   		</result>

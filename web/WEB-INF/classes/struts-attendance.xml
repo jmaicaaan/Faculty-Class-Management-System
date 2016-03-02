@@ -67,6 +67,17 @@
 	  			<param name="errorCode">500</param>
 		  	</result>
    		</action>
+   		
+   		<action name="saveAttendance" class="com.action.attendance.Save_Attendance">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
    	
    	</package>
    </struts>

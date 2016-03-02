@@ -227,7 +227,11 @@ public class SchedulingHelper {
 					.setParameter("id", subjID);
 			expList = query.list();
 			
+			for(Expertise e : expList){
+				System.out.println(e.getSubjects().getCourseCode());
+			}
 			
+			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 			if(trans != null){

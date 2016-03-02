@@ -21,17 +21,19 @@ public class SchedulingHelperClass {
 
 				if(scheduleRow != ""){
 					String[] splitSchedule = scheduleRow.split(",");
-					String courseCode = splitSchedule[0],
-							description = splitSchedule[1],
-							units = splitSchedule[2],
-							room = splitSchedule[3],
-							day = splitSchedule[4],
-							section = splitSchedule[5],
-							time = splitSchedule[6];
+					if(splitSchedule.length == 7){
+						String courseCode = splitSchedule[0],
+								description = splitSchedule[1],
+								units = splitSchedule[2],
+								room = splitSchedule[3],
+								day = splitSchedule[4],
+								section = splitSchedule[5],
+								time = splitSchedule[6];
 
-					Subjects subject = new Subjects(courseCode, description, units);
-					Schedule schedule = new Schedule(room, day, time, section, subject);
-					schedList.add(schedule);
+						Subjects subject = new Subjects(courseCode, description, units);
+						Schedule schedule = new Schedule(room, day, time, section, subject);
+						schedList.add(schedule);
+					}
 				}
 			}	
 		} 

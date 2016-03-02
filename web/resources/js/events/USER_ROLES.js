@@ -1,10 +1,11 @@
 (function(){
-	angular.module("facultyApp")
+	angular.module("events", [])
 		.constant("USER_ROLES",{
 			student: "student",
 			professor: "professor",
-			acadAdviser: "acadAdviser",
+			acadAdviser: "academic adviser",
 			chairperson: "chairperson",
-			secretary: "secretary"
+			secretary: "secretary",
+			developer: "developer"
 		});
 }());

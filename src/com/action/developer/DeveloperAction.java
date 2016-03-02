@@ -15,13 +15,14 @@ public class DeveloperAction extends ActionSupport {
 	
 	private List<Users> users = new ArrayList<Users>();
 	
-	
 	@Override
 	public String execute() throws Exception {
 		
 		DeveloperHelper session_Helper = new DeveloperHelper();	
 		try{
 			for (Users uModel : users){ 
+				
+				System.out.println(uModel.getUsername());
 				
 				//add user
 				uModel.setUsername(HelperClass.CreateUsername(uModel.getFirstName(), uModel.getLastName()));
@@ -43,7 +44,7 @@ public class DeveloperAction extends ActionSupport {
 			
 			}
 		}catch(Exception e){
-			return ERROR;
+			return INPUT;
 		}
 		return SUCCESS;
 	}

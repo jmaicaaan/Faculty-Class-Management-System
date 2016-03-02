@@ -14,5 +14,6 @@
   	<include file="struts-scheduling.xml"></include>
   	<include file="struts-attendance.xml"></include>
   	<include file="struts-developer.xml"></include>
-  	
+  	<include file="struts-secretary.xml"></include>
+  
   </struts>

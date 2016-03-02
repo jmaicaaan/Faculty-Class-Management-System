@@ -21,11 +21,8 @@
 					
 					const TEMP_LOC = "resources/templates/";
 					
-					// Splits the accountType
-					var ac = scope.userType.split(",");
-
-					var userAccountType = ac.length > 1? ac[1].trim() : ac[0].trim();
-
+					var userAccountType = userService.getAccountType();
+					console.log(userAccountType);
 					switch(userAccountType.toLowerCase()){
 						case "professor":
 							return TEMP_LOC + "professor/professorMenu.html";
@@ -40,7 +37,7 @@
 						case "developer": 
 							return TEMP_LOC + "developer/developer.html";
 						default:
-							return "/";
+							return TEMP_LOC + "errorPage/error404.html";
 					}	
 				}
 			},

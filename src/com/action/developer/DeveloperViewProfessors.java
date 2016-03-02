@@ -17,6 +17,8 @@ public class DeveloperViewProfessors extends ActionSupport {
 		DeveloperHelper session_Helper = new DeveloperHelper();
 		users = session_Helper.viewAllProfessors();
 		
+		
+		
 		return SUCCESS;
 		
 	}

@@ -7,6 +7,7 @@
 			login: login,
 			checkOnlineUser: checkOnlineUser,
 			updateSession: updateSession,
+			isAuthorized: isAuthorized,
 			logoutUser: logoutUser
 		};
 
@@ -54,13 +55,11 @@
 					"Content-Type": "application/json",
 					"dataType": "json"
 				}
-					
 			};
 
 			return $http(request)
 				.then(function(response){
 					console.log(response);
-
 					// updateSession();
 					return response;
 				})
@@ -90,6 +89,18 @@
 					console.log(error);	
 					return error;
 				});
+		}
+
+		function isAuthorized(arrayOfRoles){
+			var userAccountType = userService.getAccountType().trim();
+			console.log(userAccountType);
+			if(userAccountType){
+				console.log(arrayOfRoles.indexOf(userAccountType) > -1);
+				if(arrayOfRoles.indexOf(userAccountType) > -1){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		function logoutUser(){

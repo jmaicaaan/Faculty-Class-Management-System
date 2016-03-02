@@ -10,30 +10,34 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/md-data-table.min.css">
 	<link rel="stylesheet" type='text/css' href="resources/css/loading-bar.css" media="all" />
+	<link rel="stylesheet" type='text/css' href="resources/css/seat-chart.css" media="all" />
 	<link rel="stylesheet" type='text/css' href="resources/css/styles.css" media="all" />
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/jquery.min.js"></script>
 
 	<script type="text/javascript" src="resources/angular.min.js"></script>
 	<script type="text/javascript" src="resources/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="resources/md-data-table.min.js"></script>
 	<script type='text/javascript' src='resources/loading-bar.js'></script>
 	<script type='text/javascript' src='resources/angular-cookies.min.js'></script>
+	<script type='text/javascript' src='resources/jquery.seat-charts.min.js'></script>
+
 
 		<!-- Angular Material (dependecies must come first) -->
 	<script type="text/javascript" src="resources/angular-animate.js"></script>
 	<script type="text/javascript" src="resources/angular-aria.min.js"></script>
 	<script type="text/javascript" src="resources/angular-material.min.js"></script>
+	
+		<!-- Angular events -->
+	<script type="text/javascript" src="resources/js/events/USER_ROLES.js"></script>
 
 		<!-- Angular application/modules -->
-
 	<script type="text/javascript" src="resources/js/application/profile.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/scheduling.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/attendance.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/developer.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/secretary.app.js"></script>
 	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
-	
 		
 		<!-- Angular controllers -->
 
@@ -52,6 +56,8 @@
 
 	<script type="text/javascript" src="resources/js/controllers/attendance/mngCLCtrlList.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/attendance/mngCLCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/recordAttendance_ListCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/seatPlanCtrl.js"></script>
 
 	<script type="text/javascript" src="resources/js/controllers/developer/usersManageCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/developer/subjManageCtrl.js"></script>
@@ -70,8 +76,10 @@
 	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/upload-File.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/scheduleConflict.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/pdfDownload.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/seatPlan.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/bnLazyLoading.js"></script>
-	
+
 		<!-- Angular services -->
 
 	<script type="text/javascript" src="resources/js/services/scheduling/uploadSubjectsService.js"></script>	
@@ -87,13 +95,13 @@
 	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
 
 	<script type="text/javascript" src="resources/js/services/attendance/mngCLService.js"></script>
+	<script type="text/javascript" src="resources/js/services/attendance/seatPlanService.js"></script>
 	
 	<script type="text/javascript" src="resources/js/services/settings/genSetService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
 
-		<!-- Angular events -->
-	<script type="text/javascript" src="resources/js/events/AUTH_EVENTS.js"></script>
-	<script type="text/javascript" src="resources/js/events/USER_ROLES.js"></script>
+	<script type="text/javascript" src="resources/js/services/secretary/downloadProfilesService.js"></script>
+
 
 		<!-- Angular filters -->
 

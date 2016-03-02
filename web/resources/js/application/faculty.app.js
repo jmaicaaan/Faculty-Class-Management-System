@@ -1,10 +1,10 @@
 (function(){
-	
 	angular.module("facultyApp", [
 			"ui.router", 
 			"ngMaterial", 
 			"md.data.table", 
 			"angular-loading-bar",
+			"events",
 			"profileModule",
 			"developerApp",
 			"secretaryApp"
@@ -15,13 +15,10 @@
 
 	angular.module("facultyApp")
 		.config(facultyAppConfig)
-		.run(function($rootScope, $state, userService){
+		.run(function($rootScope, $state){
 			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
+				console.log("Error occured");
 				$state.go("index");
-			});
-			$rootScope.$on("$stateChangeStart", function(event, next){
-				// var authRole = next.
-				console.log(next.data.authorizedRoles);
 			});
 		});
 
@@ -46,7 +43,7 @@
 				controller: "dashboardCtrl",
 				controllerAs: "dash",
 				resolve:{
-					"userObj": function(authService, userService, $q, $state, AUTH_EVENTS){
+					"userObj": function(authService, userService, $q, $state){
 						var deferred = $q.defer();
 						console.log(userService.userInfo.username);
 
@@ -59,7 +56,7 @@
 										deferred.resolve(userService.userInfo);
 									});
 								}else{
-									deferred.reject(AUTH_EVENTS.notAuthenticated);
+									deferred.reject();
 								}
 							});
 						}else{
@@ -73,15 +70,11 @@
 				url: "/settings",
 				templateUrl: TEMP_LOC + "/settings/settings.html",
 				data:{
-					authorizedRoles: [USER_ROLES.professor]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
-				controller: function($state, authService){
-					var self = this;
+				controller: function($state){
 					$state.go("dashboard.settings.general");
-
-				},
-				controllerAs: "set"
-				
+				}
 			})
 			.state("dashboard.settings.general", {
 				url: "/general",
@@ -98,14 +91,7 @@
 			.state("logout",{
 				url: "/",
 				controller: function(authService){
-					var self = this;
-					self.logout = logout;
-
-					logout();
-					
-					function logout(){
-						authService.logoutUser();
-					}
+					authService.logoutUser();
 				}
 			});
 	}

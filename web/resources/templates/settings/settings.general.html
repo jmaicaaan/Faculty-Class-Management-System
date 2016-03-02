@@ -17,8 +17,7 @@
 	        <label>Username (disabled)</label>
 	        <input ng-model="genSet.user.username" disabled="true">
 	      </md-input-container>
-{{genSet.getAccountType}}
-	      <md-content layout-padding ng-hide="genSet.getAccountType == 'student'">
+	      <md-content layout-padding ng-hide="genSet.isNotAuthorized">
 	      	<md-chips ng-model="genSet.selectedSubjects"
 	      		 	 md-require-match="true" md-on-remove="genSet.delete_subject($chip)"
 	      		 	 md-on-add="genSet.validateChips($chip)">

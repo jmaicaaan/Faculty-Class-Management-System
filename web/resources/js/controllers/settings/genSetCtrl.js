@@ -16,18 +16,21 @@
 		self.validateChips = validateChips;
 		self.user = userService.userInfo;
 		self.getAccountType = userService.getAccountType;
-		self.isStudent = false;
+		self.isNotAuthorized = false;
 		//Init 
 		init();
-
-		console.log(self.getAccountType);
-
 		function init(){
-			if( !self.getAccountType == 'student'){
+
+			var userAccountType = userService.getAccountType().toLowerCase();
+
+			if(userAccountType == 'student' || userAccountType == 'secretary' || userAccountType == 'developer'){
+				self.isNotAuthorized = true;
+			}else{
 				loadSubjects();
 				getExpertise();
 			}
 		}
+
 		function loadSubjects(){
 			subjectService.loadSubjects().then(function(response){
 				self.listOfSubjects = response.subjects;

@@ -10,19 +10,19 @@
 		self.saveChanges = saveChanges;
 		self.generate_assignedFaculty = generate_assignedFaculty;
 
-		init();
+		// init();
 
-		function init(){
-			uploadSubjectsService.view_uploadedSubjects().then(function(response){
-				var listData = response.response;
-				uploadSubjectsService.parseList(listData).then(function(data){
-					if(data.length > 0){
-						self.data = data;
-						self.hasList = true;		
-					}
-				});
-			});
-		}
+		// function init(){
+		// 	uploadSubjectsService.view_uploadedSubjects().then(function(response){
+		// 		var listData = response.response;
+		// 		uploadSubjectsService.parseList(listData).then(function(data){
+		// 			if(data.length > 0){
+		// 				self.data = data;
+		// 				self.hasList = true;		
+		// 			}
+		// 		});
+		// 	});
+		// }
 
 
 
