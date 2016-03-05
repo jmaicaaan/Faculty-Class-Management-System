@@ -317,10 +317,11 @@ public class AttendanceHelper {
 
 			cList = query.list();
 
-			hasAttendance = hasAttendance(attendance);
+			
 
 			for(Classlist cObjc : cList){
-				cObjc.getClassID();
+				attendance.setClasslist(cObjc);
+				hasAttendance = hasAttendance(attendance);
 				aObjc.setAttendance(attendance.getAttendance());
 				aObjc.setDate(attendance.getDate());
 				aObjc.setClasslist(cObjc);
@@ -372,7 +373,7 @@ public class AttendanceHelper {
 		}
 	}
 
-	public List<Attendance> viewAttendance(String date , int assignID){
+	public List<Attendance> viewAttendance(String date, int assignID){
 
 		Session session = null;
 		Transaction trans = null;
@@ -415,11 +416,12 @@ public class AttendanceHelper {
 		try {
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
-			Integer count = (Integer) session.createSQLQuery("Select COUNT(*) from Attendance as A where A.Date = :date")
+			Integer count = (Integer) session.createSQLQuery("Select COUNT(*) from Attendance as A where A.Date = :date and A.classID = :cid")
+					.setParameter("cid", attendance.getClasslist().getClassID())
 					.setParameter("date", attendance.getDate())
 					.uniqueResult();
 
-			hasAttendance = count != null ? true : false;
+			hasAttendance = count != 0 ? true : false;
 
 			trans.commit();
 		} catch (Exception e) {
@@ -440,7 +442,7 @@ public class AttendanceHelper {
 		Session session = null;
 		Transaction trans = null;
 		Query query = null;
-		List<Classlist> cList = new ArrayList<Classlist>(); 
+		List<Classlist> cList = new ArrayList<Classlist>();
 		List<Attendance> aList = new ArrayList<Attendance>();
 
 		try{
@@ -468,9 +470,55 @@ public class AttendanceHelper {
 		}
 		return aList;
 	}
+	
+	public List<Attendance> getHighCharts (List<Classlist> cList)
+	{
+		Session session = null; 
+		Transaction trans = null;
+		double maximumLives = 5.5;
+		Integer late = null;
+		Integer absences = null;
+		Attendance aObcj = new Attendance();
 
-
-
-
-
+		List<Attendance> aList = new ArrayList<Attendance>();
+		try
+		{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			for(Classlist cObjc : cList)
+			{
+				late = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
+						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
+						.setParameter("cid", cObjc.getClassID())
+						.setParameter("attendance", "L")
+						.uniqueResult();
+				
+				absences = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
+						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
+						.setParameter("cid", cObjc.getClassID())
+						.setParameter("attendance", "A")
+						.uniqueResult();
+				
+				aObcj.setNoOfLives(maximumLives - (late * 0.5) - absences);
+				aObcj.setClasslist(cObjc);
+				aList.add(aObcj);
+			}
+			
+			trans.commit();
+		}
+		catch (Exception e) 
+		{
+				if(trans != null){
+					trans.rollback();
+				}
+				e.printStackTrace();
+		} 
+		
+		finally
+		{
+			session.close();
+		}
+		return aList;
+	}
+	
 }

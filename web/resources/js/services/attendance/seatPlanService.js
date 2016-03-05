@@ -11,6 +11,7 @@
 		self.hasScheduleToday_Helper = hasScheduleToday_Helper;
 		self.classList = [];
 		self.classAttendance = [];
+		self.date = new Date();
 
 		function viewClassList(schedObj){
 			var request = {
@@ -87,6 +88,8 @@
 			};
 
 			function getDateFormat(){
+				var d = new self.date;
+				
 				return [d.getMonth() + 1, 
 						d.getDate().length > 1? d.getDate() : '0' + d.getDate(), 
 						d.getFullYear()].join("/");

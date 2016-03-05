@@ -18,6 +18,15 @@
 			"date": seatPlanService.getDate_Helper().getDate
 		};
 
+		$scope.$watch(function(){
+			return seatPlanService.date;
+		}, function(newValue){
+			if(typeof newValue === "string"){
+				self.class.date = newValue;
+			}
+			
+		});
+
 		//init
 		hasClasslist();
 
@@ -36,10 +45,7 @@
 				templateUrl: TEMP_LOC.PATH + "attendance/seatPlan.loadAttendanceDialog.html",
 				controller: loadDialogCtrl,
 				controllerAs: "loadDialogCtrl",
-				clickOutsideToClose: true,
-				locals:{
-
-				}
+				clickOutsideToClose: true
 		   });
 		}
 
@@ -63,7 +69,7 @@
 				self.class.date = seatPlanService.getDate_Helper().formatDate(self.date);
 				var schedObj = self.class;
 				seatPlanService.viewAttendance(schedObj).then(function(response){
-					console.log(response);
+					seatPlanService.date = schedObj.date;
 					cancelDialog();
 				});
 			}

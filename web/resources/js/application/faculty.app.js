@@ -88,6 +88,12 @@
 				controller: "miscCtrl",
 				controllerAs: "misc"
 			})
+			.state("forgotPwd", {
+				url: "/forgotPwd",
+				templateUrl: TEMP_LOC + "forgotpwd.html",
+				controller: "forgotpwdCtrl",
+				controller: "forgotpwdCtrl"
+			})
 			.state("logout",{
 				url: "/",
 				controller: function(authService){

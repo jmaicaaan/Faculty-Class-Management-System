@@ -41,42 +41,41 @@
 			self.checkConflict = checkConflict;
 
 			function checkConflict(data){
-			var serviceContainer = scheduleConflictService.container;
-			var dataObj = data;
-			var hasConflict = false;
-			var deferred = $q.defer();
+				var serviceContainer = scheduleConflictService.container;
+				var dataObj = data;
+				var hasConflict = false;
+				var deferred = $q.defer();
 
-			if(serviceContainer.length <= 0){
-				serviceContainer.push(dataObj);
-			}else{
-				
-				//Same hashKey means same table/card
-				for(index in serviceContainer){
-					if(dataObj.hashKey == serviceContainer[index].hashKey){
+				if(serviceContainer.length <= 0){
+					serviceContainer.push(dataObj);
+				}else{
+					
+					//Same hashKey means same table/card
+					for(index in serviceContainer){
+						if(dataObj.hashKey == serviceContainer[index].hashKey){
 
-						if(scheduleConflictService.hasConflict(dataObj)){
-							alert("Conflict");
-							hasConflict = true;
-						} else{
-							serviceContainer[index].user = dataObj.user;
-						}
-						break;
-					}else{
-
-						if(scheduleConflictService.hasConflict(dataObj)){
-							alert("Conflict");
-							hasConflict = true;
+							if(scheduleConflictService.hasConflict(dataObj)){
+								alert("Conflict");
+								hasConflict = true;
+							} else{
+								serviceContainer[index].user = dataObj.user;
+							}
+							break;
 						}else{
-							serviceContainer.push(dataObj);	
+
+							if(scheduleConflictService.hasConflict(dataObj)){
+								alert("Conflict");
+								hasConflict = true;
+							}else{
+								serviceContainer.push(dataObj);	
+							}
+							break;
 						}
-						break;
 					}
 				}
+				deferred.resolve(hasConflict);
+				return deferred.promise;
 			}
-			deferred.resolve(hasConflict);
-			return deferred.promise;
-		}
-
 		}
 	}
 })();

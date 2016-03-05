@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Attendance {
@@ -29,6 +30,16 @@ public class Attendance {
 	@JoinColumn(name="ClassID")
 	private Classlist classlist;
 
+	@Transient
+	private double noOfLives;
+
+	public double getNoOfLives() {
+		return noOfLives;
+	}
+
+	public void setNoOfLives(double noOfLives) {
+		this.noOfLives = noOfLives;
+	}
 
 	public int getAttendID() {
 		return attendID;

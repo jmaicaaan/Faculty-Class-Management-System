@@ -17,7 +17,7 @@
 
 		function seatPlanCtrl($scope, seatPlanService, $mdToast, $timeout){
 			var self = this;
-			self.date = new Date(); //for datepicker
+			self.date; //for datepicker
 			self.saveAttendance = saveAttendance;
 			self.addSelectedSeat = addSelectedSeat;
 			self.deleteSelectedSeat = deleteSelectedSeat;
@@ -35,6 +35,15 @@
 					}
 				});
 			}
+
+			$scope.$watch(function(){
+				return seatPlanService.date;
+			}, function(newValue){
+				if(typeof newValue === "string"){
+					var d = new Date(newValue);
+					self.date = d;
+				}
+			});
 
 			function addSelectedSeat(studentObj){
 				//Let's sync it to the view! 
@@ -88,7 +97,7 @@
 
 			seatPlanService.viewClassList(schedObj).then(function(response){
 				classList = response.data.classList;
-				setClasslistCount(classList.length);
+				setClasslistCount(classList);
 				
 				if(classList.length > 0){
 					var counter = 0;
@@ -160,6 +169,8 @@
 				if(newValue){
 					attendance = newValue;
 					loadAttendance(attendance);
+					setClasslistCount(attendance);
+					getAllSelectedSeats(seatMap);
 				}
 			});
 
@@ -177,6 +188,20 @@
 
 			function setClasslistCount(classList){
 				totalCount.html(classList.length);
+			}
+
+			function getAllSelectedSeats(seatMap){
+				var absentSeats = seatMap.find("absent"),
+					lateSeats = seatMap.find("late");
+				if(absentSeats.length > 0 || lateSeats.length > 0){
+					console.log(absentSeats);
+					for(var i = 0; i <= absentSeats.seats.length - 1; i++){
+						scope.seatPlanCtrl.addSelectedSeat(absentSeats.seats[i].settings);
+					}
+					for(var i = 0; i <= absentSeats.seats.length - 1; i++){
+						scope.seatPlanCtrl.addSelectedSeat(lateSeats.seats[i].settings);
+					}
+				}
 			}
 
 			function emptyAllSeats(seatMap){
@@ -220,7 +245,8 @@
 				var absentObj = seatMap.find("absent").seatIds,
 					lateObj = seatMap.find("late").seatIds,
 					presentObj = seatMap.find("available").seatIds,
-					date = seatPlanService.getDate_Helper().formatDate(dateCtrl);
+					date = dateCtrl;
+					// date = seatPlanService.getDate_Helper().formatDate(dateCtrl);
 
 				var attendanceObj = {
 						schedObj: schedObj.schedObj,

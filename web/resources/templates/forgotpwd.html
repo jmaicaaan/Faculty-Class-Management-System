@@ -1,0 +1,14 @@
+<div layout="column">
+	<md-content layout="column" layout-align="center center">
+		<form>
+			<md-input-container>
+		        <label>Username</label>
+		        <input ng-model="forgotpwdCtrl.data.username" type="text">
+		    </md-input-container>
+		    <md-button class="md-primary md-raised" aria-label="icon" 
+		    	ng-click="forgotpwdCtrl.changePassword(forgotpwdCtrl.data)">
+		 	 	Change password
+		    </md-button>
+		</form>
+	</md-content>
+</div>

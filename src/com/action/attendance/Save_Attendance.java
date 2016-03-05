@@ -10,6 +10,8 @@ import com.HibernateUtil.AttendanceHelper;
 import com.helper.AttendanceHelperClass;
 import com.helper.Utilities;
 import com.model.Attendance;
+import com.model.Classlist;
+import com.model.FacultyAssign;
 import com.model.Schedule;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,26 +32,33 @@ public class Save_Attendance extends ActionSupport implements SessionAware {
 		try {
 			AttendanceHelper a_helper = new AttendanceHelper();
 			AttendanceHelperClass a_helper_class = new AttendanceHelperClass();
-			Attendance aObj = new Attendance();
-			aObj.setDate(date);
+//			Attendance aObj = new Attendance();
+//			aObj.setDate(date);
 			Users user = (Users)userSession.get(Utilities.user_sessionName);
 			int aID = a_helper.getAssignID(schedObj.getSubjects().getCourseCode(), schedObj.getSection());
+			FacultyAssign fObcj = new FacultyAssign();
+			fObcj.setAssignID(aID);
+			List<Classlist> cList = a_helper.viewClassList(fObcj);
+			List<Attendance> aList =  a_helper.getHighCharts(cList);
 			
-	
-			absentList.forEach(i -> {
-				aObj.setAttendance("A");
-				a_helper.addAttendance(aID, i, aObj);
-			});
-			
-			lateList.forEach(i -> {
-				aObj.setAttendance("L");
-				a_helper.addAttendance(aID, i, aObj);
-			});
-			
-			presentList.forEach(i -> {
-				aObj.setAttendance("P");
-				a_helper.addAttendance(aID, i, aObj);
-			});
+			for(Attendance attendanceObjc : aList)
+			{
+				System.out.println(attendanceObjc.getClasslist().getUsers().getFirstName() + " " + attendanceObjc.getNoOfLives());
+			}
+//			absentList.forEach(i -> {
+//				aObj.setAttendance("A");
+//				a_helper.addAttendance(aID, i, aObj);
+//			});
+//			
+//			lateList.forEach(i -> {
+//				aObj.setAttendance("L");
+//				a_helper.addAttendance(aID, i, aObj);
+//			});
+//			
+//			presentList.forEach(i -> {
+//				aObj.setAttendance("P");
+//				a_helper.addAttendance(aID, i, aObj);
+//			});
 
 			
 			return SUCCESS;
