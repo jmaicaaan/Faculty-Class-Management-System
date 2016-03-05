@@ -2,11 +2,75 @@
 	angular.module("attendanceModule")
 		.controller("seatPlanCtrl", seatPlanCtrl);
 
-	function seatPlanCtrl($stateParams, seatPlanService){
+	function seatPlanCtrl($scope, $stateParams, seatPlanService, $mdDialog, TEMP_LOC){
 		var self = this;
+		self.hasClasslist = false;
+		self.showLoadDialog = showLoadDialog;
+		self.attendanceObj = [];
 		self.class = {
-			"subject": $stateParams.c,
-			"section": $stateParams.s
+			"schedObj": {
+				"section": $stateParams.s,
+				"subjects": {
+					"courseCode": $stateParams.c
+				},
+				"day": $stateParams.d
+			},
+			"date": seatPlanService.getDate_Helper().getDate
 		};
+
+		//init
+		hasClasslist();
+
+		function hasClasslist(){
+			var schedObj = self.class;
+			seatPlanService.viewClassList(schedObj).then(function(response){
+				self.hasClasslist = (response.status == 200 
+					&& response.data.classList.length > 0) ? true : false;
+			});
+		}
+
+		function showLoadDialog(event){
+			$mdDialog.show({
+				parent: angular.element(document.body),
+				targetEvent: event,
+				templateUrl: TEMP_LOC.PATH + "attendance/seatPlan.loadAttendanceDialog.html",
+				controller: loadDialogCtrl,
+				controllerAs: "loadDialogCtrl",
+				clickOutsideToClose: true,
+				locals:{
+
+				}
+		   });
+		}
+
+		function loadDialogCtrl($mdDialog, seatPlanService, $stateParams){
+			var self = this;
+			self.loadAttendance = loadAttendance;
+			self.cancelDialog =  cancelDialog;
+			self.date = new Date(); //Datepicker init
+			self.class = {
+				"schedObj": {
+					"section": $stateParams.s,
+					"subjects": {
+						"courseCode": $stateParams.c
+					},
+					"day": $stateParams.d
+				},
+				"date": ""
+			};
+
+			function loadAttendance(){
+				self.class.date = seatPlanService.getDate_Helper().formatDate(self.date);
+				var schedObj = self.class;
+				seatPlanService.viewAttendance(schedObj).then(function(response){
+					console.log(response);
+					cancelDialog();
+				});
+			}
+
+			function cancelDialog(){
+				$mdDialog.hide();
+			}
+		}
 	}
 })();

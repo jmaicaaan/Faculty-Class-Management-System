@@ -4,7 +4,6 @@
 
 	function scheduleCtrl(scheduleService, $timeout){
 		var self = this;
-		self.message = "Hello";
 		self.schedule = [];
 		self.view_mySchedule = view_mySchedule;
 		self.hasSchedule = false;

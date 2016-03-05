@@ -7,9 +7,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 
 import com.helper.Utilities;
 import com.model.AccountType;
+import com.model.Attendance;
 import com.model.Classlist;
 import com.model.FacultyAssign;
 import com.model.Password;
@@ -17,9 +19,9 @@ import com.model.ProfessorProfile;
 import com.model.Users;
 
 public class AttendanceHelper {
-	
+
 	public void addStudent(Users users){
-		
+
 		Session session = null;
 		Transaction trans = null;
 		try{
@@ -38,22 +40,22 @@ public class AttendanceHelper {
 			session.close();
 		}
 	}
-	
+
 	public boolean isStudentNotAdded(Users users){
 		Session session = null;
 		Transaction trans = null;
 		boolean isAdded = false;
-		
+
 		try {
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
-			
+
 			int count = (int) session.createSQLQuery("Select count(*) from Users where users.idno = :idno")
-						.setParameter("idno", users.getIdNo())
-						.uniqueResult();
-			
+					.setParameter("idno", users.getIdNo())
+					.uniqueResult();
+
 			isAdded = count <= 0 ? true : false;
-			
+
 			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -89,10 +91,10 @@ public class AttendanceHelper {
 	}
 
 	public void addAccountType(AccountType accountType){
-	
+
 		Session session = null;
 		Transaction trans = null;
-		
+
 		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
@@ -100,8 +102,8 @@ public class AttendanceHelper {
 			List <AccountType> checkAccountType=null;
 
 			String acType = accountType.getAccountType();
-//			Integer userid=(Integer)session.createSQLQuery("select UserID from Users where IDno=:id")
-//					.setParameter("id",users.getIdNo()).uniqueResult();
+			//			Integer userid=(Integer)session.createSQLQuery("select UserID from Users where IDno=:id")
+			//					.setParameter("id",users.getIdNo()).uniqueResult();
 
 			if(acType.equals(Utilities.STUDENT)){
 				query=session.createQuery("From AccountType where userid=:userid");
@@ -127,10 +129,10 @@ public class AttendanceHelper {
 	}
 
 	public void addClassList(Classlist classlist){
-		
+
 		Session session = null;
 		Transaction trans = null;
-		
+
 		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
@@ -167,34 +169,34 @@ public class AttendanceHelper {
 
 	@SuppressWarnings("unchecked")
 	public List<Classlist> viewClassList (FacultyAssign facultyAssign){
-		
+
 		Session session = null;
 		Transaction trans = null;
 		List<Classlist> list = new ArrayList<Classlist>();
-		
+
 		try {
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 
 			list = session.createQuery("from Classlist where AssignID = :aid")
-						.setParameter("aid", facultyAssign.getAssignID())
-						.list();
-			
+					.setParameter("aid", facultyAssign.getAssignID())
+					.list();
+
 			list.forEach(i -> {
 				Hibernate.initialize(i.getUsers());
 				Hibernate.initialize(i.getAttendance());
 			});
-			
-			 System.out.println("Free memory (bytes): " + 
-					 Runtime.getRuntime().freeMemory());
-			 
-			 /* Total memory currently in use by the JVM */
-			  System.out.println("Total memory (bytes): " + 
-			  Runtime.getRuntime().totalMemory());
-			  
-			  
-			
-//			trans.commit();
+
+			System.out.println("Free memory (bytes): " + 
+					Runtime.getRuntime().freeMemory());
+
+			/* Total memory currently in use by the JVM */
+			System.out.println("Total memory (bytes): " + 
+					Runtime.getRuntime().totalMemory());
+
+
+
+			//			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 			if(trans != null){
@@ -238,7 +240,7 @@ public class AttendanceHelper {
 		}
 		return aid;
 	}
-	
+
 	public int getAssignID(String subject, String section, ProfessorProfile professorProfile){
 
 		Session session = null;
@@ -272,9 +274,9 @@ public class AttendanceHelper {
 		}
 		return aid;
 	}
-	
+
 	public void deleteStudent(Classlist classlist){
-		
+
 		Session session = null;
 		Transaction trans = null;
 		try {
@@ -283,7 +285,7 @@ public class AttendanceHelper {
 			Classlist cl = (Classlist) session.get(Classlist.class, classlist.getClassID());
 			session.delete(cl);
 			trans.commit();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			if(trans != null){
@@ -294,6 +296,181 @@ public class AttendanceHelper {
 			session.close();
 		}
 	}
-	
-	
+
+	public void addAttendance(int assignID, Users users, Attendance attendance){
+		Session session = null;
+		Transaction trans = null;
+
+		List<Classlist> cList = null;
+		Attendance aObjc = new Attendance();
+		boolean hasAttendance = false;
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			Integer uID = (Integer) session.createSQLQuery("Select userId from users where idno=:idno")
+					.setParameter("idno", users.getIdNo())
+					.uniqueResult();
+
+			Query query = session.createQuery("From Classlist where AssignID = :aid and UserID = :uid")
+					.setParameter("aid", assignID)
+					.setParameter("uid", uID);
+
+			cList = query.list();
+
+			hasAttendance = hasAttendance(attendance);
+
+			for(Classlist cObjc : cList){
+				cObjc.getClassID();
+				aObjc.setAttendance(attendance.getAttendance());
+				aObjc.setDate(attendance.getDate());
+				aObjc.setClasslist(cObjc);
+
+				if(hasAttendance){
+					updateAttendance(aObjc);
+				}else{
+					session.save(aObjc);
+				}
+			}
+			trans.commit();
+		}
+		catch (Exception e) {
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+	}
+
+	public void updateAttendance(Attendance attendance){
+
+		Session session = null;
+		Transaction trans = null;
+		try {
+
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+
+			Integer attendID = (Integer) session.createSQLQuery("Select attendID from Attendance where date = :date and classID = :cid")
+					.setParameter("date", attendance.getDate())
+					.setParameter("cid", attendance.getClasslist().getClassID())
+					.uniqueResult();
+
+			Attendance aObj = (Attendance) session.get(Attendance.class, attendID);
+			aObj.setAttendance(attendance.getAttendance());
+			session.update(aObj);			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	public List<Attendance> viewAttendance(String date , int assignID){
+
+		Session session = null;
+		Transaction trans = null;
+		Query query = null;
+		List<Classlist> cList = new ArrayList<Classlist>(); 
+		List<Attendance> aList = new ArrayList<Attendance>();
+
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			cList = session.createQuery("From Classlist where AssignID =:aid")
+					.setParameter("aid" , assignID)
+					.list();
+
+			for(Classlist cObjc : cList){
+				query = session.createQuery("From Attendance where date=:date and ClassID=:cid")
+						.setParameter("date", date)
+						.setParameter("cid", cObjc.getClassID());
+				aList.addAll(query.list());
+			}
+
+			trans.commit();
+		}
+		catch (Exception e) {
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return aList;
+	}
+
+	public boolean hasAttendance(Attendance attendance){
+
+		Session session = null;
+		Transaction trans = null;
+		boolean hasAttendance = false;
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			Integer count = (Integer) session.createSQLQuery("Select COUNT(*) from Attendance as A where A.Date = :date")
+					.setParameter("date", attendance.getDate())
+					.uniqueResult();
+
+			hasAttendance = count != null ? true : false;
+
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			hasAttendance = false;
+		} finally {
+			session.close();
+		}
+
+		return hasAttendance;
+	}
+
+	public List<Attendance> viewAttendance(int assignID){
+
+		Session session = null;
+		Transaction trans = null;
+		Query query = null;
+		List<Classlist> cList = new ArrayList<Classlist>(); 
+		List<Attendance> aList = new ArrayList<Attendance>();
+
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			cList = session.createQuery("From Classlist where AssignID =:aid")
+					.setParameter("aid" , assignID)
+					.list();
+
+			for(Classlist cObjc : cList){
+				query = session.createQuery("From Attendance where ClassID=:cid")
+						.setParameter("cid", cObjc.getClassID());
+				aList.addAll(query.list());
+			}
+
+			trans.commit();
+		}
+		catch (Exception e) {
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return aList;
+	}
+
+
+
+
+
 }

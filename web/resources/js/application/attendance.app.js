@@ -1,5 +1,8 @@
 (function(){
-	angular.module("attendanceModule", ["events"]);
+	angular.module("attendanceModule", [
+		"events", 
+		"highcharts-ng"
+	]);
 }());
 
 (function(){
@@ -10,7 +13,6 @@
 		});
 
 	function config($stateProvider, $urlRouterProvider, TEMP_LOC, USER_ROLES){
-
 		$urlRouterProvider
 			.when("/manageClasslist", "/manageClasslist/list")
 			.otherwise("/dashboard/");
@@ -66,13 +68,41 @@
 				controllerAs: "recordAttendance_ListCtrl"
 			})
 			.state("dashboard.recordAttendance.class", {
-				url: "/?c&s",
+				url: "/?c&s&d",
 				data:{
 					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
 				},
 				templateUrl: TEMP_LOC.PATH + "attendance/seatPlan.html",
 				controller: "seatPlanCtrl",
 				controllerAs: "seatPlanCtrl"
+			})
+			.state("dashboard.attendanceReports", {
+				url: "/attendanceReports",
+				data:{
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				},
+				templateUrl: TEMP_LOC.PATH + "attendance/attendanceReports_Menu.html",
+				controller: function($state){
+					$state.go("dashboard.attendanceReports.list");
+				}
+			})
+			.state("dashboard.attendanceReports.list", {
+				url: "/attendanceReportsList",
+				data:{
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				},
+				templateUrl: TEMP_LOC.PATH + "attendance/attendanceReports_List.html",
+				controller: "attendanceRptList_Ctrl",
+				controllerAs: "attendanceRptList_Ctrl"
+			})
+			.state("dashboard.attendanceReports.class", {
+				url: "/?c&s",
+				data:{
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				},
+				templateUrl: TEMP_LOC.PATH + "attendance/attendanceReports.html",
+				controller: "attendanceRptCtrl",
+				controllerAs: "attendanceRptCtrl"
 			});
 	}
 }());

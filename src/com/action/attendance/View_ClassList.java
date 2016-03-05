@@ -29,6 +29,8 @@ public class View_ClassList extends ActionSupport implements SessionAware{
 		ProfessorProfile professorProfile = new ProfessorProfile();
 		FacultyAssign fa = new FacultyAssign();
 		
+		System.out.println(schedObj.getSection());
+		
 		try {
 			Users uModel = (Users) userSession.get(Utilities.user_sessionName);
 			professorProfile.setPpID(uModel.getUserID());

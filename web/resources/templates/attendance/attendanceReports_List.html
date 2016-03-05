@@ -6,11 +6,11 @@
 	md-row-height-sm="1:1" md-row-height-gt-md="3:2" md-row-height-lg="3:2"
 	md-row-height="2:2">
 
-		<md-grid-tile ng-repeat="class in recordAttendance_ListCtrl.schedule">
+		<md-grid-tile ng-repeat="class in attendanceRptList_Ctrl.schedule">
 			<md-content layout-xs="column" layout-sm="column" layout="row">
 				<md-card 
-				ui-sref="dashboard.recordAttendance.class({ c: class.courseCode, s: class.schedule.section, d: class.schedule.day })" 
-				class="md-whiteframe-10dp resumeCard">
+					ui-sref="dashboard.attendanceReports.class({ c: class.courseCode, s: class.schedule.section })" 
+					class="md-whiteframe-10dp resumeCard">
 					<md-card-title>
 						<md-card-title-text>
 							<span class="md-headline">{{class.courseCode}}</span>

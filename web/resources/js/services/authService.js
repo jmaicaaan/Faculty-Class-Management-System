@@ -37,7 +37,6 @@
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
 					var responseObj = response.data.usersModel;
 					userService.createSession(responseObj);
 					return response;
@@ -59,8 +58,6 @@
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
-					// updateSession();
 					return response;
 				})
 				.catch(function(error){
@@ -82,20 +79,16 @@
 			return $http(request)
 				.then(function(response){
 					var responseObj = response.data.user;
-					console.log(responseObj);
 					return userService.createSession(responseObj);
 				})
 				.catch(function(error){
-					console.log(error);	
 					return error;
 				});
 		}
 
 		function isAuthorized(arrayOfRoles){
 			var userAccountType = userService.getAccountType().trim();
-			console.log(userAccountType);
 			if(userAccountType){
-				console.log(arrayOfRoles.indexOf(userAccountType) > -1);
 				if(arrayOfRoles.indexOf(userAccountType) > -1){
 					return true;
 				}
@@ -116,7 +109,6 @@
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
 					userService.destroySession();
 					return response;
 				})

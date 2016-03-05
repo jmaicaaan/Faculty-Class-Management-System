@@ -13,7 +13,7 @@ import com.model.ProfessorProfile;
 import com.model.Schedule;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
-
+ 
 public class Add_Student extends ActionSupport implements SessionAware{
 	
 	private Users users = new Users();

@@ -40,15 +40,6 @@ public class Insert_Project extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-
-//	@Override
-//	public Projects getModel() {
-//		// TODO Auto-generated method stub
-//		return pModel;
-//	}
-	
-	
-
 	public Projects getpModel() {
 		return pModel;
 	}

@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class Delete_Student extends ActionSupport {
 	
 	private Classlist clObj = new Classlist();
-	
+	 
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub

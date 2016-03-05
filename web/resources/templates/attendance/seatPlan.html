@@ -1,5 +1,20 @@
-<md-content layout-padding layout-margin>
-	<seat-Plan class-Obj="seatPlanCtrl.class">
-	</seat-Plan>
-</md-content>
+<div>
+	<md-content layout="column" layout-align="center center" ng-hide="seatPlanCtrl.hasClasslist">
+		<h5 class="md-title">Your class {{seatPlanCtrl.class.subject}} {{seatPlanCtrl.class.section}} has classlist yet.</h5>
+		<img ng-src="resources/img/null.png">
+		<p class="md-subhead">Upload your classlist 
+			<a ui-sref="dashboard.manageClasslist.class({ c: seatPlanCtrl.class.schedObj.subject, 
+			cs: seatPlanCtrl.class.schedObjsection})">
+			here</a></p>
+	</md-content>
 
+	<div layout-padding layout-margin ng-show="seatPlanCtrl.hasClasslist">
+		<seat-Plan class-Obj="seatPlanCtrl.class"></seat-Plan>
+		
+		<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" 
+			ng-click="seatPlanCtrl.showLoadDialog($event)" style="position: fixed;">
+			<md-tooltip md-direction="left"> Load attendance </md-tooltip>
+			<md-icon md-svg-src="resources/img/svg/load.svg"></md-icon>
+		</md-button>
+	</div>
+</div>

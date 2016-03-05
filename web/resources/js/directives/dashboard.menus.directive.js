@@ -22,7 +22,6 @@
 					const TEMP_LOC = "resources/templates/";
 					
 					var userAccountType = userService.getAccountType();
-					console.log(userAccountType);
 					switch(userAccountType.toLowerCase()){
 						case "professor":
 							return TEMP_LOC + "professor/professorMenu.html";

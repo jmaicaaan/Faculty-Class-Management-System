@@ -1,26 +1,19 @@
 <md-dialog aria-label="Upload achievement/certification">
 	<md-dialog-content style="width: 500px;">
 	    <md-content layout-padding layout-margin>
-
 	      	<h5 class="md-title">Upload achievement/certification</h5>
 			<md-content layout="column" layout-margin>
 				<md-input-container class="md-block">
 				  	<label>Achievement/Certification name</label>
 				  	<input ng-model="uploadDialogCtrl.achievementFileData.achievementName">
 				</md-input-container>
-
-				
-					<achievement-Preview
-						file="uploadDialogCtrl.achievementFileData.file">
-					</achievement-Preview>
-
+				<achievement-Preview
+					file="uploadDialogCtrl.achievementFileData.file">
+				</achievement-Preview>
 			</md-content>      
 		</md-content>
 	</md-dialog-content>
 	<md-dialog-actions>
-
-		
-		
 		<md-content layout-padding layout-margin>
 			<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
 				Cancel

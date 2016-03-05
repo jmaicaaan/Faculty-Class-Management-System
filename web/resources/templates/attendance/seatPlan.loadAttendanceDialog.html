@@ -1,0 +1,15 @@
+<md-dialog aria-label="Load attendance">
+	<md-dialog-content layout-padding layout-margin>
+		<span class="md-title">Date: <md-datepicker ng-model="loadDialogCtrl.date" 
+			md-placeholder="Attendance date">
+		</md-datepicker></span>
+	</md-dialog-content>
+	<md-dialog-actions>
+		<md-content layout-padding layout-margin>
+			<md-button class="md-primary md-raised" 
+				ng-click="loadDialogCtrl.loadAttendance()">
+			    Load attendance
+			</md-button>
+		</md-content>
+	</md-dialog-actions>
+</md-dialog>

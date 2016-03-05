@@ -2,32 +2,55 @@ package com.action.attendance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.AttendanceHelper;
 import com.helper.AttendanceHelperClass;
+import com.helper.Utilities;
+import com.model.Attendance;
+import com.model.Schedule;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class Save_Attendance extends ActionSupport {
+public class Save_Attendance extends ActionSupport implements SessionAware {
 	
-	List<Users> absentList = new ArrayList<Users>();
-	List<Users> lateList = new ArrayList<Users>();
+	private List<Users> absentList = new ArrayList<Users>();
+	private List<Users> lateList = new ArrayList<Users>();
+	private List<Users> presentList = new ArrayList<Users>();
+	private Schedule schedObj = new Schedule();
+	private Map<String, Object> userSession;
+	private String date;
 	
 	@Override
 	public String execute() throws Exception {
+	
 		// TODO Auto-generated method stub
 		try {
+			AttendanceHelper a_helper = new AttendanceHelper();
+			AttendanceHelperClass a_helper_class = new AttendanceHelperClass();
+			Attendance aObj = new Attendance();
+			aObj.setDate(date);
+			Users user = (Users)userSession.get(Utilities.user_sessionName);
+			int aID = a_helper.getAssignID(schedObj.getSubjects().getCourseCode(), schedObj.getSection());
+			
+	
 			absentList.forEach(i -> {
-				System.out.println(i.getIdNo());
+				aObj.setAttendance("A");
+				a_helper.addAttendance(aID, i, aObj);
 			});
 			
 			lateList.forEach(i -> {
-				System.out.println(i.getIdNo());
+				aObj.setAttendance("L");
+				a_helper.addAttendance(aID, i, aObj);
 			});
 			
-			AttendanceHelper a_helper = new AttendanceHelper();
-			AttendanceHelperClass a_helper_class = new AttendanceHelperClass();
-			
+			presentList.forEach(i -> {
+				aObj.setAttendance("P");
+				a_helper.addAttendance(aID, i, aObj);
+			});
+
 			
 			return SUCCESS;
 		} catch (Exception e) {
@@ -41,5 +64,21 @@ public class Save_Attendance extends ActionSupport {
 	}
 	public void setLateList(List<Users> lateList) {
 		this.lateList = lateList;
+	}
+	public void setPresentList(List<Users> presentList) {
+		this.presentList = presentList;
+	}
+	
+	public void setSchedObj(Schedule schedObj) {
+		this.schedObj = schedObj;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		// TODO Auto-generated method stub
+		this.userSession = session;
 	}
 }

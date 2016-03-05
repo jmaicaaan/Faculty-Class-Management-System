@@ -16,8 +16,7 @@ min-height:450px;
     padding: 3px;
     border-radius: 5px;
 }
-.student-details 
-{
+.student-details {
 float: right;
 position: static;
 left: 220px;
@@ -25,49 +24,66 @@ width:300px;
 height: 370px;
 }
 
-.student-details h3 
-{
+.student-details h3 {
 margin: 5px 5px 0 0;
 font-size: 16px;
 }
-.student-details p
-{
-line-height:26px;
+.student-details p{
+ line-height:26px;
  font-size:16px;
  color:#999
  }
  
  
-.student-details p span
-{
-color:#666
+.student-details p span{
+	color:#666
 }
 
-div.seatCharts-cell 
-{color: #182C4E;
-height: 25px;
-width: 25px;
-line-height: 25px;
-margin: 3px;
-float: left;
-text-align: center;
-outline: none;
-font-size: 13px;
+div.seatCharts-cell {
+	color: #182C4E;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	margin: 3px;
+	float: left;
+	text-align: center;
+	outline: none;
+	font-size: 13px;
+}
+
+div.seatCharts-cell-legend {
+	color: #182C4E;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	margin: 3px;
+	float: left;
+	text-align: center;
+	outline: none;
+	font-size: 13px;
+}
+
+div.seatCharts-seat-legend{
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-indent:-999em
 }
 
 
-div.seatCharts-seat 
-{
-color: #fff;
-cursor: pointer;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
-border-radius: 5px;
- text-indent:-999em
+div.seatCharts-seat {
+	color: #fff;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	 text-indent:-999em
 }
+
 
 div.seatCharts-row {
-height: 35px;
+	height: 35px;
 }
 
 div.seatCharts-seat.available

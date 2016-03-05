@@ -1,0 +1,10 @@
+<div layout="column">
+	<md-content>
+		<highchart id="chart1" config="attendanceRptCtrl.chartConfig"></highchart>
+	</md-content>
+	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="attendanceRptCtrl.downloadChart()"
+		style="position: fixed;">
+		<md-tooltip md-direction="left"> Download Chart </md-tooltip>
+		<md-icon md-svg-src="resources/img/svg/file_download.svg"></md-icon>
+	</md-button>
+</div>

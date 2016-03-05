@@ -71,11 +71,6 @@
 					console.log(response);
 					var list = response.data.pSet;
 					self.listFile = list;
-					// if(list.length > 0){
-					// 	self.listFile = list;
-					// }else{
-					// 	self.listFile = [];
-					// }
 					return response;
 				})
 				.catch(function(error){

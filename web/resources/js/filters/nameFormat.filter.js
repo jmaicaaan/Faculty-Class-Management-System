@@ -4,25 +4,37 @@
 			return function(input){
 				var l = input.length;
 				var res = "";
-				for(var i = 0; i <= l - 1; i++){
-					if(i == 0){
-						res += input.charAt(i).toUpperCase();
-						continue;
+
+				if(input.indexOf(",") <= -1){
+					res = nameFormatHelper(input);
+				}else{
+					var name = input.split(","),
+						lastName = name[0],
+						firstName = name[1].split(" ");
+					var joinedName = [];
+					joinedName.push(nameFormatHelper(lastName) + ",");
+					for(var i = 0; i <= firstName.length - 1; i++){
+						joinedName.push(nameFormatHelper(firstName[i]));
 					}
-					res += input.charAt(i).toLowerCase();
+					res = joinedName.join(" ");
 				}
+
+				
 				return res;
 			}
-		})
-		.filter("studentName", function(){
-			return function(input){
-				var res = "";
-				var temp = input.split(" ");
 
+			function nameFormatHelper(input){
+				var inputLength = input.length;
+				var result = "";
 
-				console.log(temp);
-
-				return input;
+				for(var i = 0; i <= inputLength - 1; i++){
+					if(i == 0){
+						result += input.charAt(i).toUpperCase();
+						continue;
+					}
+					result += input.charAt(i).toLowerCase();
+				}
+				return result;
 			}
 		});
 }());
