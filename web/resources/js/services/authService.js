@@ -89,7 +89,7 @@
 		function isAuthorized(arrayOfRoles){
 			var userAccountType = userService.getAccountType().trim();
 			if(userAccountType){
-				if(arrayOfRoles.indexOf(userAccountType) > -1){
+				if(arrayOfRoles.indexOf(userAccountType.toLowerCase()) > -1){
 					return true;
 				}
 			}

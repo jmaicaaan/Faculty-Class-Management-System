@@ -38,15 +38,15 @@
 						<md-icon md-svg-icon="resources/img/svg/home.svg"></md-icon>
 						<p class="md-body-2">Home</p>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard.profile.general" ng-hide="dash.isDeveloper">
+					<md-list-item ui-sref="dashboard.profile.general" ng-hide="dash.hasAuth">
 						<md-icon md-svg-icon="resources/img/svg/profile_circle.svg"></md-icon>
 						<p class="md-body-2">Profile</p>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard.profile.schedule" ng-hide="dash.isDeveloper">
+					<md-list-item ui-sref="dashboard.profile.schedule" ng-hide="dash.hasAuth">
 						<md-icon md-svg-icon="resources/img/svg/schedule.svg"></md-icon>
 						<p class="md-body-2">My Schedule</p>
 					</md-list-item>
-					<md-list-item ui-sref="dashboard.settings" ng-hide="dash.isDeveloper">
+					<md-list-item ui-sref="dashboard.settings" ng-hide="dash.hasAuth">
 						<md-icon md-svg-icon="resources/img/svg/settings.svg"></md-icon>
 						<p class="md-body-2">Settings</p>
 					</md-list-item>

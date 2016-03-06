@@ -11,8 +11,7 @@
 
 		function getAccountType(){
 			var ac = self.userRole;
-			self.isDeveloper = ( (ac.trim() == 'developer') || (ac.trim() == 'secretary') ) ? true : false;
-			
+			self.hasAuth = (ac == 'Student' || ac == 'Developer') ? true : false;
 		}
 	}
 }());

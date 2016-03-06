@@ -38,14 +38,14 @@
 			.state("dashboard.profile", {
 				url: "/profile",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				templateUrl: TEMP_LOC + "profile.html"
 			})
 			.state("dashboard.profile.general", {
 				url: "/general",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				templateUrl: TEMP_LOC + "profiling/generalTab.html",
 				controller: "generalCtrl",
@@ -55,7 +55,7 @@
 				url: "/achievements",
 				templateUrl: TEMP_LOC + "profiling/achievementsTab.html",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				controller: "achievementsCtrl",
 				controllerAs: "achieve"
@@ -63,7 +63,7 @@
 			.state("dashboard.profile.projects", {
 				url: "/projects",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				templateUrl: TEMP_LOC + "profiling/projectsTab.html",
 				controller: "projectsCtrl",
@@ -72,7 +72,7 @@
 			.state("dashboard.profile.research", {
 				url: "/researches",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				templateUrl: TEMP_LOC + "profiling/researchTab.html",
 				controller: "researchCtrl",
@@ -81,7 +81,7 @@
 			.state("dashboard.profile.resume", {
 				url: "/resume",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				templateUrl: TEMP_LOC + "profiling/resumeTab.html",
 				controller: "resumeCtrl",
@@ -90,7 +90,7 @@
 			.state("dashboard.profile.schedule", { /** This controller is on the scheduling **/
 				url: "/schedule",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
 				},
 				templateUrl: TEMP_LOC + "profiling/myScheduleTab.html",
 				controller: "scheduleCtrl",
