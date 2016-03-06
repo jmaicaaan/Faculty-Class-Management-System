@@ -92,7 +92,7 @@
 				url: "/forgotPwd",
 				templateUrl: TEMP_LOC + "forgotpwd.html",
 				controller: "forgotpwdCtrl",
-				controller: "forgotpwdCtrl"
+				controllerAs: "forgotpwdCtrl"
 			})
 			.state("logout",{
 				url: "/",

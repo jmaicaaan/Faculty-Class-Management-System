@@ -1,6 +1,7 @@
 package com.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -196,7 +197,7 @@ public class AttendanceHelper {
 
 
 
-			//			trans.commit();
+			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 			if(trans != null){
@@ -478,15 +479,13 @@ public class AttendanceHelper {
 		double maximumLives = 5.5;
 		Integer late = null;
 		Integer absences = null;
-		Attendance aObcj = new Attendance();
+		Attendance aObcj = null;
 
 		List<Attendance> aList = new ArrayList<Attendance>();
-		try
-		{
+		try{
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
-			for(Classlist cObjc : cList)
-			{
+			for(Classlist cObjc : cList){
 				late = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
 						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
 						.setParameter("cid", cObjc.getClassID())
@@ -499,26 +498,198 @@ public class AttendanceHelper {
 						.setParameter("attendance", "A")
 						.uniqueResult();
 				
+				aObcj = new Attendance();
 				aObcj.setNoOfLives(maximumLives - (late * 0.5) - absences);
 				aObcj.setClasslist(cObjc);
 				aList.add(aObcj);
 			}
 			
 			trans.commit();
+			
+			aList.forEach(i -> {
+				Hibernate.initialize(i.getClasslist());
+				Hibernate.initialize(i.getClasslist().getUsers());
+				Hibernate.initialize(i.getNoOfLives());
+			});
 		}
-		catch (Exception e) 
-		{
-				if(trans != null){
-					trans.rollback();
-				}
-				e.printStackTrace();
+		catch (Exception e) {
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
 		} 
 		
-		finally
-		{
+		finally{
 			session.close();
 		}
 		return aList;
+	}
+	public List<Classlist> getSubjects(Users users){
+		Session session = null;
+		Transaction trans = null;
+		List<Classlist> cList = null;
+		Query query = null;
+		int uid = 0;
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			uid = (Integer) session.createSQLQuery("select userid from users where idno=:IDno")
+					.setParameter("IDno", users.getUsername())
+					.uniqueResult();
+			query = session.createQuery("from Classlist where userID=:userID")
+					.setParameter("userID", uid);
+			cList = query.list();
+//
+			cList.forEach(i -> {
+				Hibernate.initialize(i);
+			});
+
+			trans.commit();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return cList;
+	}
+	
+	public List<Attendance> studentViewAttendance (List<Classlist> cList){
+		Session session = null; 
+		Transaction trans = null;
+		double maximumLives = 5.5;
+		Integer late = null;
+		Integer absences = null;
+		Attendance aObcj = null;
+
+		List<Attendance> aList = new ArrayList<Attendance>();
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			for(Classlist cObjc : cList){
+				late = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
+						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
+						.setParameter("cid", cObjc.getClassID())
+						.setParameter("attendance", "L")
+						.uniqueResult();
+				
+				absences = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
+						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
+						.setParameter("cid", cObjc.getClassID())
+						.setParameter("attendance", "A")
+						.uniqueResult();
+				
+				aObcj = new Attendance();
+				aObcj.setNoOfLives(maximumLives - (late * 0.5) - absences);
+				aObcj.setClasslist(cObjc);
+				aList.add(aObcj);
+			}
+			
+
+			trans.commit();
+			
+		}
+		catch(Exception ex){
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return aList;
+	}
+	public List<Attendance> displayAttendancetoPDF(Users users)
+	{
+		Session session = null; 
+		Transaction trans = null;
+
+		Integer late = null;
+		Integer absences = null;
+		Attendance aObcj = null;
+		
+		Query query = null;
+		Integer uid = null;
+		List<Attendance> aList = new ArrayList<Attendance>();
+		List<Classlist> cList = null;
+		try
+		{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			uid = (Integer) session.createSQLQuery("select userid from users where idno=:idno")
+					.setParameter("idno", users.getIdNo())
+					.uniqueResult();
+			query = session.createQuery("From Classlist where UserID=:uid")
+					.setParameter("uid", uid);
+			cList = query.list();
+			
+			for(Classlist cObjc : cList)
+			{
+				
+				late = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
+						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
+						.setParameter("cid", cObjc.getClassID())
+						.setParameter("attendance", "L")
+						.uniqueResult();
+				
+				absences = (Integer) session.createSQLQuery("select COUNT(*) from Attendance "
+						+ "where ClassID = :cid and Attendance.Attendance = :attendance")
+						.setParameter("cid", cObjc.getClassID())
+						.setParameter("attendance", "A")
+						.uniqueResult();
+				
+				aObcj = new Attendance();
+				aObcj.setNoOfAbsences(absences);
+				aObcj.setNoOfLates(late);
+				aObcj.setClasslist(cObjc);
+				aList.add(aObcj);
+			}
+			
+		}
+		catch(Exception ex){
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return aList;
+	}
+	
+	public List<Users> getAllStudents(){
+		
+		Session session = null; 
+		Transaction trans = null;
+		List<Users> uList = null;
+		Query query = null;
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			query = session.createQuery("select u from Users as u inner join u.accountType ac where ac.accountType = :ac")
+					.setParameter("ac", Utilities.STUDENT);
+					
+			uList = query.list();
+	
+			
+			
+			
+			trans.commit();
+			
+		}
+		catch(Exception ex){
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		finally{
+			session.close();
+		}
+		return uList;
 	}
 	
 }

@@ -97,6 +97,96 @@
 	  			<param name="errorCode">500</param>
 		  	</result>
    		</action>
+   		
+   		<action name="View_HighChart" class="com.action.attendance.View_HighChart">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   				<param name="excludeProperties">
+   					aList\[\d+\]\.attendID,
+   					aList\[\d+\]\.classlist\.attendance,
+   					aList\[\d+\]\.classlist\.facultyAssign,
+   					aList\[\d+\]\.classID,
+   					aList\[\d+\]\.facultyAssign,
+   					aList\[\d+\]\.classlist\.users\.accountType,
+   					aList\[\d+\]\.classlist\.users\.classList,
+   					aList\[\d+\]\.classlist\.users\.password,
+   					aList\[\d+\]\.classlist\.users\.professorProfile
+   				</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
+   		
+   		<action name="View_StudentHighChart" class="com.action.attendance.View_StudentHighChart">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   				<param name="excludeProperties">
+   					aList\[\d+\]\.attendID,
+   					aList\[\d+\]\.classlist\.attendance,
+   					aList\[\d+\]\.classlist\.attendance\.facultyAssign\.classList,
+   					aList\[\d+\]\.classlist\.attendance\.facultyAssign\.professorProfile,
+   					aList\[\d+\]\.classlist\.attendance\.facultyAssign\.schedule\.facultyAssign,
+   					aList\[\d+\]\.classlist\.facultyAssign\.classList,
+   					aList\[\d+\]\.classlist\.facultyAssign\.professorProfile,
+   					aList\[\d+\]\.classlist\.facultyAssign\.schedule\.facultyAssign,
+   					aList\[\d+\]\.classlist\.facultyAssign\.schedule\.subjects\.expertise,
+   					aList\[\d+\]\.classlist\.facultyAssign\.schedule\.subjects\.schedule,
+   					aList\[\d+\]\.classlist\.facultyAssign\.schedule\.facultyAssign,
+   					aList\[\d+\]\.classlist\.users\.accountType,
+   					aList\[\d+\]\.classlist\.users\.classList,
+   					aList\[\d+\]\.classlist\.users\.password,
+   					aList\[\d+\]\.classlist\.users\.professorProfile
+   				</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
+   		
+   		<action name="View_Students" class="com.action.attendance.View_Students">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   				<param name="excludeProperties">
+   					uList\[\d+\]\.accountType,
+   					uList\[\d+\]\.classList,
+   					uList\[\d+\]\.password,
+   					uList\[\d+\]\.professorProfile
+   				</param>
+   			</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
+   		
+   		<action name="Download_PDFStudent" class="com.action.attendance.Download_PDFStudent">
+   			<interceptor-ref name="myStack"/>
+   			<result name="success" type="json">
+   				<param name="excludeNullProperties">true</param>
+   				<param name="excludeProperties">
+   					uList\[\d+\]\.accountType,
+   					uList\[\d+\]\.classList,
+   					uList\[\d+\]\.password,
+   					uList\[\d+\]\.professorProfile
+   				</param>
+   			</result>
+   			<result name="success" type="stream">
+				  <param name="contentType">application/octet-stream</param>
+				  <param name="inputName">inputStream</param>
+				  <param name="contentDisposition">attachment;filename="document-${inputStreamName}"</param>
+				  <param name="bufferSize">1024</param>
+				</result>
+   			<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+		  	</result>
+   		</action>
    	
    	</package>
    </struts>

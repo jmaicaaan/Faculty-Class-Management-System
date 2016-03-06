@@ -103,6 +103,24 @@
 				templateUrl: TEMP_LOC.PATH + "attendance/attendanceReports.html",
 				controller: "attendanceRptCtrl",
 				controllerAs: "attendanceRptCtrl"
+			})
+			.state("dashboard.studentAttendanceReports", {
+				url: "/attendanceReportsStudent",
+				data:{
+					authorizedRoles: [USER_ROLES.student]
+				},
+				templateUrl: TEMP_LOC.PATH + "attendance/studentAttendanceReports.html",
+				controller: "attendanceRptStudCtrl",
+				controllerAs: "attendanceRptStudCtrl"
+			})
+			.state("dashboard.evaluateStudent", {
+				url: "/evaluateStudent",
+				data:{ 
+					authorizedRoles: [USER_ROLES.acadAdviser]
+				},
+				templateUrl: TEMP_LOC.PATH + "attendance/evaluateStudent.html",
+				controller: "evaluateStudentCtrl",
+				controllerAs: "evaluateStudentCtrl"
 			});
 	}
 }());

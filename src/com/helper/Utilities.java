@@ -18,4 +18,7 @@ public interface Utilities {
 			ACADEMIC_ADIVSER = "Academic Adviser";
 	
 	String defaultImage = "resources/img/avatar.png";
+	
+	String password = "qwerty",	
+			password1 = "changeme";
 }

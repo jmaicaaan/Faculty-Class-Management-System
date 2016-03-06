@@ -31,14 +31,18 @@
 					}
 				};
 				scope.checkConflict(data).then(function(response){
-					
+					console.log(response);
+					if(response == true){
+						alert("A conflict has occurred");
+					}
 				});
 			});
 		}
 
-		function schedCtrl($scope, scheduleConflictService, $q){
+		function schedCtrl($scope, scheduleConflictService, $q, $toast){
 			var self = $scope;
 			self.checkConflict = checkConflict;
+			self.displayToast = displayToast;
 
 			function checkConflict(data){
 				var serviceContainer = scheduleConflictService.container;
@@ -55,7 +59,6 @@
 						if(dataObj.hashKey == serviceContainer[index].hashKey){
 
 							if(scheduleConflictService.hasConflict(dataObj)){
-								alert("Conflict");
 								hasConflict = true;
 							} else{
 								serviceContainer[index].user = dataObj.user;
@@ -64,7 +67,6 @@
 						}else{
 
 							if(scheduleConflictService.hasConflict(dataObj)){
-								alert("Conflict");
 								hasConflict = true;
 							}else{
 								serviceContainer.push(dataObj);	
@@ -75,6 +77,14 @@
 				}
 				deferred.resolve(hasConflict);
 				return deferred.promise;
+			}
+
+			function displayToast($mdToast){
+				$mdToast.show(
+					$mdToast.simple()
+						.textContent("Conflict has occurred")
+						.position("bottom")
+				);
 			}
 		}
 	}

@@ -174,5 +174,4 @@ public class PDFGenerator_Helper {
 		
 		return contentCell;
 	}
-
 }

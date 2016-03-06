@@ -1,5 +1,7 @@
 (function(){
-	angular.module("secretaryApp", ["events"]);
+	angular.module("secretaryApp", 
+		["events", 
+		"ngCookies"]);
 })();
 
 (function(){

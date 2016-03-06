@@ -23,7 +23,7 @@ public class Attendance {
 	@Column(name="Date",length=15)
 	private String date;
 	
-	@Column(name="Remarks",length=40)
+	@Column(name="Remarks",length=40, columnDefinition="varchar(40) default 'None'")
 	private String remarks;
 	
 	@ManyToOne
@@ -33,6 +33,12 @@ public class Attendance {
 	@Transient
 	private double noOfLives;
 
+	@Transient
+	private int noOfLates;
+	
+
+	@Transient
+	private int noOfAbsences;
 	public double getNoOfLives() {
 		return noOfLives;
 	}
@@ -80,7 +86,21 @@ public class Attendance {
 	public void setClasslist(Classlist classlist) {
 		this.classlist = classlist;
 	}
+	public int getNoOfLates() {
+		return noOfLates;
+	}
 
+	public void setNoOfLates(int noOfLates) {
+		this.noOfLates = noOfLates;
+	}
+
+	public int getNoOfAbsences() {
+		return noOfAbsences;
+	}
+
+	public void setNoOfAbsences(int noOfAbsences) {
+		this.noOfAbsences = noOfAbsences;
+	}
 	
 	
 	public Attendance(){}
@@ -92,5 +112,6 @@ public class Attendance {
 		setRemarks(remarks);
 		setClasslist(classlist);
 	}
+	
 
 }

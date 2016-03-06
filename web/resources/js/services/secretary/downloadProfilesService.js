@@ -2,9 +2,10 @@
 	angular.module("secretaryApp")
 		.service("downloadProfilesService", downloadProfilesService);
 
-	function downloadProfilesService($http){
+	function downloadProfilesService($http, $cookies){
 		var self = this;
 		self.view_Professors = view_Professors;
+		self.downloadPDF = downloadPDF;
 
 		function view_Professors(){
 			var request = {
@@ -25,6 +26,18 @@
 				.catch(function(error){
 					return error;
 				});
+		}
+
+		function downloadPDF(){
+			var selected = $cookies.get("secretaryList");
+			// var request = {
+			// 	url: "sec_downloadPDF.action",
+			// 	method: "post",
+			// 	data: selected,
+			// 	headers: {
+			// 		"Content-Type"
+			// 	}
+			// };
 		}
 	}
 }());

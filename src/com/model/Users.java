@@ -27,6 +27,16 @@ public class Users {
 	@Column(length=25,name="LastName")
 	private String lastName;
 	
+	@Column(length=25,name="MiddleName")
+	private String middleName;
+	
+	public String getMiddleName() {
+		return middleName;
+	}
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
 	@Column(length=25,name="UserName")
 	private String username;
 	
@@ -111,16 +121,18 @@ public class Users {
 	
 	public Users(){}
 	
-	public Users(String idNo,String firstName,String lastName,String userName){
+	public Users(String idNo,String firstName,String lastName,String userName,String middleName){
 		setIdNo(idNo);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setUsername(userName);
+		setMiddleName(middleName);
 	}
-	public Users(String idNo,String firstName,String lastName){
+	public Users(String idNo,String firstName,String lastName,String middleName){
 		setIdNo(idNo);
 		setFirstName(firstName);
 		setLastName(lastName);
+		setMiddleName(middleName);
 	}
 	public Users(String pictureUrl,int id){
 		setPictureUrl(pictureUrl);

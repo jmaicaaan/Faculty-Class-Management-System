@@ -31,7 +31,11 @@
 				</md-checkbox>
 			</md-content>
 			<md-content layout="row" layout-margin layout-padding>
-				<pdf-Download selected="dp.selected"></pdf-Download>
+				<!-- <pdf-Download href=></pdf-Download> -->
+				   <md-button class="md-primary md-raised" aria-label="icon" 
+				   	ng-click="dp.download()" ng-href="Download_Professors.action">
+					 	Download PDF
+				   </md-button>
 			</md-content>
 		</div>
 	</div>

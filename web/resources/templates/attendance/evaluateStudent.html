@@ -1,0 +1,51 @@
+<div layout="column">
+	<md-content>
+
+		<md-toolbar class="md-table-toolbar md-default" ng-show="evaluateStudentCtrl.hasStudents">
+	      <div class="md-toolbar-tools">
+	        <md-input-container md-no-float class="md-block">
+	              <!-- Use floating label instead of placeholder -->
+	          <md-icon md-svg-icon="resources/img/svg/search.svg"></md-icon>
+	          <input ng-model="evaluateStudentCtrl.paginate.query" placeholder="Search" type="text">
+	        </md-input-container>
+	      </div>
+	    </md-toolbar>
+
+
+		<md-table-container>
+		  <table md-table>
+		    <thead md-head md-order="evaluateStudentCtrl.paginate.order">
+		      <tr md-row>
+		        <th md-column><span>NO.</span></th>
+		        <th md-column md-order-by="idNo"><span>ID Number</span></th>
+		        <th md-column md-order-by="firstName"><span>Firstname</span></th>
+		        <th md-column md-order-by="lastName"><span>Lastname</span></th>
+		        <th md-column><span>Action</span></th>
+		      </tr>
+		    </thead>
+		    <tbody md-body>
+		      <tr md-row md-auto-select ng-repeat="student in evaluateStudentCtrl.studentList | filter: evaluateStudentCtrl.paginate.query
+		      		| orderBy: evaluateStudentCtrl.paginate.order
+		      		| limitTo: evaluateStudentCtrl.paginate.limit : 
+		      		(evaluateStudentCtrl.paginate.page - 1) * evaluateStudentCtrl.paginate.limit">
+		        <td md-cell>{{$index + 1}}</td>
+		        <td md-cell> {{student.idNo}} </td>
+		        <td md-cell>{{student.firstName | nameFormat}}</td>
+		        <td md-cell>{{student.lastName | nameFormat}}</td>
+		        <td md-cell>
+		        	<md-button class="md-primary" aria-label="icon" 
+		        		 ng-href="Download_PDFStudent.action?userID={{student.idNo}}">
+		        			<md-icon md-svg-icon="resources/img/svg/file_download.svg"></md-icon>
+		        	</md-button>
+		        </td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</md-table-container>
+
+		<div layout="row" layout-align="start start" layout-margin>
+			<md-table-pagination md-limit="evaluateStudentCtrl.paginate.limit" md-page="evaluateStudentCtrl.paginate.page"
+			md-total="{{evaluateStudentCtrl.classList.length}}"></md-table-pagination>
+		</div>
+		</md-content>
+</div>

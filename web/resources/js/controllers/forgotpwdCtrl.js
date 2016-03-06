@@ -2,13 +2,15 @@
 	angular.module("facultyApp")
 		.controller("forgotpwdCtrl", forgotpwdCtrl);
 
-	function forgotpwdCtrl($mdDialog){
+	function forgotpwdCtrl(forgotpwdService){
 		var self = this;
-		self.data = {};
 		self.changePassword = changePassword;
 
-		function changePassword(){
-			
+		function changePassword(username){
+			console.log(username);
+			forgotpwdService.changePassword(username).then(function(response){
+				console.log(response);
+			});
 		}
 	}
 })();

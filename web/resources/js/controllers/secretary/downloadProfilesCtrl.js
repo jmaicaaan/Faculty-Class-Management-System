@@ -2,7 +2,7 @@
 	angular.module("secretaryApp")
 		.controller("downloadProfilesCtrl", downloadProfilesCtrl);
 
-	function downloadProfilesCtrl(downloadProfilesService, $timeout){
+	function downloadProfilesCtrl(downloadProfilesService, $timeout, $cookies){
 		var self = this;
 		self.items = [];
 		self.selected = [];
@@ -54,7 +54,11 @@
 		}
 
 		function download(){
-			console.log(self.selected);
+			var list = [];
+			for(var i = 0; i <= self.selected.length - 1; i++){
+				list.push(self.selected[i].ppID);
+			}
+			$cookies.put("secretaryList", list);
 		}
 
 		

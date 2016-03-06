@@ -4,14 +4,12 @@
 
 	function pdfDownload(){
 		return {
-			restrict: "E",
+			restrict: "EA",
 			scope: {
 				link: "@",
 				selected: "="
 			},
-			link: linker,
-			template: '<md-button class="md-primary md-raised" ng-href="{{link}}">'
-					+ 'Download PDF </md-button>' 
+			link: linker
 		};
 
 		function linker(scope, elem, attrs){
@@ -21,9 +19,6 @@
 				console.log(scope.selected);
 				var selected = scope.selected;
 				var link = "";
-				angular.forEach(selected, function(index){
-					
-				});
 				scope.link = "view.action?";
 				console.log(scope.link);
 			});

@@ -17,13 +17,14 @@
 
 		function seatPlanCtrl($scope, seatPlanService, $mdToast, $timeout){
 			var self = this;
-			self.date; //for datepicker
+			self.date = ""; //for datepicker
 			self.saveAttendance = saveAttendance;
 			self.addSelectedSeat = addSelectedSeat;
 			self.deleteSelectedSeat = deleteSelectedSeat;
 			self.hasScheduleToday = hasScheduleToday;
 			self.selectedSeats = [];
 			self.classObjAdapted = $scope.classObj; //directive scope
+			self.emptySelectedSeats = emptySelectedSeats;
 
 			function saveAttendance(studentObj){
 				seatPlanService.saveAttendance(studentObj).then(function(response){
@@ -36,14 +37,14 @@
 				});
 			}
 
-			$scope.$watch(function(){
-				return seatPlanService.date;
-			}, function(newValue){
-				if(typeof newValue === "string"){
-					var d = new Date(newValue);
-					self.date = d;
-				}
-			});
+			// $scope.$watch(function(){
+			// 	return seatPlanService.date;
+			// }, function(newValue){
+			// 	if(typeof newValue === "string"){
+			// 		var d = new Date(newValue);
+			// 		self.date = d;
+			// 	}
+			// });
 
 			function addSelectedSeat(studentObj){
 				//Let's sync it to the view! 
@@ -168,6 +169,8 @@
 			}, function(newValue){
 				if(newValue){
 					attendance = newValue;
+					scope.seatPlanCtrl.emptySelectedSeats();
+					/*scope.seatPlanCtrl.hasScheduleToday();*/
 					loadAttendance(attendance);
 					setClasslistCount(attendance);
 					getAllSelectedSeats(seatMap);
@@ -194,7 +197,6 @@
 				var absentSeats = seatMap.find("absent"),
 					lateSeats = seatMap.find("late");
 				if(absentSeats.length > 0 || lateSeats.length > 0){
-					console.log(absentSeats);
 					for(var i = 0; i <= absentSeats.seats.length - 1; i++){
 						scope.seatPlanCtrl.addSelectedSeat(absentSeats.seats[i].settings);
 					}
@@ -245,15 +247,16 @@
 				var absentObj = seatMap.find("absent").seatIds,
 					lateObj = seatMap.find("late").seatIds,
 					presentObj = seatMap.find("available").seatIds,
-					date = dateCtrl;
+					date = seatPlanService.getDate_Helper().formatDate(scope.seatPlanCtrl.date);
+					console.log(date);
 					// date = seatPlanService.getDate_Helper().formatDate(dateCtrl);
 
 				var attendanceObj = {
-						schedObj: schedObj.schedObj,
-						date: date,
-						absentList: [],
-						lateList: [],
-						presentList: []
+					schedObj: schedObj.schedObj,
+					date: date,
+					absentList: [],
+					lateList: [],
+					presentList: []
 				};
 
 				angular.forEach(absentObj, function(index){

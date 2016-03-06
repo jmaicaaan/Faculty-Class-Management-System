@@ -24,9 +24,10 @@ public class AttendanceHelperClass {
 				String[] student = line.split(",");
 				String idNumber = student[0].trim(),
 						lastName = student[1].trim(),
-						firstName = student[2].trim();
+						firstName = student[2].trim(),
+						middleName = student[3].trim();
 				
-				user = new Users(idNumber, firstName, lastName);
+				user = new Users(idNumber, firstName, lastName,middleName);
 				uList.add(user);
 			}
 			

@@ -1,8 +1,13 @@
 {"users":[
-	{"firstName":"Ernest Richard","lastName":"Ocson","idNo":"000111", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Christine","lastName":"Dacanay","idNo":"000112", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Eisen Lewis","lastName":"Sy","idNo":"000113", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Christian Raymond","lastName":"Zalameda","idNo":"000114", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Abram","lastName":"Limpin","idNo":"000115", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Gary","lastName":"Soriano","idNo":"000116", "accountType": [{"accountType": "Professor"}]}	
+	{"firstName":"Ernest Richard","middleName":"E.","lastName":"Ocson","idNo":"000111", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Christine","middleName":"E.","lastName":"Dacanay","idNo":"000112", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Eisen Lewis","middleName":"E.","lastName":"Sy","idNo":"000113", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Christian Raymond","middleName":"L.","lastName":"Zalameda","idNo":"000114", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Abram","middleName":"O.","lastName":"Limpin","idNo":"000115", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Gary","middleName":"E.","lastName":"Soriano","idNo":"000116", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Ronald","middleName":"L.","lastName":"Ramos","idNo":"000117", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Henry Jake","middleName":"E.","lastName":"Castro","idNo":"000118", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Rogelio","middleName":"V.","lastName":"Del Cano","idNo":"000119", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Mary Mae","middleName":"C.","lastName":"Espinosa","idNo":"000120", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Martin","middleName":"M.","lastName":"Manalansan","idNo":"000121", "accountType": [{"accountType": "Professor"}]}
 ]}

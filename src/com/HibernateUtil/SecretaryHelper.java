@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import com.helper.SecretaryHelperClass;
 import com.model.ProfessorProfile;
+import com.model.Users;
 
 public class SecretaryHelper {
 	
@@ -26,6 +27,7 @@ public class SecretaryHelper {
 			
 			for(ProfessorProfile p : tempList){
 				Hibernate.initialize(p);
+				System.out.println(p.getUsers().getUsername());
 				if(s_helper_class.hasProfile(p)){
 					pList.add(p);
 				}
@@ -43,5 +45,32 @@ public class SecretaryHelper {
 		}
 		
 		return pList;
+	}
+	
+	public Users getUsersModel (int ppid)
+	{
+		Session session = null;
+		Transaction trans = null;
+		Users users = null;
+		try
+		{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			users = (Users) session.get(Users.class, ppid);
+			trans.commit();
+		}
+		
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		
+		return users;
+		
+		
+		
 	}
 }

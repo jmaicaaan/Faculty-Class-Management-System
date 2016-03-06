@@ -18,11 +18,11 @@ import com.model.Users;
 
 public class DeveloperHelper implements Utilities {
 
-	public Boolean addUser(Users users)
-	{
-		boolean validate=false;
-		try
-		{
+	public Boolean addUser(Users users){
+		
+		boolean validate = false;
+		
+		try{
 			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			Integer count=(Integer)session.createSQLQuery("Select count(*) from Users "
