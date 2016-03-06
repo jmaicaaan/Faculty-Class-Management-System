@@ -8,6 +8,5 @@
 	{"firstName":"Ronald","middleName":"L.","lastName":"Ramos","idNo":"000117", "accountType": [{"accountType": "Professor"}]},
 	{"firstName":"Henry Jake","middleName":"E.","lastName":"Castro","idNo":"000118", "accountType": [{"accountType": "Professor"}]},
 	{"firstName":"Rogelio","middleName":"V.","lastName":"Del Cano","idNo":"000119", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Mary Mae","middleName":"C.","lastName":"Espinosa","idNo":"000120", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Martin","middleName":"M.","lastName":"Manalansan","idNo":"000121", "accountType": [{"accountType": "Professor"}]}
+	{"firstName":"Mary Mae","middleName":"C.","lastName":"Espinosa","idNo":"000120", "accountType": [{"accountType": "Professor"}]}
 ]}

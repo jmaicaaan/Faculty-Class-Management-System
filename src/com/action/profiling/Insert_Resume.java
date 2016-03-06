@@ -23,7 +23,6 @@ public class Insert_Resume extends ActionSupport implements ModelDriven<FileMode
 	private HttpServletRequest request;
 	private FileModel rModel = new FileModel();
 	private Resume resume=new Resume();
-
 	private Map<String, Object> userSession;
 	
 	
@@ -34,19 +33,28 @@ public class Insert_Resume extends ActionSupport implements ModelDriven<FileMode
 		Users uModel = new Users();
 		uModel = (Users)userSession.get(Utilities.user_sessionName);
 		
-		String serverPath = request.getServletContext().getRealPath("/");
-		rModel.doUpload(serverPath);
-		
-		ProfessorProfile professorProfile=new ProfessorProfile();
-		professorProfile.setPpID(uModel.getUserID());
-		resume.setProfessorProfile(professorProfile);
-		resume.setResumeUrl(rModel.getUrl());
-		
-		session_Helper.addResume(resume, professorProfile);
-		return SUCCESS;
+		try {
+			if(rModel.getFileFileName().contains(".docx")){
+				String serverPath = request.getServletContext().getRealPath("/");
+				rModel.doUpload(serverPath);
+				System.out.println(rModel.getFileFileName());
+				ProfessorProfile professorProfile=new ProfessorProfile();
+				professorProfile.setPpID(uModel.getUserID());
+				resume.setProfessorProfile(professorProfile);
+				resume.setResumeUrl(rModel.getUrl());
+				
+				session_Helper.addResume(resume, professorProfile);
+				return SUCCESS;
+			
+			}else{
+				return INPUT;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return INPUT;
+		}
 	}
-	
-	
 	
 	@Override
 	public FileModel getModel() {

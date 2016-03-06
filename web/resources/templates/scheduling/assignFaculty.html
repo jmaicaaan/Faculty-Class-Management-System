@@ -37,6 +37,7 @@
 								        <md-radio-button ng-value="user.username" 
 								        	schedule-Conflict
 								        	user-Data="user.username" subject-Data="subj"
+								        	has-Conflict="assignFaculty.hasConflict"
 								        	aria-label="radio">
 								        </md-radio-button>
 								   </md-radio-group>   
@@ -47,7 +48,8 @@
 				</md-content>
 			</md-grid-tile>
 		</md-grid-list>
-		<md-button class="md-primary md-raised" ng-click="assignFaculty.saveChanges()">Save changes</md-button>
+		<md-button class="md-primary md-raised" ng-click="assignFaculty.saveChanges()" 
+				ng-disabled="assignFaculty.hasConflict">Save changes</md-button>
 	</div>
 </md-content>
 <div>

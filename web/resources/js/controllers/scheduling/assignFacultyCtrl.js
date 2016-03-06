@@ -2,13 +2,14 @@
 	angular.module("schedulingModule")
 		.controller("assignFacultyCtrl", assignFacultyCtrl);
 
-	function assignFacultyCtrl(uploadSubjectsService, $scope, $q, $mdToast){
+	function assignFacultyCtrl(uploadSubjectsService, $scope, $q, $mdToast, $state){
 		var self = this;
 		self.filedata = {};
 		self.data = [];
 		self.hasList = false;
 		self.saveChanges = saveChanges;
 		self.generate_assignedFaculty = generate_assignedFaculty;
+		self.hasConflict = false;
 
 		$scope.$watch(function(){
 			return self.filedata;
@@ -28,7 +29,8 @@
 			var dataList = self.data;
 
 			uploadSubjectsService.saveChanges(selectedList, dataList).then(function(response){
-				displayToast($mdToast);
+				self.hasList = false;
+				displayToast($mdToast, "You have successfully assigned faculties. Download the PDF now containing your assigned faculties.");
 			});
 		}
 
@@ -38,13 +40,19 @@
 			});
 		}
 
-		function displayToast($mdToast){
-			$mdToast.show(
-				$mdToast.simple()
-					.textContent("You have successfully assigned faculties")
-					.position("top")
-					.hideDelay(2000)
-			);
+		function displayToast($mdToast, message){
+
+			var toast = $mdToast.simple()
+				.textContent(message)
+				.position("top")
+				.action("OK")
+				.highlightAction(false);
+
+			$mdToast.show(toast).then(function(response){
+				if(response == 'ok'){
+					$state.go("dashboard.settings.miscellaneous");
+				} 
+			});
 		}
 	}
 }());

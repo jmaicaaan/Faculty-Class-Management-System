@@ -7,7 +7,8 @@
 			restrict: "A",
 			scope: {
 				subjectData: "=",
-				userData: "="
+				userData: "=",
+				hasConflict: "="
 			},
 			link: linker,
 			controller: schedCtrl
@@ -33,16 +34,32 @@
 				scope.checkConflict(data).then(function(response){
 					console.log(response);
 					if(response == true){
-						alert("A conflict has occurred");
+						alert("A conflict has occured.");
+						scope.onConflict();
+					}else{
+						scope.offConflict();
 					}
 				});
 			});
 		}
 
-		function schedCtrl($scope, scheduleConflictService, $q, $toast){
+		function schedCtrl($scope, scheduleConflictService, $q, $timeout){
 			var self = $scope;
 			self.checkConflict = checkConflict;
-			self.displayToast = displayToast;
+			self.onConflict = onConflict;
+			self.offConflict = offConflict;
+
+			function onConflict(){
+				$timeout(function(){
+					self.hasConflict = true;
+				});
+			}
+
+			function offConflict(){
+				$timeout(function(){
+					self.hasConflict = false;
+				});
+			}
 
 			function checkConflict(data){
 				var serviceContainer = scheduleConflictService.container;
@@ -53,11 +70,9 @@
 				if(serviceContainer.length <= 0){
 					serviceContainer.push(dataObj);
 				}else{
-					
 					//Same hashKey means same table/card
 					for(index in serviceContainer){
 						if(dataObj.hashKey == serviceContainer[index].hashKey){
-
 							if(scheduleConflictService.hasConflict(dataObj)){
 								hasConflict = true;
 							} else{
@@ -65,7 +80,6 @@
 							}
 							break;
 						}else{
-
 							if(scheduleConflictService.hasConflict(dataObj)){
 								hasConflict = true;
 							}else{
@@ -78,14 +92,6 @@
 				deferred.resolve(hasConflict);
 				return deferred.promise;
 			}
-
-			function displayToast($mdToast){
-				$mdToast.show(
-					$mdToast.simple()
-						.textContent("Conflict has occurred")
-						.position("bottom")
-				);
-			}
 		}
 	}
 })();
@@ -97,11 +103,8 @@
 	function scheduleConflictService($q){
 		var self = this;
 		self.container = [];
-		// self.checkConflict = checkConflict;
 		self.hasConflict = hasConflict;
-
 		
-
 		function hasConflict(dataObj){
 			var container = self.container;
 
@@ -124,6 +127,5 @@
 				}
 			}
 		}
-
 	}
 })();
