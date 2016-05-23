@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Faculty Class Management System</title>
+
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+	
+	<link rel="stylesheet" type="text/css" href="resources/css/roboto-font.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/md-data-table.min.css">
+	<link rel="stylesheet" type='text/css' href="resources/css/loading-bar.css" media="all" />
+	<link rel="stylesheet" type='text/css' href="resources/css/seat-chart.css" media="all" />
+	<link rel="stylesheet" type='text/css' href="resources/css/styles.css" media="all" />
+
+	<script type="text/javascript" src="resources/jquery.min.js"></script>
+
+	<script type="text/javascript" src="resources/angular.min.js"></script>
+	<script type="text/javascript" src="resources/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="resources/md-data-table.min.js"></script>
+	<script type="text/javascript" src="resources/loading-bar.js"></script>
+	<script type="text/javascript" src="resources/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="resources/jquery.seat-charts.min.js"></script>
+	<script type="text/javascript" src="resources/highcharts.js"></script>
+	<script type="text/javascript" src="resources/ng-highcharts.js"></script>
+	<script type="text/javascript" src="resources/highcharts-exporting.js"></script>
+
+		<!-- Angular Material (dependecies must come first) -->
+	<script type="text/javascript" src="resources/angular-animate.js"></script>
+	<script type="text/javascript" src="resources/angular-aria.min.js"></script>
+	<script type="text/javascript" src="resources/angular-material.min.js"></script>
+	
+		<!-- Angular events -->
+	<script type="text/javascript" src="resources/js/events/USER_ROLES.js"></script>
+    <script type="text/javascript" src="resources/js/events/TEMP_LOC.js"></script>
+
+		<!-- Angular application/modules -->
+	<script type="text/javascript" src="resources/js/application/profile.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/scheduling.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/attendance.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/developer.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/secretary.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
+		
+		<!-- Angular controllers -->
+
+	<script type="text/javascript" src="resources/js/controllers/settings/genSetCtrl.js"></script>	
+	<script type="text/javascript" src="resources/js/controllers/settings/miscCtrl.js"></script>
+
+
+	<script type="text/javascript" src="resources/js/controllers/profiling/generalCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/profiling/achievementsCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/profiling/projectsCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/profiling/researchCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/profiling/resumeCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/profiling/myActivityLogCtrl.js"></script>
+	
+	<script type="text/javascript" src="resources/js/controllers/scheduling/assignFacultyCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/scheduling/scheduleCtrl.js"></script>
+
+	<script type="text/javascript" src="resources/js/controllers/attendance/mngCLCtrlList.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/mngCLCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/recordAttendance_ListCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/seatPlanCtrl.js"></script>
+
+	<script type="text/javascript" src="resources/js/controllers/attendance/attendanceRptList_Ctrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/attendanceRptCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/attendanceRptStudCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/attendance/evaluateStudentCtrl.js"></script>
+
+
+	<script type="text/javascript" src="resources/js/controllers/developer/usersManageCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/developer/subjManageCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/developer/auditLogsCtrl.js"></script>
+
+	<script type="text/javascript" src="resources/js/controllers/secretary/downloadProfilesCtrl.js"></script>
+
+	<script type="text/javascript" src="resources/js/controllers/loginCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/forgotpwdCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/dashboardCtrl.js"></script>
+
+		<!-- Angular directives -->
+	<script type="text/javascript" src="resources/js/directives/toggleNav.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/dashboard.menus.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/uploadSubject.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/uploadImage.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/achievementPreview.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/upload-File.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/scheduleConflict.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/pdfDownload.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/seatPlan.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/cardHover.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/bnLazyLoading.js"></script>
+
+		<!-- Angular services -->
+
+	<script type="text/javascript" src="resources/js/services/cookieService.js"></script>
+    <script type="text/javascript" src="resources/js/services/stateService.js"></script>
+
+	<script type="text/javascript" src="resources/js/services/scheduling/uploadSubjectsService.js"></script>	
+	<script type="text/javascript" src="resources/js/services/scheduling/scheduleService.js"></script>
+		
+	<script type="text/javascript" src="resources/js/services/userService.js"></script>
+	<script type="text/javascript" src="resources/js/services/authService.js"></script>
+	<script type="text/javascript" src="resources/js/services/forgotpwdService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/achievementService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/projectService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/researchService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/resumeService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/subjectService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/activityLogService.js"></script>
+	
+	<script type="text/javascript" src="resources/js/services/attendance/mngCLService.js"></script>
+	<script type="text/javascript" src="resources/js/services/attendance/seatPlanService.js"></script>
+	<script type="text/javascript" src="resources/js/services/attendance/attendanceRptService.js"></script>
+	<script type="text/javascript" src="resources/js/services/attendance/attendanceRptStudService.js"></script>
+	<script type="text/javascript" src="resources/js/services/attendance/evaluateStudentService.js"></script>
+	<script type="text/javascript" src="resources/js/services/settings/genSetService.js"></script>
+	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
+
+	<script type="text/javascript" src="resources/js/services/secretary/downloadProfilesService.js"></script>
+	
+		<!-- Angular filters -->
+	<script type="text/javascript" src="resources/js/filters/nameFormat.filter.js"></script>
+
+	<style type="text/css">
+	md-toast{
+		position: fixed;
+	}
+	</style>
+
+</head>
+<body ng-app="facultyApp">
+	<div ui-view></div>
+</body>
+</html>
